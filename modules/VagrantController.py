@@ -1,4 +1,3 @@
-
 from jinja2 import Environment, FileSystemLoader
 import vagrant
 from tabulate import tabulate
@@ -11,7 +10,6 @@ from modules import splunk_sdk
 
 
 class VagrantController():
-
 
     def __init__(self, config, log):
         self.config = config
@@ -48,13 +46,11 @@ class VagrantController():
             file.write(self.vagrantfile)
         self.log.info("Wrote Vagrantfile\n")
 
-
     def read_vagrant_file(self, path):
-        j2_env = Environment(loader=FileSystemLoader('vagrant'),trim_blocks=True)
+        j2_env = Environment(loader=FileSystemLoader('vagrant'), trim_blocks=True)
         template = j2_env.get_template(path)
         vagrant_file = template.render(self.config)
         return vagrant_file
-
 
     def build(self):
         self.log.info("[action] > build\n")
@@ -68,25 +64,21 @@ class VagrantController():
         self.log.info("attack_range has been built using vagrant successfully")
         self.list_machines()
 
-
     def destroy(self):
         self.log.info("[action] > destroy\n")
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False)
         v1.destroy()
         self.log.info("attack_range has been destroy using vagrant successfully")
 
-
     def stop(self):
         print("[action] > stop\n")
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False)
         v1.halt()
 
-
     def resume(self):
         print("[action] > resume\n")
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False)
         v1.up()
-
 
     def simulate(self, target, simulation_techniques, simulation_atomics):
 
@@ -104,24 +96,30 @@ class VagrantController():
         self.check_targets_running_vagrant(target, self.log)
         target_ip = self.get_ip_address_from_machine(target)
         runner = ansible_runner.run(private_data_dir='.',
-                               cmdline=str('-i ' + target_ip + ', '),
-                               roles_path="ansible/roles",
-                               playbook='ansible/atomic_red_team.yml',
-                               extravars={'art_branch': self.config['art_branch'], 'art_repository': self.config['art_repository'], 'run_specific_atomic_tests': run_specific_atomic_tests, 'art_run_tests': simulation_atomics, 'art_run_techniques': simulation_techniques, 'ansible_user': 'Vagrant', 'ansible_password': 'vagrant', 'ansible_port': 5985, 'ansible_winrm_scheme': 'http'},
-                               verbosity=0)
+                                    cmdline=str('-i ' + target_ip + ', '),
+                                    roles_path="ansible/roles",
+                                    playbook='ansible/atomic_red_team.yml',
+                                    extravars={'art_branch': self.config['art_branch'],
+                                               'art_repository': self.config['art_repository'],
+                                               'run_specific_atomic_tests': run_specific_atomic_tests,
+                                               'art_run_tests': simulation_atomics,
+                                               'art_run_techniques': simulation_techniques, 'ansible_user': 'Vagrant',
+                                               'ansible_password': 'vagrant', 'ansible_port': 5985,
+                                               'ansible_winrm_scheme': 'http'},
+                                    verbosity=0)
 
         if runner.status == "successful":
-            self.log.info("successfully executed technique ID {0} against target: {1}".format(simulation_techniques, target))
+            self.log.info(
+                "successfully executed technique ID {0} against target: {1}".format(simulation_techniques, target))
         else:
-            self.log.error("failed to executed technique ID {0} against target: {1}".format(simulation_techniques, target))
+            self.log.error(
+                "failed to executed technique ID {0} against target: {1}".format(simulation_techniques, target))
             sys.exit(1)
-
 
     def get_ip_address_from_machine(self, box):
         pattern = 'config.vm.define "' + box + '"[\s\S]*?:private_network, ip: "([^"]+)'
         match = re.search(pattern, self.vagrantfile)
         return match.group(1)
-
 
     def check_targets_running_vagrant(self, target, log):
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False)
@@ -139,7 +137,6 @@ class VagrantController():
             log.error(target + ' not found as vagrant box.')
             sys.exit(1)
 
-
     def list_machines(self):
         print()
         print('Vagrant Status\n')
@@ -149,7 +146,7 @@ class VagrantController():
         for stat in response:
             status.append([stat.name, stat.state, self.get_ip_address_from_machine(stat.name)])
 
-        print(tabulate(status, headers=['Name','Status','IP Address']))
+        print(tabulate(status, headers=['Name', 'Status', 'IP Address']))
         print()
 
     def dump(self, dump_name):
@@ -157,7 +154,6 @@ class VagrantController():
 
         folder = "attack_data/" + dump_name
         os.mkdir(os.path.join(os.path.dirname(__file__), '../' + folder))
-
 
         with open(os.path.join(os.path.dirname(__file__), '../attack_data/dumps.yml')) as dumps:
             for dump in yaml.full_load(dumps):
@@ -167,7 +163,8 @@ class VagrantController():
                                   % (dump['dump_parameters']['search'], dump['dump_parameters']['time'])
                     dump_info = "Dumping Splunk Search to %s " % dump_out
                     self.log.info(dump_info)
-                    out = open(os.path.join(os.path.dirname(__file__), "../attack_data/" + dump_name + "/" + dump_out), 'wb')
+                    out = open(os.path.join(os.path.dirname(__file__), "../attack_data/" + dump_name + "/" + dump_out),
+                               'wb')
                     splunk_sdk.export_search(self.config['splunk_server_private_ip'],
                                              s=dump_search,
                                              password=self.config['splunk_admin_password'],
