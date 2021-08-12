@@ -6,28 +6,31 @@ from pathlib import Path
 from modules.CustomConfigParser import CustomConfigParser
 from modules.VagrantController import VagrantController
 
-
 # need to set this ENV var due to a OSX High Sierra forking bug
 # see this discussion for more details: https://github.com/ansible/ansible/issues/34056#issuecomment-352862252
 os.environ['OBJC_DISABLE_INITIALIZE_FORK_SAFETY'] = 'YES'
 
 VERSION = 1
 
-
 if __name__ == "__main__":
     # grab arguments
     parser = argparse.ArgumentParser(description="starts a attack range ready to collect attack data into splunk")
-    parser.add_argument("-a", "--action", required=False, choices=['build', 'destroy', 'simulate', 'stop', 'resume', 'dump'],
-                        help="action to take on the range, defaults to \"build\", build/destroy/simulate/stop/resume allowed")
+    parser.add_argument("-a", "--action", required=False,
+                        choices=['build', 'destroy', 'simulate', 'stop', 'resume', 'dump'],
+                        help="action to take on the range, defaults to \"build\", build/destroy/simulate/stop/resume "
+                             "allowed")
     parser.add_argument("-t", "--target", required=False,
                         help="target for attack simulation. For mode vagrant use name of the vbox")
     parser.add_argument("-st", "--simulation_technique", required=False, type=str, default="",
-                        help="comma delimited list of MITRE ATT&CK technique ID to simulate in the attack_range, example: T1117, T1118, requires --simulation flag")
+                        help="comma delimited list of MITRE ATT&CK technique ID to simulate in the attack_range, "
+                             "example: T1117, T1118, requires --simulation flag")
     parser.add_argument("-sa", "--simulation_atomics", required=False, type=str, default="",
-                        help="specify dedicated Atomic Red Team atomics to simulate in the attack_range, example: Regsvr32 remote COM scriptlet execution for T1117")
+                        help="specify dedicated Atomic Red Team atomics to simulate in the attack_range, example: "
+                             "Regsvr32 remote COM scriptlet execution for T1117")
     parser.add_argument("-c", "--config", required=False, default="attack_range_local.conf",
                         help="path to the configuration file of the attack range")
-    parser.add_argument("-lm", "--list_machines", required=False, default=False, action="store_true", help="prints out all available machines")
+    parser.add_argument("-lm", "--list_machines", required=False, default=False, action="store_true",
+                        help="prints out all available machines")
     parser.add_argument("-dn", "--dump_name", required=False, help="define the dump name")
     parser.add_argument("-v", "--version", default=False, action="store_true", required=False,
                         help="shows current attack_range version")
@@ -45,6 +48,8 @@ if __name__ == "__main__":
 
     print("""
             Starting attack range
+            Original by Splunk
+            Created as a Red Team lab by @Marshall-Hallenbeck
     """)
 
     # parse config
@@ -53,7 +58,7 @@ if __name__ == "__main__":
         print("attack_range is using config at path {0}".format(attack_range_config))
         configpath = str(attack_range_config)
     else:
-        print("ERROR: attack_range failed to find a config file at {0} or {1}..exiting".format(attack_range_config))
+        print("ERROR: attack_range failed to find a config file at {0}..exiting".format(attack_range_config))
         sys.exit(1)
 
     # Parse config
@@ -78,7 +83,6 @@ if __name__ == "__main__":
     if action == 'dump' and not dump_name:
         log.error('ERROR: Specify --dump_name for dump command')
         sys.exit(1)
-
 
     # lets give CLI priority over config file for pre-configured techniques
     if simulation_techniques:
@@ -112,6 +116,5 @@ if __name__ == "__main__":
 
     if action == 'dump':
         controller.dump(dump_name)
-
 
 # rnfgre rtt ol C4G12VPX
