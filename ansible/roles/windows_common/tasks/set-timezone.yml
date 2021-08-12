@@ -1,0 +1,3 @@
+- name: Set timezone to 'Eastern Standard Time'
+  community.windows.win_timezone:
+    timezone: Eastern Standard Time

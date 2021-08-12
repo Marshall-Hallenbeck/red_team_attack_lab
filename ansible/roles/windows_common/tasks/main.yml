@@ -1,0 +1,7 @@
+---
+- include: set-hostname.yml
+- include: set-timezone.yml
+- include: windows-disable-defender.yml
+- include: windows-enable-ps-logging.yml
+- include: windows-enable-4688-cmd-line-audit.yml
+#- include: windows-security-configure-logging.yml

@@ -1,0 +1,27 @@
+config.vm.define "attack-range-caldera-server" do |config|
+  VM_NAME= "attack-range-caldera-server"
+  config.vm.box = "generic/ubuntu1804"
+  config.vm.hostname = "#{VM_NAME}"
+  config.vm.boot_timeout = 600
+  config.vm.network "forwarded_port", guest: 8888, host: 8888, protocol: "tcp"
+  config.vm.network :private_network, ip: "{{ caldera_server_private_ip }}"
+
+  config.vm.provision "ansible" do |ansible|
+      ansible.playbook = "../ansible/caldera_server.yml"
+      ansible.config_file = "../ansible/ansible.cfg"
+      ansible.compatibility_mode = "2.0"
+      ansible.extra_vars = {
+        ansible_python_interpreter: "/usr/bin/python3",
+        caldera_password: '{{ caldera_password }}',
+        caldera_server_ip: '{{ caldera_server_private_ip }}',
+        cloud_attack_range: '0'
+      }
+  end
+
+  config.vm.provider "virtualbox" do |vb, override|
+    vb.gui = true
+    vb.name = "#{VM_NAME}"
+    vb.customize ["modifyvm", :id, "--memory", {{ caldera_server_memory }}]
+    vb.customize ["modifyvm", :id, "--cpus", {{ caldera_server_cpus }}]
+  end
+end
