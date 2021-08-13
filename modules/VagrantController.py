@@ -12,33 +12,38 @@ from modules import splunk_sdk
 class VagrantController():
 
     def __init__(self, config, log):
+        self.vagrantfile = ''
         self.config = config
         self.log = log
+        self.create_vagrant_config()
+
+    def create_vagrant_config(self):
+        self.log.info('Creating Vagrantfile config from existing templates')
+
+        self.vagrantfile = 'Vagrant.configure("2") do |config| \n \n'
 
         if self.config['install_es'] == '1':
             self.config['splunk_es_app_version'] = re.findall(r'\d+', self.config['splunk_es_app'])[0]
 
-        self.vagrantfile = 'Vagrant.configure("2") do |config| \n \n'
-
-        if config['phantom_server'] == '1':
+        if self.config['phantom_server'] == '1':
             self.vagrantfile += self.read_vagrant_file('phantom-server/Vagrantfile')
             self.vagrantfile += '\n\n'
-        if config['splunk_server'] == '1':
+        if self.config['splunk_server'] == '1':
             self.vagrantfile += self.read_vagrant_file('splunk_server/Vagrantfile')
             self.vagrantfile += '\n\n'
-        if config['splunk_server'] == '0' and config['caldera_server'] == 1:
+        if self.config['splunk_server'] == '0' and self.config['caldera_server'] == 1:
             self.vagrantfile += self.read_vagrant_file('caldera-server/Vagrantfile')
             self.vagrantfile += '\n\n'
-        if config['windows_domain_controller'] == '1':
+        if self.config['windows_domain_controller'] == '1':
             self.vagrantfile += self.read_vagrant_file('windows-domain-controller/Vagrantfile')
             self.vagrantfile += '\n\n'
-        if config['windows_client'] == '1':
+        if self.config['windows_client'] == '1':
             self.vagrantfile += self.read_vagrant_file('windows10/Vagrantfile')
             self.vagrantfile += '\n\n'
-        if config['windows_server'] == '1':
+        if self.config['windows_server'] == '1':
             self.vagrantfile += self.read_vagrant_file('windows-server/Vagrantfile')
             self.vagrantfile += '\n\n'
-        if config['kali_machine'] == '1':
+        if self.config['kali_machine'] == '1':
             self.vagrantfile += self.read_vagrant_file('kali-machine/Vagrantfile')
             self.vagrantfile += '\n\n'
         self.vagrantfile += '\nend'
@@ -95,18 +100,24 @@ class VagrantController():
         # get ip address from machine
         self.check_targets_running_vagrant(target, self.log)
         target_ip = self.get_ip_address_from_machine(target)
-        runner = ansible_runner.run(private_data_dir='.',
-                                    cmdline=str('-i ' + target_ip + ', '),
-                                    roles_path="ansible/roles",
-                                    playbook='ansible/atomic_red_team.yml',
-                                    extravars={'art_branch': self.config['art_branch'],
-                                               'art_repository': self.config['art_repository'],
-                                               'run_specific_atomic_tests': run_specific_atomic_tests,
-                                               'art_run_tests': simulation_atomics,
-                                               'art_run_techniques': simulation_techniques, 'ansible_user': 'Vagrant',
-                                               'ansible_password': 'vagrant', 'ansible_port': 5985,
-                                               'ansible_winrm_scheme': 'http'},
-                                    verbosity=0)
+        runner = ansible_runner.run(
+            private_data_dir='.',
+            cmdline=str('-i ' + target_ip + ', '),
+            roles_path="ansible/roles",
+            playbook='ansible/atomic_red_team.yml',
+            extravars={
+                'art_branch': self.config['art_branch'],
+                'art_repository': self.config['art_repository'],
+                'run_specific_atomic_tests': run_specific_atomic_tests,
+                'art_run_tests': simulation_atomics,
+                'art_run_techniques': simulation_techniques,
+                'ansible_user': 'Vagrant',
+                'ansible_password': 'vagrant',
+                'ansible_port': 5985,
+                'ansible_winrm_scheme': 'http'
+            },
+            verbosity=0
+        )
 
         if runner.status == "successful":
             self.log.info(

@@ -16,7 +16,7 @@ if __name__ == "__main__":
     # grab arguments
     parser = argparse.ArgumentParser(description="starts a attack range ready to collect attack data into splunk")
     parser.add_argument("-a", "--action", required=False,
-                        choices=['build', 'destroy', 'simulate', 'stop', 'resume', 'dump'],
+                        choices=['build', 'create_config', 'destroy', 'simulate', 'stop', 'resume', 'dump'],
                         help="action to take on the range, defaults to \"build\", build/destroy/simulate/stop/resume "
                              "allowed")
     parser.add_argument("-t", "--target", required=False,
@@ -99,6 +99,9 @@ if __name__ == "__main__":
         controller.list_machines()
         sys.exit(0)
 
+    if action == 'create_config':
+        pass
+
     if action == 'build':
         controller.build()
 
@@ -116,5 +119,3 @@ if __name__ == "__main__":
 
     if action == 'dump':
         controller.dump(dump_name)
-
-# rnfgre rtt ol C4G12VPX

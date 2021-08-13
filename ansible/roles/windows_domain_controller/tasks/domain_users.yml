@@ -1,0 +1,35 @@
+---
+
+- name: create user Phoebe Chillax
+  win_domain_user:
+    name: pchillax
+    firstname: "Phoebe"
+    surname: "Chillax"
+    password: "summer2021!"
+    state: present
+
+- name: create user Cassandra Classic
+  win_domain_user:
+    name: cclassic
+    firstname: "Cassandra"
+    surname: "Classic"
+    password: "VU4H4kdBNc"
+    state: present
+
+- name: create user Randy Random
+  win_domain_user:
+    name: rrandom
+    firstname: "Randy"
+    surname: "Random"
+    password: "QJMaNJ26fg43dPTd"
+    state: present
+
+- name: create user Tynan Sylvester
+  win_domain_user:
+    name: tsylvester
+    firstname: "Tynan"
+    surname: "Sylvester"
+    password: "RimworldIsTheBest2021!"
+    state: present
+    groups:
+      - Domain Admins
