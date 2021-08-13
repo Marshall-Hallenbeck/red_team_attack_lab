@@ -5,7 +5,7 @@
     adapter_names: "Ethernet 2"
     ipv4_addresses: "{{ windows_domain_controller_private_ip }}"
 # ansible_interfaces.0.connection_name
--
+
 - name: reboot | Rebooting after setting DNS server
   win_reboot:
     msg: "Reboot after setting DNS server"
@@ -33,7 +33,7 @@
      domain_admin_user: "Administrator@attackrange.local"
      domain_admin_password: "{{ win_password }}"
      state: "domain"
-     register: domain_state
+   register: domain_state
 
 - name: reboot | Reboot after joining domain
   win_reboot:

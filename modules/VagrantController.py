@@ -176,9 +176,11 @@ class VagrantController():
                     self.log.info(dump_info)
                     out = open(os.path.join(os.path.dirname(__file__), "../attack_data/" + dump_name + "/" + dump_out),
                                'wb')
-                    splunk_sdk.export_search(self.config['splunk_server_private_ip'],
-                                             s=dump_search,
-                                             password=self.config['splunk_admin_password'],
-                                             out=out)
+                    splunk_sdk.export_search(
+                        self.config['splunk_server_private_ip'],
+                        s=dump_search,
+                        password=self.config['splunk_admin_password'],
+                        out=out
+                    )
                     out.close()
                     self.log.info("%s [Completed]" % dump_info)

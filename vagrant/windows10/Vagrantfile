@@ -1,6 +1,7 @@
 config.vm.define "attack-range-win10-1" do |config|
   VM_NAME_WIN1= "attack-range-win10-1"
-  config.vm.box = "d1vious/windows10"
+  config.vm.box = "gusztavvargadr/windows-10-enterprise"
+  config.vm.box_version = "2101.0.2106"
   config.vm.hostname = "win10-1"
   config.vm.boot_timeout = 600
   config.vm.communicator = "winrm"
@@ -49,7 +50,7 @@ end
 
 config.vm.define "attack-range-win10-2" do |config|
   VM_NAME_WIN2= "attack-range-win10-2"
-  config.vm.box = "d1vious/windows10"
+  config.vm.box = "gusztavvargadr/windows-10-enterprise"
   config.vm.hostname = "win10-2"
   config.vm.boot_timeout = 600
   config.vm.communicator = "winrm"
