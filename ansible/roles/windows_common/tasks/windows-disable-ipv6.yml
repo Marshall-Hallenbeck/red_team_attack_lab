@@ -1,0 +1,6 @@
+- name: Disable ms_tcpip6 of all the Interface
+  community.windows.win_net_adapter_feature:
+    interface: '*'
+    state: disabled
+    component_id:
+    - ms_tcpip6

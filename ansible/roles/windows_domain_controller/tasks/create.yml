@@ -4,7 +4,25 @@
   win_user:
     name: Administrator
     password: "{{ win_password }}"
+    password_expired: no
+    groups: administrators
     state: present
+
+- name: Set upstream DNS server
+  win_dns_client:
+    adapter_names: '*'
+    ipv4_addresses:
+    - '8.8.8.8'
+    - '8.8.4.4'
+
+- name: Disable firewall for Domain, Public and Private profiles
+  win_firewall:
+    state: disabled
+    profiles:
+    - Domain
+    - Private
+    - Public
+  tags: disable_firewall
 
 - name: features | Installing RSAT AD Admin Center
   win_feature:
@@ -22,15 +40,13 @@
   win_domain:
     dns_domain_name: "attackrange.local"
     safe_mode_password: "{{ win_password }}"
-
-- name: Setting DNS Servers
-  win_dns_client:
-    adapter_names: "*"
-    ipv4_addresses: "127.0.0.1"
+  register: domain_install
 
 - name: reboot | Rebooting Server
   win_reboot:
-    post_reboot_delay: 300
+    post_reboot_delay: 150
+    msg: "Reboot after domain creation"
+  when: domain_install.reboot_required
 
 - name: Managing Domain Controller Membership
   win_domain_controller:
@@ -38,5 +54,16 @@
     domain_admin_user: "Administrator@attackrange.local"
     domain_admin_password: "{{ win_password }}"
     safe_mode_password: "{{ win_password }}"
-    state: "domain_controller"
+    state: domain_controller
   register: _windows_domain_controller
+
+- name: reboot | Rebooting Server (domain finalization)
+  win_reboot:
+    post_reboot_delay: 300
+    msg: "Reboot after domain controller finalization"
+  when: _windows_domain_controller.reboot_required
+
+- name: Setting DNS Servers
+  win_dns_client:
+    adapter_names: "*"
+    ipv4_addresses: "127.0.0.1"
