@@ -5,8 +5,6 @@
     name: "{{ hostname }}-{{ 9999 | random }}"
   register: res
 
-- debug: var=inventory_hostname
-
 - name: Reboot - hostname set
   win_reboot:
     msg: "Rebooting after setting hostname"
