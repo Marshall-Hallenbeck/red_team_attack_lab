@@ -10,9 +10,6 @@
   win_reboot:
     msg: "Reboot after setting DNS server"
 
-- debug:
-    var: "{{ hostname }}"
-
 -  name: Join domain
    win_domain_membership:
      dns_domain_name: "attackrange.local"

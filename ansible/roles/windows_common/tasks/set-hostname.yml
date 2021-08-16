@@ -2,8 +2,13 @@
 
 - name: Change the hostname
   win_hostname:
-    name: "{{ hostname }}-{{ 9999 | random }}"
+    name: "{{ hostname }}-1"
   register: res
+
+- debug:
+    var: "{{ hostname }}"
+- debug:
+    var: "{{ vm_name }}"
 
 - name: Reboot - hostname set
   win_reboot:

@@ -2,7 +2,8 @@
   gather_facts: True
   vars:
     ansible_connection: winrm
-    ansible_port: 5985
+    ansible_port: 5987
+    ansible_winrm_scheme: http
     ansible_winrm_server_cert_validation: ignore
     use_packer: "0"
     hostname: win10-2
