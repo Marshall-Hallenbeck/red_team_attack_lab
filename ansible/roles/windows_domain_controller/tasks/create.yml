@@ -7,6 +7,7 @@
     password_expired: no
     groups: administrators
     state: present
+  ignore_errors: yes # if we rerun the playbook, this will fail the whole playbook, so don't worry about it if it fails
 
 - name: Set upstream DNS server
   win_dns_client:
@@ -66,7 +67,17 @@
   register: add_dc_result
 
 - debug:
-    msg: "{{ _windows_domain_controller }}"
+    msg: "{{ add_dc_result }}"
+
+# add ActiveDirectory PS module here, so we can use Get-ADDomain after reboot
+- name: Add ActiveDirectory
+  win_psmodule:
+    name: ActiveDirectory
+    state: present
+  register: add_ad
+
+- debug:
+    msg: "{{ add_ad }}"
 
 - name: reboot | Rebooting Server (domain finalization)
   win_reboot:
@@ -79,7 +90,20 @@
   wait_for_connection:
     timeout: 900
 
+# if this isn't your actual domain it will just keep failing (like when I typo'd my domain!)
+- debug:
+    msg: "{{ domain_name }}"
+
+- name: Wait for domain controller to be ready
+  win_shell: "Get-ADDomain -Server {{ domain_name }}"
+  register: dc_ready
+  until: dc_ready is not failed
+  ignore_errors: yes
+  retries: 60
+  delay: 15
+
 - name: Setting DNS Servers
   win_dns_client:
     adapter_names: "*"
     ipv4_addresses: "127.0.0.1"
+

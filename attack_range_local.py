@@ -6,10 +6,6 @@ from pathlib import Path
 from modules.CustomConfigParser import CustomConfigParser
 from modules.VagrantController import VagrantController
 
-# need to set this ENV var due to a OSX High Sierra forking bug
-# see this discussion for more details: https://github.com/ansible/ansible/issues/34056#issuecomment-352862252
-os.environ['OBJC_DISABLE_INITIALIZE_FORK_SAFETY'] = 'YES'
-
 VERSION = 1
 
 if __name__ == "__main__":
@@ -47,23 +43,23 @@ if __name__ == "__main__":
     dump_name = args.dump_name
 
     print("""
-            Starting attack range
-            Original by Splunk
-            Created as a Red Team lab by @Marshall-Hallenbeck
+    Starting Red Team Attack Range...
+    Original: Splunk Attack Range
+    Created as a Red Team lab by @Marshall-Hallenbeck
     """)
 
     # parse config
     attack_range_config = Path(config)
     if attack_range_config.is_file():
         print("attack_range is using config at path {0}".format(attack_range_config))
-        configpath = str(attack_range_config)
+        config_path = str(attack_range_config)
     else:
         print("ERROR: attack_range failed to find a config file at {0}..exiting".format(attack_range_config))
         sys.exit(1)
 
     # Parse config
     parser = CustomConfigParser()
-    config = parser.load_conf(configpath)
+    config = parser.load_conf(config_path)
 
     log = logger.setup_logging(config['log_path'], config['log_level'])
     log.info("INIT - attack_range v" + str(VERSION))

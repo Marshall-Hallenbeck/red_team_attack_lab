@@ -2,11 +2,6 @@
   wait_for_connection:
     timeout: 900
 
-- name: Add ActiveDirectory
-  win_psmodule:
-    name: ActiveDirectory
-    state: present
-
 - name: Create domain user accounts
   win_domain_user:
     name: "{{ item.name }}"
@@ -15,6 +10,10 @@
     surname: "{{ item.surname | default () }}"
     upn: "{{ item.firstname }}.{{ item.surname }}@attackrange.local"
     groups: "{{ item.add_group | default('Domain Users') }}"
+  register: create_accounts
+  retries: 30
+  delay: 15
+  until: create_accounts is successful
   loop:
   - name: Phoebe Chillax
     firstname: Phoebe
