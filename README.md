@@ -1,42 +1,38 @@
-# Splunk Attack Range Local ⚔️
+# Red Team Attack Range
 
 Original: https://github.com/splunk/attack_range_local/
 
-## Purpose 🛡
-The Attack Range is a detection development platform, which solves three main challenges in detection engineering. First, the user is able to build quickly a small lab infrastructure as close as possible to a production environment. Second, the Attack Range performs attack simulation using different engines such as Atomic Red Team or Caldera in order to generate real attack data. Third, it integrates seamlessly into any Continuous Integration / Continuous Delivery (CI/CD) pipeline to automate the detection rule testing process.  
+## Purpose 
 
-## Building 👷‍♂️
+Every lab environment that I have come across (Splunk Attack Range, DetectionLab, etc) has been heavily focused on blue team controls and/or only runs in cloud environments.
 
-Attack Range can be built in three different ways:
+As someone who doesn't want to pay extra money to host environments in AWS or Azure, this was quite annoying, so I decided to hack together something that runs locally and focuses on setting up a pentestable/red teamable environment, either for discovering new techniques, testing older TTPs, or staying up to date with the newest emerging threats.
+
+## Building
+
+The Red Team Attack Range can be built in... one way:
 
 - **locally** with vagrant and virtualbox
-- **cloud** using terraform and AWS or Azure, see [attack_range](https://github.com/splunk/attack_range)
-- **cloud-only** see [attack_range_cloud](https://github.com/splunk/attack_range_cloud/)
 
-## Installation 🏗
+## Installation
 
-### [For Ubuntu 18.04](https://github.com/splunk/attack_range_local/wiki/Ubuntu-18.04-Installation)
 
-### [For MacOS](https://github.com/splunk/attack_range_local/wiki/MacOS-Installation)
 
-## Architecture 🏯
-![Logical Diagram](docs/attack_range_local_architecture.png)
-
+## Architecture
 The virtualized deployment of Attack Range consists of:
 
-- Windows Domain Controller
-- Windows Server
-- Windows Workstation
-- A Kali Machine
-- Splunk Server
-- Phantom Server
-- Caldera Server
-
-Which can be added/removed/configured using [attack_range_local.conf](attack_range_local.conf). More machines such as Phantom, Linux server, Linux client, MacOS clients are currently under development.
+- 1 Windows Domain Controller
+  - 2019
+- 1 Windows Server
+  - 2019
+- 2 Windows Workstation
+  - Win10
 
 
 #### Logging
-The following log sources are collected from the machines:
+Logging is disabled by default, since we firstly care about getting an environment up quickly and testing TTPs
+
+The following log sources can be collected from the machines:
 
 - Windows Event Logs (```index = win```)
 - Sysmon Logs (```index = win```)
@@ -44,8 +40,7 @@ The following log sources are collected from the machines:
 - Network Logs with Splunk Stream (```index = main```)
 - Attack Simulation Logs from Atomic Red Team and Caldera (```index = attack```)
 
-
-## Running 🏃‍♀️
+## Running
 Attack Range supports different actions:
 
 - Build Attack Range
@@ -97,7 +92,7 @@ python attack_range_local.py -a resume
 python attack_range_local.py -a dump -dn dump_data_folder
 ```
 
-## Features 💍
+## Features (from Splunk's Attack Range)
 - [Splunk Server](https://github.com/splunk/attack_range/wiki/Splunk-Server)
   * Indexing of Microsoft Event Logs, PowerShell Logs, Sysmon Logs, DNS Logs, ...
   * Preconfigured with multiple TAs for field extractions
@@ -140,48 +135,3 @@ python attack_range_local.py -a dump -dn dump_data_folder
 - [Kali Linux](https://www.kali.org/)
   * Preconfigured Kali Linux machine for penetration testing
   * ssh connection over configured ssh key
-
-
-## Support 📞
-Please use the [GitHub issue tracker](https://github.com/splunk/attack_range_local/issues) to submit bugs or request features.
-
-If you have questions or need support, you can:
-
-* Post a question to [Splunk Answers](http://answers.splunk.com)
-* Join the [#security-research](https://splunk-usergroups.slack.com/archives/C1S5BEF38) room in the [Splunk Slack channel](http://splunk-usergroups.slack.com)
-* If you are a Splunk Enterprise customer with a valid support entitlement contract and have a Splunk-related question, you can also open a support case on the https://www.splunk.com/ support portal
-
-## Contributing 🥰
-We welcome feedback and contributions from the community! Please see our [contribution guidelines](docs/CONTRIBUTING.md) for more information on how to get involved.
-
-## Author
-* [Jose Hernandez](https://twitter.com/d1vious)
-* [Patrick Bareiß](https://twitter.com/bareiss_patrick)
-
-## Contributors
-* [Bhavin Patel](https://twitter.com/hackpsy)
-* [Rod Soto](https://twitter.com/rodsoto)
-* Russ Nolen
-* Phil Royer
-* [Joseph Zadeh](https://twitter.com/JosephZadeh)
-* Rico Valdez
-* [Dimitris Lambrou](https://twitter.com/etz69)
-* [Dave Herrald](https://twitter.com/daveherrald)
-* [Kai Seidenschnur](https://www.linkedin.com/in/kai-seidenschnur-ab42889a)
-
-
-## License
-
-Copyright 2020 Splunk Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
