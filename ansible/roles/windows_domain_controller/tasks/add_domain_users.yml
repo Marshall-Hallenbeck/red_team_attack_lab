@@ -1,14 +1,16 @@
+---
 - name: Wait for system to become reachable over WinRM
   wait_for_connection:
     timeout: 900
 
+# we have a retry here since the DC will be "applying changes" but respond to WinRM and other commands
 - name: Create domain user accounts
   win_domain_user:
     name: "{{ item.name }}"
     password: "{{ item.password }}"
     firstname: "{{ item.firstname | default() }}"
     surname: "{{ item.surname | default () }}"
-    upn: "{{ item.firstname }}.{{ item.surname }}@attackrange.local"
+    upn: "{{ item.firstname }}.{{ item.surname }}@{{ domain_name }}"
     groups: "{{ item.add_group | default('Domain Users') }}"
   register: create_accounts
   retries: 30
@@ -32,10 +34,17 @@
     firstname: Unconstrained
     surname: User
     password: "Iamunconstrained2021!"
+  - name: Constrained User
+    firstname: Constrained
+    surname: User
+    password: "Iamconstrained2021!"
 
 - name: unconstrained user unconstrained delegation set
   win_shell: "Set-ADAccountControl -Identity 'Unconstrained User' -TrustedForDelegation $True"
   register: unconstrained_delegation_set
 
-- debug:
-    msg: "{{ unconstrained_delegation_set }}"
+- name: constrained user set constrained delegation
+  win_shell: |
+    $user = (Get-ADUser -Identity "Constrained User").DistinguishedName
+    Set-ADObject -Identity $user -Add @{"msDS-AllowedToDelegateTo" = @("CIFS/dc01","CIFS/dc01.Attackrange.local","CIFS/dc01.attackrange.local/attackrange.local")}
+  register: constrained_delegation_set
