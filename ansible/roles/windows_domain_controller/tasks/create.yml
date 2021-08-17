@@ -36,17 +36,25 @@
     include_sub_features: yes
     state: present
 
-- name: Creating a windows domain
+- name: Creating a Windows Domain
   win_domain:
     dns_domain_name: "attackrange.local"
     safe_mode_password: "{{ win_password }}"
   register: domain_install
 
-- name: reboot | Rebooting Server
+- debug:
+    msg: "{{ domain_install }}"
+
+- name: reboot | Rebooting Server after creating Windows Domain
   win_reboot:
+    connect_timeout: 15
     post_reboot_delay: 150
     msg: "Reboot after domain creation"
   when: domain_install.reboot_required
+
+- name: Wait for system to become reachable over WinRM
+  wait_for_connection:
+    timeout: 900
 
 - name: Managing Domain Controller Membership
   win_domain_controller:
@@ -55,13 +63,21 @@
     domain_admin_password: "{{ win_password }}"
     safe_mode_password: "{{ win_password }}"
     state: domain_controller
-  register: _windows_domain_controller
+  register: add_dc_result
+
+- debug:
+    msg: "{{ _windows_domain_controller }}"
 
 - name: reboot | Rebooting Server (domain finalization)
   win_reboot:
-    post_reboot_delay: 300
-    msg: "Reboot after domain controller finalization"
-  when: _windows_domain_controller.reboot_required
+    connect_timeout: 15
+    post_reboot_delay: 15
+    reboot_timeout: 120
+  when: add_dc_result.reboot_required
+
+- name: Wait for system to become reachable over WinRM
+  wait_for_connection:
+    timeout: 900
 
 - name: Setting DNS Servers
   win_dns_client:
