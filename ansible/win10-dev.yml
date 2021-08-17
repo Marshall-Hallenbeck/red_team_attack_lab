@@ -1,0 +1,15 @@
+- hosts: all
+  gather_facts: True
+  vars:
+    ansible_connection: winrm
+    ansible_port: 5988
+    ansible_winrm_scheme: http
+    ansible_winrm_server_cert_validation: ignore
+    use_packer: "0"
+    hostname: win10-dev
+  roles:
+    - windows_common
+    - windows_domain_client
+#    - windows_universal_forwarder
+#    - windows_caldera_agent
+#    - sysmon

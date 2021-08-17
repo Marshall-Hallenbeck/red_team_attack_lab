@@ -1,10 +1,8 @@
-
-
-config.vm.define "win2016-1" do |config|
+config.vm.define "win2019-1" do |config|
   # d1vious/windows2016
   config.vm.box = "gusztavvargadr/windows-server-standard"
   config.vm.box_version = "1809.0.2106"
-  config.vm.hostname = "win2016-1"
+  config.vm.hostname = "win2019-1"
   config.vm.boot_timeout = 600
   config.vm.communicator = "winrm"
   config.winrm.transport = :plaintext
