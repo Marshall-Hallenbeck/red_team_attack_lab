@@ -9,7 +9,7 @@ import yaml
 from modules import splunk_sdk
 
 
-class VagrantController():
+class VagrantController:
 
     def __init__(self, config, log):
         self.vagrantfile = ''
@@ -62,8 +62,8 @@ class VagrantController():
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False, quiet_stderr=False)
         try:
             v1.up(provision=True, provider="virtualbox")
-        except:
-            self.log.error("vagrant failed to build")
+        except Exception as e:
+            self.log.error(f"vagrant failed to build: {e}")
             sys.exit(1)
 
         self.log.info("attack_range has been built using vagrant successfully")
@@ -121,14 +121,14 @@ class VagrantController():
 
         if runner.status == "successful":
             self.log.info(
-                "successfully executed technique ID {0} against target: {1}".format(simulation_techniques, target))
+                f"successfully executed technique ID {simulation_techniques} against target: {target}")
         else:
             self.log.error(
-                "failed to executed technique ID {0} against target: {1}".format(simulation_techniques, target))
+                f"failed to executed technique ID {simulation_techniques} against target: {target}")
             sys.exit(1)
 
     def get_ip_address_from_machine(self, box):
-        pattern = 'config.vm.define "' + box + '"[\s\S]*?:private_network, ip: "([^"]+)'
+        pattern = f'config.vm.define {box} [\s\S]*?:private_network, ip: "([^"]+)'
         match = re.search(pattern, self.vagrantfile)
         return match.group(1)
 
@@ -174,8 +174,13 @@ class VagrantController():
                                   % (dump['dump_parameters']['search'], dump['dump_parameters']['time'])
                     dump_info = "Dumping Splunk Search to %s " % dump_out
                     self.log.info(dump_info)
-                    out = open(os.path.join(os.path.dirname(__file__), "../attack_data/" + dump_name + "/" + dump_out),
-                               'wb')
+                    out = open(
+                        os.path.join(
+                            os.path.dirname(__file__),
+                            f"../attack_data/{dump_name}/{dump_out}"
+                        ),
+                        'wb'
+                    )
                     splunk_sdk.export_search(
                         self.config['splunk_server_private_ip'],
                         s=dump_search,
