@@ -3,6 +3,7 @@
   vars:
     ansible_connection: winrm
     ansible_port: 5985
+    ansible_winrm_scheme: http
     ansible_winrm_server_cert_validation: ignore
     use_packer: "0"
     hostname: win10-1
