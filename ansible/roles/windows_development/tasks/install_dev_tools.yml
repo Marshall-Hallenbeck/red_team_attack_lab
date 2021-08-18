@@ -1,0 +1,16 @@
+- name: Install tools to help development
+  win_chocolatey:
+    name:
+    - visualstudio2019community
+    - netfx-4.7.1-devpack
+    - git
+    #- python3
+    - microsoft-windows-terminal
+    #- notepadplusplus
+    - sublimetext3
+    #- putty
+    #- filezilla
+    #- postman
+    #- fiddler
+    state: present
+  ignore_errors: yes

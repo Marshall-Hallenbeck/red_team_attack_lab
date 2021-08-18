@@ -1,0 +1,21 @@
+- name: Install windows updates
+  win_updates:
+    category_names:
+      - Application
+      - Connectors
+      - CriticalUpdates
+      - DefinitionUpdates
+      - DeveloperKits
+      - FeaturePacks
+      - Guidance
+      - SecurityUpdates
+      - ServicePacks
+      - Tools
+      - UpdateRollups
+      - Updates
+  register: windows_updates
+
+- name: Windows reboot
+  win_reboot:
+    reboot_timeout: 10000
+  when: windows_updates.reboot_required and allow_windows_reboot_during_win_updates

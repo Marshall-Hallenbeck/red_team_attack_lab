@@ -10,14 +10,14 @@
   win_reboot:
     msg: "Reboot after setting DNS server"
 
--  name: Join domain
-   win_domain_membership:
-     dns_domain_name: "attackrange.local"
-     hostname: "{{ hostname }}"
-     domain_admin_user: "Administrator@attackrange.local"
-     domain_admin_password: "{{ win_password }}"
-     state: "domain"
-   register: domain_state
+- name: Join domain
+  win_domain_membership:
+    dns_domain_name: "{{ domain_name }}"
+    hostname: "{{ hostname }}"
+    domain_admin_user: "Administrator@{{ domain_name }}"
+    domain_admin_password: "{{ win_password }}"
+    state: "domain"
+  register: domain_state
 
 - name: reboot | Reboot after joining domain
   win_reboot:

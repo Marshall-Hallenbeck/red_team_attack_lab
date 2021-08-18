@@ -1,0 +1,23 @@
+- name: Install tools to help security testing
+  win_chocolatey:
+    name:
+      - sysinternals
+      - procexp
+      - procmon
+      - processhacker
+      #- wireshark
+      #- nmap
+      #- dotpeek
+      - dnspy
+      #- ilspy
+      #- pestudio
+      #- explorersuite
+      - ghidra
+      #- x64dbg.portable
+      #- ida-free
+      #- ollydbg
+      #- cutter
+      #- radare2
+      #- confuser
+    state: present
+  ignore_errors: yes

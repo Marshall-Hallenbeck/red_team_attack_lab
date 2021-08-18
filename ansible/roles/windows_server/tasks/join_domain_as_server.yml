@@ -2,12 +2,17 @@
   wait_for_connection:
     timeout: 900
 
-- name: Managing Domain Controller Membership
-  win_domain_controller:
+- debug:
+    msg: "{{ hostname }} - {{ local_admin_password }}"
+
+- name: Join domain as server
+  win_domain_membership:
+    dns_domain_name: "{{ domain_name }}"
+    hostname: "{{ hostname }}"
     domain_admin_user: "Administrator@{{ domain_name }}"
     domain_admin_password: "{{ win_password }}"
-    safe_mode_password: "{{ win_password }}"
-    state: member_server
+    local_admin_password: "{{ local_admin_password }}"
+    state: domain
   register: add_server_to_domain
 
 - debug:

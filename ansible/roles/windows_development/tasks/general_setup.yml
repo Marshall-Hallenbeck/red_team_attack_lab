@@ -1,0 +1,42 @@
+# stole a bunch from https://github.com/ruzickap/ansible-role-my_common_defaults/blob/master/tasks/Win32NT-common.yml
+- name: Set Desktop Solid Color
+  win_regedit:
+    path: 'HKCU:\Control Panel\Colors'
+    name: Background
+    data: "74 84 89"
+
+- name: Disable Logon Background Image
+  win_regedit:
+    path: 'HKLM:\Software\Policies\Microsoft\Windows\System'
+    name: DisableLogonBackgroundImage
+    data: 1
+    type: dword
+
+- name: Disable Hibernate Mode
+  win_command: powercfg -h off
+  changed_when: false
+  when: ansible_distribution is search("Microsoft Windows 10")
+
+- name: Show file extensions in Explorer
+  win_regedit:
+    path: 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+    name: HideFileExt
+    data: 0
+    type: dword
+
+- name: Upload bginfo config file
+  win_copy:
+    src: ../files/RedTeamLab.bgi
+    dest: '%PROGRAMDATA%\bginfo.bgi'
+
+- name: Start bginfo after login
+  win_regedit:
+    path: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
+    name: bginfo
+    data: 'C:\ProgramData\chocolatey\bin\bginfo.exe C:\ProgramData\bginfo.bgi /silent /timer:0 /nolicprompt'
+
+#- name: Enable Administrator account
+#  win_user:
+#    name: Administrator
+#    account_disabled: no
+#  when: ansible_distribution is search("Microsoft Windows 10")

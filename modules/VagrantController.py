@@ -44,7 +44,7 @@ class VagrantController:
             self.vagrantfile += self.read_vagrant_file('windows-server/Vagrantfile')
             self.vagrantfile += '\n\n'
         if self.config['kali_machine'] == '1':
-            self.vagrantfile += self.read_vagrant_file('kali-machine/Vagrantfile')
+            self.vagrantfile += self.read_vagrant_file('kali/Vagrantfile')
             self.vagrantfile += '\n\n'
         self.vagrantfile += '\nend'
         with open('vagrant/Vagrantfile', 'w') as file:

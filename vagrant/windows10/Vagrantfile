@@ -31,6 +31,7 @@ config.vm.define "win10-1" do |config|
         demo_scenario: '{{ demo_scenario }}',
         capture_attack_data: '{{ capture_attack_data }}',
         win_timezone: '{{ win_timezone }}',
+        domain_name: '{{ domain_name }}'
       }
       ansible.playbook = "../ansible/#{config.vm.hostname}.yml"
       ansible.config_file = "../ansible/ansible.cfg"
@@ -80,7 +81,8 @@ config.vm.define "win10-2" do |config|
         run_demo: '{{ run_demo }}',
         demo_scenario: '{{ demo_scenario }}',
         capture_attack_data: '{{ capture_attack_data }}',
-        win_timezone: '{{ win_timezone }}'
+        win_timezone: '{{ win_timezone }}',
+        domain_name: '{{ domain_name }}'
       }
       ansible.playbook = "../ansible/#{config.vm.hostname}.yml"
       ansible.config_file = "../ansible/ansible.cfg"
@@ -99,8 +101,10 @@ config.vm.define "win10-2" do |config|
 end
 
 config.vm.define "win10-dev" do |config|
-  config.vm.box = "gusztavvargadr/visual-studio"
-  config.vm.box_version = "2019.0.2012"
+  #config.vm.box = "gusztavvargadr/visual-studio"
+  #config.vm.box_version = "2019.0.2012"
+  config.vm.box = "gusztavvargadr/windows-10-enterprise"
+  config.vm.box_version = "2101.0.2106"
   config.vm.hostname = "win10-dev"
   config.vm.boot_timeout = 600
   config.vm.communicator = "winrm"
@@ -130,7 +134,8 @@ config.vm.define "win10-dev" do |config|
         run_demo: '{{ run_demo }}',
         demo_scenario: '{{ demo_scenario }}',
         capture_attack_data: '{{ capture_attack_data }}',
-        win_timezone: '{{ win_timezone }}'
+        win_timezone: '{{ win_timezone }}',
+        domain_name: '{{ domain_name }}'
       }
       ansible.playbook = "../ansible/#{config.vm.hostname}.yml"
       ansible.config_file = "../ansible/ansible.cfg"
@@ -140,8 +145,8 @@ config.vm.define "win10-dev" do |config|
   config.vm.provider "virtualbox" do |vb, override|
     vb.gui = true
     vb.name = "#{config.vm.hostname}"
-    vb.customize ["modifyvm", :id, "--memory", {{ windows_client_memory }}]
-    vb.customize ["modifyvm", :id, "--cpus", {{ windows_client_cpus }}]
+    vb.customize ["modifyvm", :id, "--memory", {{ windows_client_memory_dev }}]
+    vb.customize ["modifyvm", :id, "--cpus", {{ windows_client_cpus_dev }}]
     vb.customize ["modifyvm", :id, "--vram", "32"]
     vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     vb.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]

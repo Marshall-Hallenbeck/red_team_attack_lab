@@ -32,9 +32,12 @@ config.vm.define "win2019-1" do |config|
         run_demo: '{{ run_demo }}',
         demo_scenario: '{{ demo_scenario }}',
         capture_attack_data: '{{ capture_attack_data }}',
-        win_timezone: '{{ win_timezone }}'
+        win_timezone: '{{ win_timezone }}',
+        domain_name: '{{ domain_name }}',
+        local_admin_password: '{{ local_admin_password }}',
+        hostname: config.vm.hostname
       }
-      ansible.playbook = "../ansible/windows_dc_client.yml"
+      ansible.playbook = "../ansible/#{config.vm.hostname}.yml"
       ansible.config_file = "../ansible/ansible.cfg"
       ansible.compatibility_mode = "2.0"
   end

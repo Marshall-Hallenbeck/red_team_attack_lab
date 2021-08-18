@@ -1,0 +1,10 @@
+- name: Install other tools
+  win_chocolatey:
+    name:
+      #- vmware-tools
+      - virtualbox-guest-additions-guest.install
+      - googlechrome
+      - bginfo
+      #- cmder
+    state: present
+  ignore_errors: yes

@@ -6,7 +6,7 @@ config.vm.define "kali" do |config|
   config.vm.network :private_network, ip: "{{ kali_private_ip }}"
 
   config.vm.provision "ansible" do |ansible|
-      ansible.playbook = "../ansible/kali.yml"
+      ansible.playbook = "../ansible/#{config.vm.hostname}.yml"
       ansible.config_file = "../ansible/ansible.cfg"
       ansible.compatibility_mode = "2.0"
       ansible.extra_vars = {
@@ -18,7 +18,7 @@ config.vm.define "kali" do |config|
 
   config.vm.provider "virtualbox" do |vb, override|
     vb.gui = true
-    vb.name = "RedTeamLab-#{kali}"
+    vb.name = "RedTeamLab-#{config.vm.hostname}"
     vb.customize ["modifyvm", :id, "--memory", {{ kali_memory }}]
     vb.customize ["modifyvm", :id, "--cpus", {{ kali_cpus }}]
   end
