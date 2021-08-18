@@ -1,0 +1,21 @@
+- name: Wait for system to become reachable over WinRM
+  wait_for_connection:
+    timeout: 900
+
+- name: Managing Domain Controller Membership
+  win_domain_controller:
+    domain_admin_user: "Administrator@{{ domain_name }}"
+    domain_admin_password: "{{ win_password }}"
+    safe_mode_password: "{{ win_password }}"
+    state: member_server
+  register: add_server_to_domain
+
+- debug:
+    msg: "{{ add_server_to_domain }}"
+
+- name: reboot | Rebooting Server after adding server to domain
+  win_reboot:
+    connect_timeout: 15
+    post_reboot_delay: 15
+    reboot_timeout: 120
+  when: add_server_to_domain.reboot_required
