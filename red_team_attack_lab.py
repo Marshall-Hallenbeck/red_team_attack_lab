@@ -43,9 +43,9 @@ if __name__ == "__main__":
     dump_name = args.dump_name
 
     print("""
-    Starting Red Team Attack Range...
+    Starting Red Team Attack Lab...
+    Created by @Marshall-Hallenbeck
     Original: Splunk Attack Range
-    Created as a Red Team lab by @Marshall-Hallenbeck
     """)
 
     # parse config

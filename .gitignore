@@ -10,13 +10,9 @@ attack_data/*
 !attack_data/.gitkeep
 !attack_data/dumps.yml
 
-# apps folder
-apps/*
-!apps/.gitkeep
-
-# log file
-attack_range.log
-.attack_range_local/artifacts
+# log files
+*.log
+.attack_lab/artifacts
 artifacts
 
 ## Terraform ignores
