@@ -1,0 +1,39 @@
+---
+#- name: Update apt repo and cache
+#  apt:
+#    update_cache: yes
+#    cache_valid_time: 3600
+#  ignore_errors: true
+
+# grub-pc loves to break cause it requires config
+- name: hold grub upgrade
+  dpkg_selections:
+    name: grub-pc
+    selection: hold
+
+# we aren't dist-upgrading because that's a pain
+- name: Upgrade all apt packages
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    name: "*"
+    state: latest
+  ignore_errors: true
+
+#- name: Reboot the Debian or Ubuntu server
+#  reboot:
+#    msg: "Reboot initiated by Ansible due to kernel updates"
+#    connect_timeout: 5
+#    reboot_timeout: 300
+#    pre_reboot_delay: 5
+#    post_reboot_delay: 30
+#    test_command: uptime
+#  when: dist_upgrade is changed
+#
+#- name: Wait for the reboot to complete if there was a change.
+#  wait_for_connection:
+#    connect_timeout: 20
+#    sleep: 5
+#    delay: 5
+#    timeout: 300
+#  when: dist_upgrade is changed

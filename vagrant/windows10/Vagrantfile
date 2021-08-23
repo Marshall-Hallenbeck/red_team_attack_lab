@@ -31,7 +31,10 @@ config.vm.define "win10-1" do |config|
         demo_scenario: '{{ demo_scenario }}',
         capture_attack_data: '{{ capture_attack_data }}',
         win_timezone: '{{ win_timezone }}',
-        domain_name: '{{ domain_name }}'
+        domain_name: '{{ domain_name }}',
+        win_domain_admin: '{{ win_domain_admin }}',
+        local_admin_password: '{{ local_admin_password }}',
+        hostname: config.vm.hostname
       }
       ansible.playbook = "../ansible/#{config.vm.hostname}.yml"
       ansible.config_file = "../ansible/ansible.cfg"
@@ -82,7 +85,10 @@ config.vm.define "win10-2" do |config|
         demo_scenario: '{{ demo_scenario }}',
         capture_attack_data: '{{ capture_attack_data }}',
         win_timezone: '{{ win_timezone }}',
-        domain_name: '{{ domain_name }}'
+        domain_name: '{{ domain_name }}',
+        win_domain_admin: '{{ win_domain_admin }}',
+        local_admin_password: '{{ local_admin_password }}',
+        hostname: config.vm.hostname
       }
       ansible.playbook = "../ansible/#{config.vm.hostname}.yml"
       ansible.config_file = "../ansible/ansible.cfg"
@@ -135,7 +141,10 @@ config.vm.define "win10-dev" do |config|
         demo_scenario: '{{ demo_scenario }}',
         capture_attack_data: '{{ capture_attack_data }}',
         win_timezone: '{{ win_timezone }}',
-        domain_name: '{{ domain_name }}'
+        domain_name: '{{ domain_name }}',
+        win_domain_admin: '{{ win_domain_admin }}',
+        local_admin_password: '{{ local_admin_password }}',
+        hostname: config.vm.hostname
       }
       ansible.playbook = "../ansible/#{config.vm.hostname}.yml"
       ansible.config_file = "../ansible/ansible.cfg"

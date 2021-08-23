@@ -6,7 +6,8 @@
   roles:
     - windows_common
     - windows_domain_client
-    - windows_server
+    - windows_server_adcs
+#    - windows_server_common
 #    - windows_universal_forwarder
 #    - windows_caldera_agent
 #    - sysmon

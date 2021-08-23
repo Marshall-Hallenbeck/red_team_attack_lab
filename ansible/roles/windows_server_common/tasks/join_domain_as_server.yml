@@ -9,9 +9,9 @@
   win_domain_membership:
     dns_domain_name: "{{ domain_name }}"
     hostname: "{{ hostname }}"
-    domain_admin_user: "Administrator@{{ domain_name }}"
+    domain_admin_user: "{{ win_domain_admin }}@{{ domain_name }}"
     domain_admin_password: "{{ win_password }}"
-    local_admin_password: "{{ local_admin_password }}"
+    #local_admin_password: "{{ local_admin_password }}"
     state: "domain"
   register: add_server_to_domain
 

@@ -23,7 +23,7 @@ if __name__ == "__main__":
     parser.add_argument("-sa", "--simulation_atomics", required=False, type=str, default="",
                         help="specify dedicated Atomic Red Team atomics to simulate in the attack_range, example: "
                              "Regsvr32 remote COM scriptlet execution for T1117")
-    parser.add_argument("-c", "--config", required=False, default="attack_range_local.conf",
+    parser.add_argument("-c", "--config", required=False, default="attack_lab.conf",
                         help="path to the configuration file of the attack range")
     parser.add_argument("-lm", "--list_machines", required=False, default=False, action="store_true",
                         help="prints out all available machines")

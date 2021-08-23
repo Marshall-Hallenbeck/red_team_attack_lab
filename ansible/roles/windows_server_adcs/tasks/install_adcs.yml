@@ -1,30 +1,74 @@
-# Stolen from https://github.com/jborean93/ansible-windows/blob/master/vagrant/roles/adcs-enrollment/tasks/adcs_template.yml
 ---
 - name: ensure the ADCS feature is installed
   win_feature:
     name: AD-Certificate
     include_management_tools: yes
-    include_sub_features: yes
+    include_sub_features: yes # we specifically need Certificate Authority Web Enrollment and Certificate Enrollment Web Service installed
     state: present
-  register: pri_adcs_enrollment_install
+  register: adcs_installation
 
-- name: reboot host if required
+- debug:
+    msg: "{{ adcs_installation }}"
+
+- name: reboot | Post ADCS install (120 post reboot delay)
   win_reboot:
-  when: pri_adcs_enrollment_install.reboot_required
+    connect_timeout: 15
+    post_reboot_delay: 120
+    reboot_timeout: 120
+  #when: adcs_installation.changed
 
-# might not have to do this but it makes sense to configure the CA
-- name: configure AD CS certification authority
-  #win_shell: Install-AdcsCertificationAuthority -CAType EnterpriseRootCa -CryptoProviderName "RSA#Microsoft Software Key Storage Provider" -KeyLength 2048 -HashAlgorithmName SHA256 -Force
+- name: Ensure AppReadiness is running
+  win_service:
+    name: AppReadiness
+    state: started
+  register: appreadiness_running
+  until: appreadiness_running.state == "running"
+  retries: 15
+  delay: 10
+
+- debug:
+    msg: "{{ appreadiness_running }}"
+
+- name: configure AD CS certification authority via Install-ADCSCertificationAuthority
+  # need -Force or we get the error "Install-AdcsCertificationAuthority : Windows PowerShell is in NonInteractive mode. Read and Prompt functionality is not available."
   win_shell: Install-AdcsCertificationAuthority -CAType EnterpriseRootCa -CryptoProviderName "ECDSA_P256#Microsoft Software Key Storage Provider" -KeyLength 256 -HashAlgorithmName SHA256 -Force
-  register: pri_adcs_enrollment_config
-  changed_when: pri_adcs_enrollment_config.rc == 0
+  register: adcs_certification_authority_config
+  changed_when: adcs_certification_authority_config.rc == 0
   failed_when:
-  - pri_adcs_enrollment_config.rc != 0
-  - '"The Certification Authority is already installed" not in (pri_adcs_enrollment_config.stderr|regex_replace("\r\n", ""))'
+    - adcs_certification_authority_config.rc != 0
+    - '"The Certification Authority is already installed" not in (adcs_certification_authority_config.stderr|regex_replace("\r\n", ""))'
   become: yes
-  become_user: SYSTEM
+  become_user: "{{ domain_name }}\\{{ win_domain_admin }}"
   become_method: runas
 
 - name: debug configuring ADCS CA
   debug:
-    msg: "{{ pri_adcs_enrollment_config }}"
+    msg: "{{ adcs_certification_authority_config }}"
+
+- name: reboot | Post ADCS certification authority (120 post reboot delay)
+  win_reboot:
+    connect_timeout: 15
+    post_reboot_delay: 120
+    reboot_timeout: 120
+  #when: adcs_certification_authority_config.changed
+
+- name: Ensure AppReadiness is running
+  win_service:
+    name: AppReadiness
+    state: started
+  register: appreadiness_running
+  until: appreadiness_running.state == "running"
+  retries: 15
+  delay: 10
+
+- debug:
+    msg: "{{ appreadiness_running }}"
+
+- name: Ensure CertSvc is running
+  win_service:
+    name: CertSvc
+    state: started
+  register: certsvc_running
+  until: certsvc_running.state == "running"
+  retries: 15
+  delay: 10

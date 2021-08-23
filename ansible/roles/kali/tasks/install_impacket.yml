@@ -1,0 +1,10 @@
+- name: Create /opt/impacket
+  file:
+    path: /opt/impacket
+    state: directory
+    mode: '0755'
+
+- name: Download and install impacket to /opt/impacket
+  shell: |
+    git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket
+    python3 -m pip install /opt/impacket

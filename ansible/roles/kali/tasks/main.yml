@@ -1,0 +1,6 @@
+- include: install_impacket.yml
+- include: change_root_password.yml
+- include: add_kali_user.yml
+- include: apt_update_and_upgrade.yml
+- include: metasploit.yml
+- include: sliver.yml

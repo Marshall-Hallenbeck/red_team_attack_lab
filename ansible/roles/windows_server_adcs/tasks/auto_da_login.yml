@@ -1,0 +1,5 @@
+# Set the autologon for DA for testing and also because I think we need to login to the machine to finish installation of services (simply a reboot isn't sufficient)
+- name: Set autologon for DA
+  community.windows.win_auto_logon:
+    username: "{{ domain_name }}\\{{ win_domain_admin }}"
+    password: "{{ win_password }}"

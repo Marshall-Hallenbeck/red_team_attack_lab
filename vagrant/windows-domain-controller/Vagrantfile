@@ -29,7 +29,9 @@ config.vm.define "dc01" do |config|
         splunk_admin_password: '{{ splunk_admin_password }}',
         capture_attack_data: '{{ capture_attack_data }}',
         win_timezone: '{{ win_timezone }}',
-        domain_name: '{{ domain_name }}'
+        domain_name: '{{ domain_name }}',
+        win_domain_admin: '{{ win_domain_admin }}',
+        local_admin_password: '{{ local_admin_password }}',
       }
       ansible.playbook = "../ansible/dc01.yml"
       ansible.config_file = "../ansible/ansible.cfg"

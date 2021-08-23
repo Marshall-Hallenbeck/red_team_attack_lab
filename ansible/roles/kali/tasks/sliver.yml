@@ -1,0 +1,41 @@
+- name: Download Sliver install script
+  get_url:
+    url: https://sliver.sh/install
+    dest: /tmp
+    mode: 755
+
+- name: Install Sliver
+  command: /tmp/install
+
+- name: Move Sliver client binary to /usr/local/bin
+  copy:
+    remote_src: yes
+    src: /root/sliver-client
+    dest: /usr/local/bin/
+    mode: 755
+  #become: yes
+
+- name: Clean up Sliver files
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /root/sliver-client_linux.zip.sig
+    - /root/sliver-server_linux.zip.sig
+    - /root/sliver-client
+  become: yes
+
+- name: Create sliver-client config folder for Kali user
+  file:
+    path: /home/kali/.sliver-client/configs
+    state: directory
+    mode: '0755'
+    owner: kali
+    group: kali
+    recurse: yes
+
+- name: Set up Sliver client config for kali user
+  shell: |
+    /root/sliver-server operator --name kali --lhost localhost --save /home/kali/.sliver-client/configs
+    chown -R kali:kali /home/kali/.sliver-client/
+

@@ -1,0 +1,19 @@
+---
+#- name: Installing Metasploit
+#  apt: name=metasploit-framework state=present
+#
+#- name: Enabling PostgreSQL to start at boot
+#  command: update-rc.d postgresql enable
+#
+#- name: Starting PostgreSQL
+#  command: service postgresql start
+
+- name: Initialize msf db
+  command: msfdb init
+  become: true
+
+- name: Install metasploit config
+  copy:
+    src: ../files/metasploit.config
+    dest: /root/.msf4/config
+  become: true

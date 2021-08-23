@@ -1,0 +1,43 @@
+---
+- name: Ensure CertSvc is running
+  win_service:
+    name: CertSvc
+    state: started
+  register: certsvc_running
+  until: certsvc_running.state == "running"
+  retries: 15
+  delay: 10
+
+- debug:
+    msg: "{{ certsvc_running }}"
+
+- name: configure ADCS Certificate Enrollment Web Service via Install-AdcsEnrollmentWebService
+  #win_shell: Install-AdcsEnrollmentWebService -ApplicationPoolIdentity -CAConfig "win2019-adcs.attackrange.local\attackrange-WIN2019-ADCS-CA" -AuthenticationType Kerberos
+  # https://pscustomobject.github.io/powershell/howto/PowerShell-Create-Credential-Object/
+  win_shell: Install-AdcsEnrollmentWebService -ApplicationPoolIdentity -CAConfig 'win2019-ADCS.attackrange.local\attackrange-WIN2019-ADCS-CA' -AuthenticationType Kerberos -Force
+  register: adcs_enrollment_web_service
+  become: yes
+  become_user: "{{ domain_name }}\\{{ win_domain_admin }}"
+  become_method: runas
+
+- name: debug configuring ADCS Certificate Enrollment Web Service
+  debug:
+    msg: "{{ adcs_enrollment_web_service }}"
+
+- name: reboot | Post ADCS certificate enrollment web service (120 post reboot delay)
+  win_reboot:
+    connect_timeout: 15
+    post_reboot_delay: 120
+    reboot_timeout: 120
+
+- name: Ensure AppReadiness is running
+  win_service:
+    name: AppReadiness
+    state: started
+  register: appreadiness_running
+  until: appreadiness_running.state == "running"
+  retries: 15
+  delay: 10
+
+- debug:
+    msg: "{{ appreadiness_running }}"

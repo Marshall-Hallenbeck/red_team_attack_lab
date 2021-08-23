@@ -1,0 +1,14 @@
+- name: add group "kali"
+  group:
+    name: kali
+    state: present
+
+- name: add user "kali"
+  user:
+    name: kali
+    password: "{{ 'kali' | password_hash('sha512') }}"
+    shell: /bin/zsh
+    groups:
+    - sudo
+    - kali
+    append: yes

@@ -1,10 +1,8 @@
 - hosts: all
-  gather_facts: False
+  gather_facts: True
   vars:
     ansible_connection: winrm
-    ansible_port: 6000
     ansible_winrm_server_cert_validation: ignore
-    hostname: dc01
   roles:
     - windows_common
     - windows_dns_server

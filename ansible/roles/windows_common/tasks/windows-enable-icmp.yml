@@ -1,4 +1,12 @@
-# Can't use ansible module because of: https://github.com/ansible/ansible/issues/32478
+# Can't use ansible module because of: https://github.com/ansible-collections/community.windows/issues/19
 - name: Allow ICMP
   win_shell: Set-NetFirewallRule -DisplayName "File and Printer Sharing (Echo Request - ICMPv4-In)" -enabled True
   changed_when: false
+
+# if they ever fix ansible, this would be the way to do it:
+#- name: Allow ICMP
+#  win_firewall_rule:
+#    name: File and Printer Sharing (Echo Request - ICMPv4-In)
+#    action: allow
+#    direction: in
+#    enabled: yes

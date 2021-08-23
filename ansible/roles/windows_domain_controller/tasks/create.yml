@@ -1,29 +1,10 @@
 ---
-
-- name: set local admin password
-  win_user:
-    name: Administrator
-    password: "{{ win_password }}"
-    password_expired: no
-    groups: administrators
-    state: present
-  ignore_errors: yes # if we rerun the playbook, this will fail the whole playbook, so don't worry about it if it fails
-
 - name: Set upstream DNS server
   win_dns_client:
     adapter_names: '*'
     ipv4_addresses:
     - '8.8.8.8'
     - '8.8.4.4'
-
-- name: Disable firewall for Domain, Public and Private profiles
-  win_firewall:
-    state: disabled
-    profiles:
-    - Domain
-    - Private
-    - Public
-  tags: disable_firewall
 
 - name: features | Installing RSAT AD Admin Center
   win_feature:
@@ -60,7 +41,7 @@
 - name: Managing Domain Controller Membership
   win_domain_controller:
     dns_domain_name: "{{ domain_name }}"
-    domain_admin_user: "Administrator@{{ domain_name }}"
+    domain_admin_user: "{{ win_domain_admin }}@{{ domain_name }}"
     domain_admin_password: "{{ win_password }}"
     safe_mode_password: "{{ win_password }}"
     state: domain_controller
@@ -111,3 +92,7 @@
     adapter_names: "*"
     ipv4_addresses: "127.0.0.1"
 
+- name: Set autologon for DA
+  community.windows.win_auto_logon:
+    username: "{{ domain_name }}\\{{ win_domain_admin }}"
+    password: "{{ win_password }}"

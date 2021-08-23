@@ -1,0 +1,9 @@
+- name: set local admin password
+  win_user:
+    name: Administrator
+    password: "{{ win_password }}"
+    #password: "{{ local_admin_password }}"
+    password_expired: no
+    groups: Administrators
+    state: present
+  ignore_errors: yes # if we rerun the playbook, this will fail the whole playbook, so don't worry about it if it fails

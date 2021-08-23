@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<GetPoliciesResponse xmlns="http://schemas.microsoft.com/windows/pki/2009/01/enrollmentpolicy">
+<response>
+    <policyID/>
+    <policyFriendlyName/>
+    <nextUpdateHours>8</nextUpdateHours>
+    <policiesNotChanged xmlns:a="http://www.w3.org/2001/XMLSchema-instance" a:nil="true"/>
+    <policies>
+        <policy>
+            <policyOIDReference>48</policyOIDReference>
+            <cAs>
+                <cAReference>0</cAReference>
+            </cAs>
+            <attributes>
+                <commonName>{{pri_adcs_enrollment_template_name}}</commonName>
+                <policySchema>2</policySchema>
+                <certificateValidity>
+                    <validityPeriodSeconds>157680000</validityPeriodSeconds>
+                    <renewalPeriodSeconds>3628800</renewalPeriodSeconds>
+                </certificateValidity>
+                <permission>
+                    <enroll>true</enroll>
+                    <autoEnroll>false</autoEnroll>
+                </permission>
+                <privateKeyAttributes>
+                    <minimalKeyLength>2048</minimalKeyLength>
+                    <keySpec>1</keySpec>
+                    <keyUsageProperty xmlns:a="http://www.w3.org/2001/XMLSchema-instance" a:nil="true"/>
+                    <permissions xmlns:a="http://www.w3.org/2001/XMLSchema-instance" a:nil="true"/>
+                    <algorithmOIDReference xmlns:a="http://www.w3.org/2001/XMLSchema-instance" a:nil="true"/>
+                    <cryptoProviders>
+                        <provider>Microsoft RSA SChannel Cryptographic Provider</provider>
+                    </cryptoProviders>
+                </privateKeyAttributes>
+                <revision>
+                    <majorRevision>100</majorRevision>
+                    <minorRevision>1</minorRevision>
+                </revision>
+                <supersededPolicies xmlns:a="http://www.w3.org/2001/XMLSchema-instance" a:nil="true"/>
+                <privateKeyFlags>16842752</privateKeyFlags>
+                <subjectNameFlags>167772160</subjectNameFlags>
+                <enrollmentFlags>24</enrollmentFlags>
+                <generalFlags>131680</generalFlags>
+                <hashAlgorithmOIDReference xmlns:a="http://www.w3.org/2001/XMLSchema-instance" a:nil="true"/>
+                <rARequirements xmlns:a="http://www.w3.org/2001/XMLSchema-instance" a:nil="true"/>
+                <keyArchivalAttributes xmlns:a="http://www.w3.org/2001/XMLSchema-instance" a:nil="true"/>
+                <extensions>
+                    <extension>
+                        <oIDReference>18</oIDReference>
+                        <critical>false</critical>
+                        <value>MC8GJysGAQQBgjcVCISM3gCE/usTg72TG4W66iiB7rYjgUyCrYEagbGrEgIBZAIBAQ==</value>
+                    </extension>
+                    <extension>
+                        <oIDReference>6</oIDReference>
+                        <critical>false</critical>
+                        <value>MBQGCCsGAQUFBwMBBggrBgEFBQcDAg==</value>
+                    </extension>
+                    <extension>
+                        <oIDReference>7</oIDReference>
+                        <critical>true</critical>
+                        <value>AwIFoA==</value>
+                    </extension>
+                    <extension>
+                        <oIDReference>19</oIDReference>
+                        <critical>false</critical>
+                        <value>MBgwCgYIKwYBBQUHAwEwCgYIKwYBBQUHAwI=</value>
+                    </extension>
+                </extensions>
+            </attributes>
+        </policy>
+    </policies>
+</response>
+<oIDs>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.1.7</value>
+        <group>9</group>
+        <oIDReferenceID>0</oIDReferenceID>
+        <defaultName>Administrator</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.10.3.1</value>
+        <group>7</group>
+        <oIDReferenceID>1</oIDReferenceID>
+        <defaultName>Microsoft Trust List Signing</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.10.3.4</value>
+        <group>7</group>
+        <oIDReferenceID>2</oIDReferenceID>
+        <defaultName>Encrypting File System</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.5.5.7.3.4</value>
+        <group>7</group>
+        <oIDReferenceID>3</oIDReferenceID>
+        <defaultName>Secure Email</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.5.5.7.3.2</value>
+        <group>7</group>
+        <oIDReferenceID>4</oIDReferenceID>
+        <defaultName>Client Authentication</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.20.2</value>
+        <group>6</group>
+        <oIDReferenceID>5</oIDReferenceID>
+        <defaultName>Certificate Template Name</defaultName>
+    </oID>
+    <oID>
+        <value>2.5.29.37</value>
+        <group>6</group>
+        <oIDReferenceID>6</oIDReferenceID>
+        <defaultName>Enhanced Key Usage</defaultName>
+    </oID>
+    <oID>
+        <value>2.5.29.15</value>
+        <group>6</group>
+        <oIDReferenceID>7</oIDReferenceID>
+        <defaultName>Key Usage</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.1.6</value>
+        <group>9</group>
+        <oIDReferenceID>9</oIDReferenceID>
+        <defaultName>Basic EFS</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.1.14</value>
+        <group>9</group>
+        <oIDReferenceID>13</oIDReferenceID>
+        <defaultName>Computer</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.5.5.7.3.1</value>
+        <group>7</group>
+        <oIDReferenceID>14</oIDReferenceID>
+        <defaultName>Server Authentication</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.1.29</value>
+        <group>9</group>
+        <oIDReferenceID>16</oIDReferenceID>
+        <defaultName>Directory Email Replication</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.19</value>
+        <group>7</group>
+        <oIDReferenceID>17</oIDReferenceID>
+        <defaultName>Directory Service Email Replication</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.7</value>
+        <group>6</group>
+        <oIDReferenceID>18</oIDReferenceID>
+        <defaultName>Certificate Template Information</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.10</value>
+        <group>6</group>
+        <oIDReferenceID>19</oIDReferenceID>
+        <defaultName>Application Policies</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.1.15</value>
+        <group>9</group>
+        <oIDReferenceID>20</oIDReferenceID>
+        <defaultName>Domain Controller</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.1.28</value>
+        <group>9</group>
+        <oIDReferenceID>21</oIDReferenceID>
+        <defaultName>Domain Controller Authentication</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.20.2.2</value>
+        <group>7</group>
+        <oIDReferenceID>22</oIDReferenceID>
+        <defaultName>Smart Card Logon</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.1.8</value>
+        <group>9</group>
+        <oIDReferenceID>23</oIDReferenceID>
+        <defaultName>EFS Recovery Agent</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.10.3.4.1</value>
+        <group>7</group>
+        <oIDReferenceID>24</oIDReferenceID>
+        <defaultName>File Recovery</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.1.33</value>
+        <group>9</group>
+        <oIDReferenceID>32</oIDReferenceID>
+        <defaultName>Kerberos Authentication</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.5.2.3.5</value>
+        <group>7</group>
+        <oIDReferenceID>33</oIDReferenceID>
+        <defaultName>KDC Authentication</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.1.18</value>
+        <group>9</group>
+        <oIDReferenceID>41</oIDReferenceID>
+        <defaultName>Subordinate Certification Authority</defaultName>
+    </oID>
+    <oID>
+        <value>2.5.29.19</value>
+        <group>6</group>
+        <oIDReferenceID>42</oIDReferenceID>
+        <defaultName>Basic Constraints</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.1.1</value>
+        <group>9</group>
+        <oIDReferenceID>44</oIDReferenceID>
+        <defaultName>User</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.1.16</value>
+        <group>9</group>
+        <oIDReferenceID>46</oIDReferenceID>
+        <defaultName>Web Server</defaultName>
+    </oID>
+    <oID>
+        <value>1.3.6.1.4.1.311.21.8.8597248.10466707.7293339.11449640.3906339.204.4931738.2905490</value>
+        <group>9</group>
+        <oIDReferenceID>48</oIDReferenceID>
+        <defaultName>{{pri_adcs_enrollment_template_name}}</defaultName>
+    </oID>
+</oIDs>
+</GetPoliciesResponse>
