@@ -1,0 +1,15 @@
+---
+
+- name: Create ansible directories
+  win_file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - 'c:\Program Files\ansible'
+    - 'c:\ProgramData\ansible\log'
+
+- include: windows-sysmon.yml
+- include: windows-logging-registry.yml
+
+- name: 'Reboot server'
+  win_reboot:

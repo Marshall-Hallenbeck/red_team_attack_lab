@@ -1,0 +1,32 @@
+- set_fact:
+    technique: "{{ item }}"
+
+- debug:
+    var: technique
+
+- name: Get requirements for Atomic Red Team Technique
+  win_shell: |
+    Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
+    Invoke-AtomicTest "{{ technique }}" -GetPrereqs
+  register: requirements
+
+# - debug:
+#     var: requirements
+
+- name: Run specified Atomic Red Team Technique
+  win_shell: |
+    Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
+    Invoke-AtomicTest "{{ technique }}" -Confirm:$false -TimeoutSeconds 300 -ExecutionLogPath C:\AtomicRedTeam\atc_execution.csv
+  register: output
+
+# - debug:
+#     var: output
+
+- name: Cleanup after execution
+  win_shell: |
+    Import-Module "C:\AtomicRedTeam\invoke-atomicredteam\Invoke-AtomicRedTeam.psd1" -Force
+    Invoke-AtomicTest "{{ technique }}" -Cleanup
+  register: cleanup
+
+# - debug:
+#     var: cleanup

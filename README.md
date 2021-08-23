@@ -1,5 +1,8 @@
 # Red Team Attack Lab
 
+Disclaimer: right now this is in a heavy development state. This is also my first time really using Vagrant & Ansible.
+The playbooks and tasks are all messed up. I still have a bunch of stuff from the Splunk Attack Range added, but I will probably nuke all of that so there's no issues. Right now I'm just using them as a reference.
+
 Original: https://github.com/splunk/attack_range_local/
 
 ## Description

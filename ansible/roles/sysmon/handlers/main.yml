@@ -1,2 +1,0 @@
-- name: restart splunk
-  win_command: C:\Program Files\SplunkUniversalForwarder\bin\splunk.exe restart
