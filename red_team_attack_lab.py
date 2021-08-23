@@ -1,3 +1,4 @@
+# ORIGINAL: https://github.com/splunk/attack_range_local/
 import os
 import sys
 import argparse

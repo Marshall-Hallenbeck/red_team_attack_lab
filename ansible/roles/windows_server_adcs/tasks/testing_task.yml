@@ -11,8 +11,8 @@
 - debug:
     msg: "{{ test_become }}"
 
-#    [string]$userName = 'attackrange.local\{{ win_domain_admin }}'
+#    [string]$userName = '{{ win_domain }}\{{ win_domain_admin }}'
 #    [string]$userPassword = 'P@ssw0rd'
 #    [securestring]$secStringPassword = ConvertTo-SecureString $userPassword -AsPlainText -Force
 #    [pscredential]$credObject = New-Object System.Management.Automation.PSCredential ($userName, $secStringPassword)
-#    Install-AdcsEnrollmentWebService -ApplicationPoolIdentity -CAConfig "win2019-adcs.attackrange.local\attackrange-WIN2019-ADCS-CA" -AuthenticationType Kerberos -Credential $credObject -Force
+#    Install-AdcsEnrollmentWebService [STUFF]]

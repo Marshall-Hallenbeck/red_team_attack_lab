@@ -1,4 +1,4 @@
 - include: auto_da_login.yml
 - include: install_adcs.yml
-- include: configure_adcs_enrollment_web_service.yml
-- include: configure_adcs_web_enrollment.yml
+#- include: configure_adcs_enrollment_web_service.yml
+#- include: configure_adcs_web_enrollment.yml

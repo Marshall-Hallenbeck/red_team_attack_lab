@@ -1,3 +1,5 @@
+# ORIGINAL: https://github.com/splunk/attack_range_local/
+# TODO: Don't use a custom config parser
 import configparser
 import collections
 import sys

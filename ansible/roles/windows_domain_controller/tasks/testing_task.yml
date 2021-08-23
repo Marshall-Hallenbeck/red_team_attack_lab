@@ -1,9 +1,3 @@
-- name: constrained user set constrained delegation
-  win_shell: |
-    $user = (Get-ADUser -Identity "Constrained User").DistinguishedName
-    Set-ADObject -Identity $user -Add @{"msDS-AllowedToDelegateTo" = @("CIFS/dc01","CIFS/dc01.Attackrange.local","CIFS/dc01.attackrange.local/attackrange.local")}
-  register: constrained_delegation_set
-
 - name: get AD user
   win_shell: Get-ADUser "Constrained User" -Properties msDS-AllowedToDelegateTo
   register: get_ad_user

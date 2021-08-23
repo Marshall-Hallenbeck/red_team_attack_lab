@@ -1,4 +1,4 @@
-
+# ORIGINAL: https://github.com/splunk/attack_range_local/
 import sys
 import time
 from time import sleep

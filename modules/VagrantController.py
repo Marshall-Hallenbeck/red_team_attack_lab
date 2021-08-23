@@ -1,3 +1,4 @@
+# ORIGINAL: https://github.com/splunk/attack_range_local/
 from jinja2 import Environment, FileSystemLoader
 import vagrant
 from tabulate import tabulate
@@ -66,14 +67,14 @@ class VagrantController:
             self.log.error(f"vagrant failed to build: {e}")
             sys.exit(1)
 
-        self.log.info("attack_range has been built using vagrant successfully")
+        self.log.info("attack_lab has been built using vagrant successfully")
         self.list_machines()
 
     def destroy(self):
         self.log.info("[action] > destroy\n")
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False)
         v1.destroy()
-        self.log.info("attack_range has been destroy using vagrant successfully")
+        self.log.info("attack_lab has been destroy using vagrant successfully")
 
     def stop(self):
         print("[action] > stop\n")

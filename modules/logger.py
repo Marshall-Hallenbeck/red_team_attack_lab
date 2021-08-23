@@ -1,3 +1,4 @@
+# ORIGINAL: # ORIGINAL: https://github.com/splunk/attack_range_local/
 import logging
 
 def setup_logging(LOG_PATH,LOG_LEVEL):
@@ -21,5 +22,5 @@ def setup_logging(LOG_PATH,LOG_LEVEL):
     return logger
 
 def get():
-    logger = logging.getLogger('attack_range')
+    logger = logging.getLogger('attack_lab')
     return logger

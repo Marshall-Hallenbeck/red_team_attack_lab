@@ -52,7 +52,7 @@
     reboot_timeout: 120
   #when: adcs_certification_authority_config.changed
 
-- name: Ensure AppReadiness is running
+- name: Ensure AppReadiness is running post ADCS CA Configuration
   win_service:
     name: AppReadiness
     state: started
@@ -64,7 +64,7 @@
 - debug:
     msg: "{{ appreadiness_running }}"
 
-- name: Ensure CertSvc is running
+- name: Ensure CertSvc is running post ADCS CA Configuration
   win_service:
     name: CertSvc
     state: started

@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# ORIGINAL: https://github.com/splunk/attack_range_local/
 sudo apt-get update 
 sudo apt-get install -y python3-dev linux-headers-generic python-dev unzip python-pip vagrant virtualbox virtualbox-dkms python-virtualenv git
 sudo gem install winrm-elevated
