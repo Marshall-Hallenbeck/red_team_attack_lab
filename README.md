@@ -11,6 +11,50 @@ Every lab environment that I have come across (Splunk Attack Range, DetectionLab
 
 As someone who doesn't want to pay extra money to host environments in AWS or Azure, this was quite annoying, so I decided to hack together something that runs locally and focuses on setting up a pentestable/red teamable environment, either for discovering new techniques, testing older TTPs, or staying up to date with the newest emerging threats.
 
+## TODO LIST
+- [] Automate ADCS deployment
+  - [x] Automate ADCS Certificate Authority
+  - [x] Automate ADCS Enrollment Web Service
+  - [x] Automate ADCS Web Enrollment
+- [x] Dynamic domain name
+    - [x] default to "attacklab.local"
+    - [x] Ensure proper usage of config variables so we only have to change it in one location
+- [ ] Change domain admin username to "Admin"
+    - [ ] Ensure proper usage of config variables so we only have to change it in one location
+- [ ] Ensure local administrator account is properly created seperate from DA Admin account
+- [ ] Automatically remove hosts from AD on `vagrant destroy`
+    - REF: https://www.vagrantup.com/docs/triggers/usage
+    - REF: https://docs.ansible.com/ansible/latest/collections/community/windows/win_domain_computer_module.html#parameter-state
+    - REF: https://stackoverflow.com/questions/40087032/how-to-run-a-vagrant-task-on-vagrant-destroy
+- [ ] Clean up Vagrant configs
+    - [ ] Base ansible configuration values in one place
+- [ ] Improve Windows QoL with scripts
+    - [ ] Steal from DetectionLab
+- [ ] Add hosts
+    - [ ] Server 2016
+    - [ ] Server 2012
+    - [ ] Server 2022
+    - [ ] Windows 7
+    - [ ] Ubuntu Server 20
+    - [ ] Ubuntu Server 18
+    - [ ] Ubuntu Desktop 20
+    - [ ] Ubuntu Desktop 18
+    - [ ] CentOS ?
+- [ ] Add documentation
+    - [ ] Installation
+    - [ ] Default credentials & config variables
+    - [ ] How to get running
+    - [ ] Debugging commands
+    - [ ] How to add/update/test/add stuff
+      - [ ] Common pitfalls
+    - [ ] Lab architecture diagram
+    - [ ] Existing AD vulnerabilities
+    - [ ] FAQ
+- [ ] FIX: can't run the range from any path due to config reading, but updating the config reading breaks the VagrantController reading the vagrant files due to bad path handling as well
+- [ ] Add attack walkthroughs
+    - [ ] /walkthroughs folder?
+    - [ ] /guides folder?
+
 ## Installation
 To be filled in...
 
