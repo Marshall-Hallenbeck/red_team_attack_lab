@@ -14,8 +14,8 @@ As someone who doesn't want to pay extra money to host environments in AWS or Az
 ## TODO LIST
 - [ ] Automate ADCS deployment
   - [x] Automate ADCS Certificate Authority
-  - [] Automate ADCS Enrollment Web Service
-  - [] Automate ADCS Web Enrollment
+  - [ ] Automate ADCS Enrollment Web Service
+  - [ ] Automate ADCS Web Enrollment
 - [x] Dynamic domain name
     - [x] default to "attacklab.local"
     - [x] Ensure proper usage of config variables so we only have to change it in one location
