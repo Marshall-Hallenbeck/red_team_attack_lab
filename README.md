@@ -12,10 +12,10 @@ Every lab environment that I have come across (Splunk Attack Range, DetectionLab
 As someone who doesn't want to pay extra money to host environments in AWS or Azure, this was quite annoying, so I decided to hack together something that runs locally and focuses on setting up a pentestable/red teamable environment, either for discovering new techniques, testing older TTPs, or staying up to date with the newest emerging threats.
 
 ## TODO LIST
-- [] Automate ADCS deployment
+- [ ] Automate ADCS deployment
   - [x] Automate ADCS Certificate Authority
-  - [x] Automate ADCS Enrollment Web Service
-  - [x] Automate ADCS Web Enrollment
+  - [] Automate ADCS Enrollment Web Service
+  - [] Automate ADCS Web Enrollment
 - [x] Dynamic domain name
     - [x] default to "attacklab.local"
     - [x] Ensure proper usage of config variables so we only have to change it in one location
