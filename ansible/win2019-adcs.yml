@@ -1,0 +1,12 @@
+- hosts: all
+  gather_facts: True
+  vars:
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
+  roles:
+    - windows_common
+    - windows_domain_client
+    - windows_server
+#    - windows_universal_forwarder
+#    - windows_caldera_agent
+#    - sysmon

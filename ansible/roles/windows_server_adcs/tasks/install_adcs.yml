@@ -1,0 +1,30 @@
+# Stolen from https://github.com/jborean93/ansible-windows/blob/master/vagrant/roles/adcs-enrollment/tasks/adcs_template.yml
+---
+- name: ensure the ADCS feature is installed
+  win_feature:
+    name: AD-Certificate
+    include_management_tools: yes
+    include_sub_features: yes
+    state: present
+  register: pri_adcs_enrollment_install
+
+- name: reboot host if required
+  win_reboot:
+  when: pri_adcs_enrollment_install.reboot_required
+
+# might not have to do this but it makes sense to configure the CA
+- name: configure AD CS certification authority
+  #win_shell: Install-AdcsCertificationAuthority -CAType EnterpriseRootCa -CryptoProviderName "RSA#Microsoft Software Key Storage Provider" -KeyLength 2048 -HashAlgorithmName SHA256 -Force
+  win_shell: Install-AdcsCertificationAuthority -CAType EnterpriseRootCa -CryptoProviderName "ECDSA_P256#Microsoft Software Key Storage Provider" -KeyLength 256 -HashAlgorithmName SHA256 -Force
+  register: pri_adcs_enrollment_config
+  changed_when: pri_adcs_enrollment_config.rc == 0
+  failed_when:
+  - pri_adcs_enrollment_config.rc != 0
+  - '"The Certification Authority is already installed" not in (pri_adcs_enrollment_config.stderr|regex_replace("\r\n", ""))'
+  become: yes
+  become_user: SYSTEM
+  become_method: runas
+
+- name: debug configuring ADCS CA
+  debug:
+    msg: "{{ pri_adcs_enrollment_config }}"

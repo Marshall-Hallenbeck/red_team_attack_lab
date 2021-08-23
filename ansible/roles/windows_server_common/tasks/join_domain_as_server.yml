@@ -3,7 +3,7 @@
     timeout: 900
 
 - debug:
-    msg: "{{ hostname }} - {{ local_admin_password }}"
+    msg: "{{ hostname }} - {{ local_admin_password }} - {{ win_password }}"
 
 - name: Join domain as server
   win_domain_membership:
@@ -12,7 +12,7 @@
     domain_admin_user: "Administrator@{{ domain_name }}"
     domain_admin_password: "{{ win_password }}"
     local_admin_password: "{{ local_admin_password }}"
-    state: domain
+    state: "domain"
   register: add_server_to_domain
 
 - debug:
