@@ -1,6 +1,6 @@
 # Red Team Attack Lab
 
-Disclaimer: right now this is in a heavy development state. This is also my first time really using Vagrant & Ansible.
+Disclaimer: right now this is in a heavy development state.  This is also my first time really using Vagrant & Ansible.
 The playbooks and tasks are all messed up.
 
 ## Description
@@ -8,6 +8,34 @@ The playbooks and tasks are all messed up.
 Every lab environment that I have come across (Splunk Attack Range, DetectionLab, etc) has been heavily focused on blue team controls and/or only runs in cloud environments.
 
 As someone who doesn't want to pay extra money to host environments in AWS or Azure, this was quite annoying, so I decided to hack together something that runs locally and focuses on setting up a pentestable/red teamable environment, either for discovering new techniques, testing older TTPs, or staying up to date with the newest emerging threats.
+
+## Installation
+To be filled in...
+
+## How to Run
+To be filled in....
+
+## Architecture
+TODO: create architecture document...
+
+Currently supported hosts:
+
+- 1 Windows Domain Controller
+  - Windows Server 2019
+    - dc01
+- 2 Windows Servers
+  - Windows Server 2019
+    - win2019-1
+  - Windows Server 2019 with Active Directory Certificate Services + Web Enrollment + Web Service for Petit Potam
+    - win2019-adcs
+- 3 Windows Workstations
+  - Win10
+    - win10-1
+    - win10-2
+  - Win10 Development Environment (Customized via Chocolatey)
+    - win10-dev
+- 1 Kali Box (Customized)
+  - kali
 
 ## TODO LIST
 - [x] Automate ADCS deployment
@@ -61,31 +89,3 @@ As someone who doesn't want to pay extra money to host environments in AWS or Az
 - [ ] Make Ansible faster
   - REF: https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html
   - https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html
-
-## Installation
-To be filled in...
-
-## How to Run
-To be filled in....
-
-## Architecture
-TODO: create architecture document...
-
-Currently supported hosts:
-
-- 1 Windows Domain Controller
-  - Windows Server 2019
-    - dc01
-- 2 Windows Servers
-  - Windows Server 2019
-    - win2019-1
-  - Windows Server 2019 with Active Directory Certificate Services + Web Enrollment + Web Service for Petit Potam
-    - win2019-adcs
-- 3 Windows Workstations
-  - Win10
-    - win10-1
-    - win10-2
-  - Win10 Development Environment (Customized via Chocolatey)
-    - win10-dev
-- 1 Kali Box (Customized)
-  - kali
