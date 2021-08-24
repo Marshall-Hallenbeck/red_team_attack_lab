@@ -7,8 +7,8 @@ sudo gem install winrm-elevated
 sudo gem install winrm
 git clone https://github.com/Marshall-Hallenbeck/red_team_attack_lab
 cd red_team_attack_lab
-virtualenv -p python3 venv
-source venv/bin/activate
+virtualenv -p python3 venv_rtal
+source venv_rtal/bin/activate
 pip install -r requirements.txt
 ansible-galaxy collection install community.windows chocolatey.chocolatey
 vagrant plugin install vagrant-hostmanager vagrant-vbguest # vagrant-scp #vagrant-cachier
