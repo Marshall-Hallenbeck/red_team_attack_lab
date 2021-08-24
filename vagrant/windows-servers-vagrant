@@ -110,4 +110,3 @@ config.vm.define "win2019-adcs" do |config|
     vb.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
   end
 end
-
