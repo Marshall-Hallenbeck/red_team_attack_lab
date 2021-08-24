@@ -26,8 +26,9 @@ As someone who doesn't want to pay extra money to host environments in AWS or Az
     - REF: https://www.vagrantup.com/docs/triggers/usage
     - REF: https://docs.ansible.com/ansible/latest/collections/community/windows/win_domain_computer_module.html#parameter-state
     - REF: https://stackoverflow.com/questions/40087032/how-to-run-a-vagrant-task-on-vagrant-destroy
-- [ ] Clean up Vagrant configs
-    - [ ] Base ansible configuration values in one place
+- [ ] Clean up Configs
+  - [ ] Vagrant Configs
+  - [ ] Base ansible configuration values in one place
 - [ ] Improve Windows QoL with scripts
     - [ ] Steal from DetectionLab
 - [ ] Add hosts
@@ -55,6 +56,9 @@ As someone who doesn't want to pay extra money to host environments in AWS or Az
 - [ ] Add attack walkthroughs
     - [ ] /walkthroughs folder?
     - [ ] /guides folder?
+- [ ] Make Ansible faster
+  - REF: https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html
+  - https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html
 
 ## Installation
 To be filled in...
