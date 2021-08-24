@@ -70,6 +70,12 @@ Currently supported hosts:
   - kali
 
 ## TODO LIST
+- [ ] Clean up Configs
+  - [ ] Vagrant configs
+  - [ ] Base Ansible configuration values in one place
+- [ ] Clean up red_team_attack_lab.py
+    - [ ] FIX: can't run the range from any path due to config reading, but updating the config reading breaks the VagrantController reading the vagrant files due to bad path handling as well
+      - [ ] Also make the config parser not bad - get rid of the custom config parser completely
 - [x] Automate ADCS deployment
   - [x] Automate ADCS Certificate Authority
   - [x] Automate ADCS Enrollment Web Service
@@ -84,9 +90,22 @@ Currently supported hosts:
     - REF: https://www.vagrantup.com/docs/triggers/usage
     - REF: https://docs.ansible.com/ansible/latest/collections/community/windows/win_domain_computer_module.html#parameter-state
     - REF: https://stackoverflow.com/questions/40087032/how-to-run-a-vagrant-task-on-vagrant-destroy
-- [ ] Clean up Configs
-  - [ ] Vagrant Configs
-  - [ ] Base ansible configuration values in one place
+- [ ] Add documentation
+    - [ ] Installation
+    - [ ] Default credentials & config variables
+    - [ ] How to get running
+    - [ ] Debugging commands
+    - [ ] How to add/update/test/add stuff
+      - [ ] Common pitfalls
+    - [ ] Lab architecture diagram
+    - [ ] Existing AD vulnerabilities
+      - /vulns
+    - [ ] FAQ
+- [ ] Add attack walkthroughs
+    - [ ] /vulns/walkthroughs folder
+- [ ] Make Ansible faster
+  - REF: https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html
+  - https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html
 - [ ] Improve Windows QoL with scripts
     - [ ] Steal from DetectionLab
 - [ ] Add hosts
@@ -102,22 +121,3 @@ Currently supported hosts:
     - [ ] Ubuntu Desktop 20
     - [ ] Ubuntu Desktop 18
     - [ ] CentOS ?
-- [ ] Add documentation
-    - [ ] Installation
-    - [ ] Default credentials & config variables
-    - [ ] How to get running
-    - [ ] Debugging commands
-    - [ ] How to add/update/test/add stuff
-      - [ ] Common pitfalls
-    - [ ] Lab architecture diagram
-    - [ ] Existing AD vulnerabilities
-      - /vulns
-    - [ ] FAQ
-- [ ] Clean up red_team_attack_lab.py
-    - [ ] FIX: can't run the range from any path due to config reading, but updating the config reading breaks the VagrantController reading the vagrant files due to bad path handling as well
-      - [ ] Also make the config parser not bad - get rid of the custom config parser completely
-- [ ] Add attack walkthroughs
-    - [ ] /vulns/walkthroughs folder
-- [ ] Make Ansible faster
-  - REF: https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html
-  - https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html
