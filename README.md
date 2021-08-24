@@ -30,6 +30,9 @@ As someone who doesn't want to pay extra money to host environments in AWS or Az
 - [ ] Improve Windows QoL with scripts
     - [ ] Steal from DetectionLab
 - [ ] Add hosts
+    - [ ] Metasploitable 3 - https://github.com/rapid7/metasploitable3
+      - [ ] Windows
+      - [ ] Ubuntu
     - [ ] Server 2016
     - [ ] Server 2012
     - [ ] Server 2022
