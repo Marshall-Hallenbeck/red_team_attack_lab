@@ -10,18 +10,33 @@ VERSION = 1
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Starts Red Team Attack Lab")
-    parser.add_argument("-a", "--action", required=False,
-                        choices=['build', 'create_config', 'destroy', 'stop', 'resume'],
-                        help="action to take in the lab, defaults to \"build\", build/destroy/stop/resume "
-                             "allowed")
-    parser.add_argument("-c", "--config", required=False, default="attack_lab.conf",
-                        help="path to the configuration file of the attack range")
-    parser.add_argument("-lm", "--list_machines", required=False, default=False, action="store_true",
-                        help="prints out all available machines")
-    parser.add_argument("-v", "--version", default=False, action="store_true", required=False,
-                        help="shows current attack_lab version")
+    parser.add_argument(
+        "-a", "--action",
+        required=False,
+        choices=['build', 'create_config', 'destroy', 'stop', 'resume'],
+        help="action to take in the lab, defaults to \"build\", build/destroy/stop/resume allowed"
+    )
+    parser.add_argument(
+        "-c", "--config",
+        required=False,
+        default="attack_lab.conf",
+        help="path to the configuration file of the attack range"
+    )
+    parser.add_argument(
+        "-lm", "--list_machines",
+        required=False,
+        default=False,
+        action="store_true",
+        help="prints out all available machines"
+    )
+    parser.add_argument(
+        "-v", "--version",
+        default=False,
+        action="store_true",
+        required=False,
+        help="shows current attack_lab version"
+    )
 
-    # parse them
     args = parser.parse_args()
     ARG_VERSION = args.version
     action = args.action
