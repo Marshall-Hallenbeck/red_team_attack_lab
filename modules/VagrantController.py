@@ -104,4 +104,3 @@ class VagrantController:
             status.append([stat.name, stat.state, self.get_ip_address_from_machine(stat.name)])
 
         print(tabulate(status, headers=['Name', 'Status', 'IP Address']))
-        print()
