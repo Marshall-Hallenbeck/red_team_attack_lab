@@ -52,8 +52,9 @@ As someone who doesn't want to pay extra money to host environments in AWS or Az
     - [ ] Existing AD vulnerabilities
       - /vulns
     - [ ] FAQ
-- [ ] FIX: can't run the range from any path due to config reading, but updating the config reading breaks the VagrantController reading the vagrant files due to bad path handling as well
-  - [ ] Also make the config parser not bad - get rid of the custom config parser completely
+- [ ] Clean up red_team_attack_lab.py
+    - [ ] FIX: can't run the range from any path due to config reading, but updating the config reading breaks the VagrantController reading the vagrant files due to bad path handling as well
+      - [ ] Also make the config parser not bad - get rid of the custom config parser completely
 - [ ] Add attack walkthroughs
     - [ ] /vulns/walkthroughs folder
 - [ ] Make Ansible faster
