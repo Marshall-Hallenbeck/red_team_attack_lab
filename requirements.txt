@@ -4,5 +4,4 @@ Jinja2==2.11.3
 python-vagrant==0.5.15
 pywinrm==0.4.1
 PyYAML==5.4
-splunk-sdk==1.6.12
 tabulate==0.8.6
