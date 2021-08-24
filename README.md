@@ -68,7 +68,7 @@ To be filled in....
 ## Architecture
 TODO: create architecture document...
 
-###Currently supported hosts:
+Currently supported hosts:
 
 - 1 Windows Domain Controller
   - Windows Server 2019
@@ -76,9 +76,8 @@ TODO: create architecture document...
 - 2 Windows Servers
   - Windows Server 2019
     - win2019-1
-  - Windows Server 2019 with Active Directory Certificate Services
+  - Windows Server 2019 with Active Directory Certificate Services + Web Enrollment + Web Service for Petit Potam
     - win2019-adcs
-      - Currently working on adding Web Enrollment and Web Service
 - 3 Windows Workstations
   - Win10
     - win10-1
