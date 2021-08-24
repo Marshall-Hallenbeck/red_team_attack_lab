@@ -11,5 +11,5 @@ virtualenv -p python3 venv
 source venv/bin/activate
 pip install -r requirements.txt
 ansible-galaxy collection install community.windows chocolatey.chocolatey
-vagrant plugin install vagrant-hostmanager vagrant-vbguest vagrant-cachier # vagrant-scp
+vagrant plugin install vagrant-hostmanager vagrant-vbguest # vagrant-scp #vagrant-cachier
 python red_team_attack_lab.py -a build

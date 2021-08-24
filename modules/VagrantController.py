@@ -7,7 +7,6 @@ import ansible_runner
 import sys
 import os
 import yaml
-from modules import splunk_sdk
 
 
 class VagrantController:
@@ -158,26 +157,3 @@ class VagrantController:
 
         print(tabulate(status, headers=['Name', 'Status', 'IP Address']))
         print()
-
-    def dump(self, dump_name):
-        self.log.info("Dump log data")
-
-        folder = "attack_data/" + dump_name
-        os.mkdir(os.path.join(os.path.dirname(__file__), '../' + folder))
-
-
-        with open(os.path.join(os.path.dirname(__file__), '../attack_data/dumps.yml')) as dumps:
-            for dump in yaml.full_load(dumps):
-                if dump['enabled']:
-                    dump_out = dump['dump_parameters']['out']
-                    dump_search = "search %s earliest=%s | sort 0 _time" \
-                                  % (dump['dump_parameters']['search'], dump['dump_parameters']['time'])
-                    dump_info = "Dumping Splunk Search to %s " % dump_out
-                    self.log.info(dump_info)
-                    out = open(os.path.join(os.path.dirname(__file__), "../attack_data/" + dump_name + "/" + dump_out), 'wb')
-                    splunk_sdk.export_search(self.config['splunk_server_private_ip'],
-                                             s=dump_search,
-                                             password=self.config['splunk_admin_password'],
-                                             out=out)
-                    out.close()
-                    self.log.info("%s [Completed]" % dump_info)
