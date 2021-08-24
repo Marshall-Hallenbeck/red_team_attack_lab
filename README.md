@@ -10,10 +10,42 @@ Every lab environment that I have come across (Splunk Attack Range, DetectionLab
 As someone who doesn't want to pay extra money to host environments in AWS or Azure, this was quite annoying, so I decided to hack together something that runs locally and focuses on setting up a pentestable/red teamable environment, either for discovering new techniques, testing older TTPs, or staying up to date with the newest emerging threats.
 
 ## Installation
-To be filled in...
+### Dependencies
+```
+sudo apt-get update 
+sudo apt-get install -y python3-dev linux-headers-generic python-dev unzip python-pip vagrant virtualbox virtualbox-dkms python-virtualenv git
+sudo gem install winrm-elevated
+sudo gem install winrm
+```
+```
+ansible-galaxy collection install community.windows chocolatey.chocolatey
+vagrant plugin install vagrant-hostmanager vagrant-vbguest
+```
+```
+# Create a Virtualenv for best practice
+virtualenv -p python3 venv_rtal
+source venv_rtal/bin/activate
+pip install -r requirements.txt
+```
 
 ## How to Run
-To be filled in....
+
+### Full Build (may take 1-1.5 hours!)
+```
+# ensure it is python3!
+python red_team_attack_lab.py -a build
+```
+### Specific Build
+```
+# ensure it is python3!
+python red_team_attack_lab.py -a create_config
+cd vagrant
+vagrant up dc01 win2019-adcs win10-dev kali
+```
+Other hosts (see Architecture):
+- win10-1
+- win10-2
+- win2019-1
 
 ## Architecture
 TODO: create architecture document...
