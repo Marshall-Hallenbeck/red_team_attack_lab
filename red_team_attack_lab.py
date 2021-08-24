@@ -1,5 +1,4 @@
 # ORIGINAL: https://github.com/splunk/attack_range_local/
-import os
 import sys
 import argparse
 from modules import logger
@@ -10,20 +9,11 @@ from modules.VagrantController import VagrantController
 VERSION = 1
 
 if __name__ == "__main__":
-    # grab arguments
     parser = argparse.ArgumentParser(description="Starts Red Team Attack Lab")
     parser.add_argument("-a", "--action", required=False,
-                        choices=['build', 'create_config', 'destroy', 'simulate', 'stop', 'resume'],
-                        help="action to take in the lab, defaults to \"build\", build/destroy/simulate/stop/resume "
+                        choices=['build', 'create_config', 'destroy', 'stop', 'resume'],
+                        help="action to take in the lab, defaults to \"build\", build/destroy/stop/resume "
                              "allowed")
-    parser.add_argument("-t", "--target", required=False,
-                        help="target for attack simulation. For mode vagrant use name of the vbox")
-    parser.add_argument("-st", "--simulation_technique", required=False, type=str, default="",
-                        help="comma delimited list of MITRE ATT&CK technique ID to simulate in the attack_lab, "
-                             "example: T1117, T1118, requires --simulation flag")
-    parser.add_argument("-sa", "--simulation_atomics", required=False, type=str, default="",
-                        help="specify dedicated Atomic Red Team atomics to simulate in the attack_lab, example: "
-                             "Regsvr32 remote COM scriptlet execution for T1117")
     parser.add_argument("-c", "--config", required=False, default="attack_lab.conf",
                         help="path to the configuration file of the attack range")
     parser.add_argument("-lm", "--list_machines", required=False, default=False, action="store_true",
@@ -35,12 +25,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
     ARG_VERSION = args.version
     action = args.action
-    target = args.target
     config = args.config
-    simulation_techniques = args.simulation_technique
-    simulation_atomics = args.simulation_atomics
     list_machines = args.list_machines
-    dump_name = args.dump_name
 
     print("""
     Starting Red Team Attack Lab...
@@ -72,19 +58,6 @@ if __name__ == "__main__":
         log.error('ERROR: Use -a to perform an action or -lm to list available machines')
         sys.exit(1)
 
-    if action == 'simulate' and not target:
-        log.error('ERROR: Specify target for attack simulation')
-        sys.exit(1)
-
-    # lets give CLI priority over config file for pre-configured techniques
-    if simulation_techniques:
-        pass
-    else:
-        simulation_techniques = config['art_run_techniques']
-
-    if not simulation_atomics:
-        simulation_atomics = 'no'
-
     controller = VagrantController(config, log)
 
     if list_machines:
@@ -105,6 +78,3 @@ if __name__ == "__main__":
 
     if action == 'resume':
         controller.resume()
-
-    if action == 'simulate':
-        controller.simulate(target, simulation_techniques, simulation_atomics)
