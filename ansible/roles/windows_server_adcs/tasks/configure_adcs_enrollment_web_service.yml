@@ -40,3 +40,30 @@
 
 - debug:
     msg: "{{ appreadiness_running }}"
+
+#Current Error:
+#{
+#    "changed": true,
+#    "cmd": "Install-AdcsEnrollmentWebService -ApplicationPoolIdentity -CAConfig 'win2019-ADCS.attacklab.local\\attackrange-WIN2019-ADCS-CA' -AuthenticationType Kerberos -Force",
+#    "delta": "0:00:00.578188",
+#    "end": "2021-08-24 12:29:14.950459",
+#    "msg": "non-zero return code",
+#    "rc": 1,
+#    "start": "2021-08-24 12:29:14.372271",
+#    "stderr": "Install-AdcsEnrollmentWebService : CCertificateEnrollmentServerSetup::SetProperty: The parameter \r\nis incorrect. 0x80070057 (WIN32: 87 ERROR_INVALID_PARAMETER)\r\nAt line:1 char:65\r\n+ ... ing $false; Install-AdcsEnrollmentWebService -ApplicationPoolIdentity ...\r\n+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : NotSpecified: (:) [Install-AdcsEnrollmentWebService], ArgumentExcep \r\n   tion\r\n    + FullyQualifiedErrorId : System.ArgumentException,Microsoft.CertificateServices.Deployment.C \r\n   ommands.CES.InstallAdcsEnrollmentWebService",
+#    "stderr_lines":
+#    [
+#        "Install-AdcsEnrollmentWebService : CCertificateEnrollmentServerSetup::SetProperty: The parameter ",
+#        "is incorrect. 0x80070057 (WIN32: 87 ERROR_INVALID_PARAMETER)",
+#        "At line:1 char:65",
+#        "+ ... ing $false; Install-AdcsEnrollmentWebService -ApplicationPoolIdentity ...",
+#        "+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+#        "    + CategoryInfo          : NotSpecified: (:) [Install-AdcsEnrollmentWebService], ArgumentExcep ",
+#        "   tion",
+#        "    + FullyQualifiedErrorId : System.ArgumentException,Microsoft.CertificateServices.Deployment.C ",
+#        "   ommands.CES.InstallAdcsEnrollmentWebService"
+#    ],
+#    "stdout": "",
+#    "stdout_lines":
+#    []
+#}

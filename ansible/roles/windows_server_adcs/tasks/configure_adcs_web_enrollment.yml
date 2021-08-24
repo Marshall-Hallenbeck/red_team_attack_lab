@@ -46,3 +46,32 @@
 
 - debug:
     msg: "{{ appreadiness_running }}"
+
+#Current Error:
+#{
+#  "changed": false,
+#  "cmd": "Install-AdcsWebEnrollment -CAConfig 'win2019-ADCS.attacklab.local\\attacklab-WIN2019-ADCS-CA' -Force",
+#  "delta": "0:00:00.794280",
+#  "end": "2021-08-24 12:25:44.684553",
+#  "failed_when_result": true,
+#  "msg": "non-zero return code",
+#  "rc": 1,
+#  "start": "2021-08-24 12:25:43.890273",
+#  "stderr": "Install-AdcsWebEnrollment : Active Directory Certificate Services setup failed with the following \r\nerror:  The group or resource is not in the correct state to perform the requested operation. \r\n0x8007139f (WIN32: 5023 ERROR_INVALID_STATE)\r\nAt line:1 char:65\r\n+ ... ing $false; Install-AdcsWebEnrollment -CAConfig 'win2019-ADCS.attackl ...\r\n+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : InvalidArgument: (:) [Install-AdcsWebEnrollment], WebEnrollmentSetu \r\n   pException\r\n    + FullyQualifiedErrorId : SetWebenrollmentSetupProperties,Microsoft.CertificateServices.Deplo \r\n   yment.Commands.WebEnrollment.InstallAdcsWebEnrollment",
+#  "stderr_lines":
+#    [
+#        "Install-AdcsWebEnrollment : Active Directory Certificate Services setup failed with the following ",
+#        "error:  The group or resource is not in the correct state to perform the requested operation. ",
+#        "0x8007139f (WIN32: 5023 ERROR_INVALID_STATE)",
+#        "At line:1 char:65",
+#        "+ ... ing $false; Install-AdcsWebEnrollment -CAConfig 'win2019-ADCS.attackl ...",
+#        "+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+#        "    + CategoryInfo          : InvalidArgument: (:) [Install-AdcsWebEnrollment], WebEnrollmentSetu ",
+#        "   pException",
+#        "    + FullyQualifiedErrorId : SetWebenrollmentSetupProperties,Microsoft.CertificateServices.Deplo ",
+#        "   yment.Commands.WebEnrollment.InstallAdcsWebEnrollment"
+#    ],
+#  "stdout": "",
+#  "stdout_lines":
+#    [ ]
+#}
