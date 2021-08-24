@@ -1,14 +1,7 @@
 
 # ignore appbinaries directory we don't want this uploaded
-ansible/roles/*/files/splunk*.tgz
-ansible/roles/*/files/splunk*.msi
 ansible/vars/vars.yml
 *.idea
-
-# attack data folder
-attack_data/*
-!attack_data/.gitkeep
-!attack_data/dumps.yml
 
 # log files
 *.log
