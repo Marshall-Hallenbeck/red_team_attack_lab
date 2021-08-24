@@ -1,10 +1,10 @@
 ---
 # TODO: pass in "attacklab" alone for the CA naming
 - name: configure ADCS Certificate Enrollment Web Service via Install-AdcsEnrollmentWebService
-  win_shell: Install-AdcsEnrollmentWebService -ApplicationPoolIdentity -CAConfig 'win2019-ADCS.{{ domain_name }}\attackrange-WIN2019-ADCS-CA' -AuthenticationType Kerberos -Force
+  win_shell: Install-AdcsEnrollmentWebService -CAConfig "{{hostname}}.{{root_domain}}\{{domain_name}}-{{hostname}}-CA" -AuthenticationType Kerberos -ApplicationPoolIdentity -Force
   register: adcs_enrollment_web_service
   become: yes
-  become_user: "{{ domain_name }}\\{{ win_domain_admin }}"
+  become_user: "{{ root_domain }}\\{{ win_domain_admin }}"
   become_method: runas
 
 - name: debug configuring ADCS Certificate Enrollment Web Service

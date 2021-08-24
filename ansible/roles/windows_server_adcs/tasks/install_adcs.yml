@@ -38,7 +38,7 @@
     - adcs_certification_authority_config.rc != 0
     - '"The Certification Authority is already installed" not in (adcs_certification_authority_config.stderr|regex_replace("\r\n", ""))'
   become: yes
-  become_user: "{{ domain_name }}\\{{ win_domain_admin }}"
+  become_user: "{{ root_domain }}\\{{ win_domain_admin }}"
   become_method: runas
 
 - name: debug configuring ADCS CA

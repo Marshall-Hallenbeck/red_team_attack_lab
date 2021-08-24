@@ -5,7 +5,7 @@
     whoami /groups
   register: test_become
   become: yes
-  become_user: "{{ domain_name }}\\{{ win_domain_admin }}"
+  become_user: "{{ root_domain }}\\{{ win_domain_admin }}"
   become_method: runas
 
 - debug:

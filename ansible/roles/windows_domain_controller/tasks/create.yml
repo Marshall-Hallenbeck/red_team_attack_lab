@@ -20,7 +20,7 @@
 
 - name: Creating a Windows Domain
   win_domain:
-    dns_domain_name: "{{ domain_name }}"
+    dns_root_domain: "{{ root_domain }}"
     safe_mode_password: "{{ win_password }}"
   register: domain_install
 
@@ -40,8 +40,8 @@
 
 - name: Managing Domain Controller Membership
   win_domain_controller:
-    dns_domain_name: "{{ domain_name }}"
-    domain_admin_user: "{{ win_domain_admin }}@{{ domain_name }}"
+    dns_root_domain: "{{ root_domain }}"
+    domain_admin_user: "{{ win_domain_admin }}@{{ root_domain }}"
     domain_admin_password: "{{ win_password }}"
     safe_mode_password: "{{ win_password }}"
     state: domain_controller
@@ -76,11 +76,11 @@
 
 # if this isn't your actual domain it will just keep failing (like when I typo'd my domain!)
 - debug:
-    msg: "{{ domain_name }}"
+    msg: "{{ root_domain }}"
 
 # this might not actually work as intended? Need to find a way to ensure the host is done "applying changes"
 - name: Wait for domain controller to be ready
-  win_shell: "Get-ADDomain -Server {{ domain_name }}"
+  win_shell: "Get-ADDomain -Server {{ root_domain }}"
   register: dc_ready
   until: dc_ready is not failed
   ignore_errors: yes
@@ -94,5 +94,5 @@
 
 - name: Set autologon for DA
   community.windows.win_auto_logon:
-    username: "{{ domain_name }}\\{{ win_domain_admin }}"
+    username: "{{ root_domain }}\\{{ win_domain_admin }}"
     password: "{{ win_password }}"

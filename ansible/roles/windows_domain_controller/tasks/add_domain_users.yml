@@ -20,7 +20,7 @@
     password: "{{ item.password }}"
     firstname: "{{ item.firstname | default() }}"
     surname: "{{ item.surname | default () }}"
-    upn: "{{ item.firstname }}.{{ item.surname }}@{{ domain_name }}"
+    upn: "{{ item.firstname }}.{{ item.surname }}@{{ root_domain }}"
     groups: "{{ item.add_group | default('Domain Users') }}"
   register: create_accounts
   retries: 30
@@ -57,7 +57,7 @@
 - name: constrained user set constrained delegation
   win_shell: |
     $user = (Get-ADUser -Identity "Constrained User").DistinguishedName
-    Set-ADObject -Identity $user -Add @{"msDS-AllowedToDelegateTo" = @("CIFS/dc01","CIFS/dc01.{{ domain_name }}","CIFS/dc01.{{ domain_name }}/{{ domain_name }}")}
+    Set-ADObject -Identity $user -Add @{"msDS-AllowedToDelegateTo" = @("CIFS/dc01","CIFS/dc01.{{ root_domain }}","CIFS/dc01.{{ root_domain }}/{{ root_domain }}")}
   register: constrained_delegation_set
 
 #  - name: Enterprise Admin

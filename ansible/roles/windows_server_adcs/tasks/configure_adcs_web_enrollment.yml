@@ -13,14 +13,14 @@
 
 # TODO: pass in "attacklab" alone for the CA naming
 - name: configure ADCS CA Web Enrollment via Install-AdcsWebEnrollment
-  win_shell: Install-AdcsWebEnrollment -CAConfig 'win2019-ADCS.{{ domain_name }}\attacklab-WIN2019-ADCS-CA' -Force
+  win_shell: Install-AdcsWebEnrollment -CAConfig "{{hostname}}.{{root_domain}}\{{domain_name}}-{{hostname}}-CA" -Force
   register: adcs_web_enrollment
   changed_when: adcs_web_enrollment.rc == 0
   failed_when:
     - adcs_web_enrollment.rc != 0
     - '"The Certification Authority Web Enrollment role is already installed" not in (adcs_web_enrollment.stderr|regex_replace("\r\n", ""))'
   become: yes
-  become_user: "{{ domain_name }}\\{{ win_domain_admin }}"
+  become_user: "{{ root_domain }}\\{{ win_domain_admin }}"
   become_method: runas
   #become_flags: logon_type=batch
   #ignore_errors: yes
