@@ -1,7 +1,8 @@
 # ORIGINAL: # ORIGINAL: https://github.com/splunk/attack_range_local/
 import logging
 
-def setup_logging(LOG_PATH,LOG_LEVEL):
+
+def setup_logging(LOG_PATH, LOG_LEVEL):
     """Creates a shared logging object for the application"""
 
     # create logging object
@@ -20,6 +21,7 @@ def setup_logging(LOG_PATH,LOG_LEVEL):
     logger.addHandler(fh)
     logger.addHandler(ch)
     return logger
+
 
 def get():
     logger = logging.getLogger('attack_lab')

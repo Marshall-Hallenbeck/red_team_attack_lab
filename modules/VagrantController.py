@@ -4,6 +4,7 @@ import vagrant
 from tabulate import tabulate
 import re
 import sys
+import textwrap
 
 
 class VagrantController:
@@ -17,20 +18,19 @@ class VagrantController:
     def create_vagrant_config(self):
         self.log.info('Creating Vagrantfile config from existing templates')
 
-        self.vagrantfile = 'Vagrant.configure("2") do |config| \n \n'
+        self.vagrantfile = textwrap.dedent("""\
+            Vagrant.configure("2") do |config|
+            if Vagrant.has_plugin?("vagrant-hostmanager")
+                 config.hostmanager.enabled = true
+                 config.hostmanager.manage_host = true
+                 config.hostmanager.ignore_private_ip = false
+                 config.hostmanager.include_offline = true
+            end""")
 
-        if self.config['windows_domain_controller'] == '1':
-            self.vagrantfile += self.read_vagrant_file('windows-domain-controller/Vagrantfile')
-            self.vagrantfile += '\n\n'
-        if self.config['windows_client'] == '1':
-            self.vagrantfile += self.read_vagrant_file('windows10/Vagrantfile')
-            self.vagrantfile += '\n\n'
-        if self.config['windows_server'] == '1':
-            self.vagrantfile += self.read_vagrant_file('windows-server/Vagrantfile')
-            self.vagrantfile += '\n\n'
-        if self.config['kali_machine'] == '1':
-            self.vagrantfile += self.read_vagrant_file('kali/Vagrantfile')
-            self.vagrantfile += '\n\n'
+        self.vagrantfile += self.read_vagrant_file('windows-dc-vagrant')
+        self.vagrantfile += self.read_vagrant_file('windows10-vagrant')
+        self.vagrantfile += self.read_vagrant_file('windows-servers-vagrant')
+        self.vagrantfile += self.read_vagrant_file('kali-vagrant')
         self.vagrantfile += '\nend'
         with open('vagrant/Vagrantfile', 'w') as file:
             file.write(self.vagrantfile)
