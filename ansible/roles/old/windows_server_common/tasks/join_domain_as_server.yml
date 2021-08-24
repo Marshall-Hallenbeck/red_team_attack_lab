@@ -7,7 +7,7 @@
 
 - name: Join domain as server
   win_domain_membership:
-    dns_root_domain: "{{ root_domain }}"
+    dns_domain_name: "{{ root_domain }}"
     hostname: "{{ hostname }}"
     domain_admin_user: "{{ win_domain_admin }}@{{ root_domain }}"
     domain_admin_password: "{{ win_password }}"

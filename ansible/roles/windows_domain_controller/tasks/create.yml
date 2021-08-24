@@ -20,7 +20,7 @@
 
 - name: Creating a Windows Domain
   win_domain:
-    dns_root_domain: "{{ root_domain }}"
+    dns_domain_name: "{{ root_domain }}"
     safe_mode_password: "{{ win_password }}"
   register: domain_install
 
@@ -40,7 +40,7 @@
 
 - name: Managing Domain Controller Membership
   win_domain_controller:
-    dns_root_domain: "{{ root_domain }}"
+    dns_domain_name: "{{ root_domain }}"
     domain_admin_user: "{{ win_domain_admin }}@{{ root_domain }}"
     domain_admin_password: "{{ win_password }}"
     safe_mode_password: "{{ win_password }}"

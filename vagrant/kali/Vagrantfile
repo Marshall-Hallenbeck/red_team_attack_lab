@@ -1,18 +1,20 @@
 config.vm.define "kali" do |config|
   config.vm.box = "kalilinux/rolling"
-  #config.vm.box_version = "2019.3.0"
   config.vm.boot_timeout = 600
   config.vm.hostname = "kali"
   config.vm.network :private_network, ip: "{{ kali_private_ip }}"
+
+    # throwing a permission issue, see: https://gist.github.com/purpleidea/8211614
+#   if Vagrant.has_plugin?("vagrant-cachier")
+#     config.cache.scope = :box
+#   end
 
   config.vm.provision "ansible" do |ansible|
       ansible.playbook = "../ansible/#{config.vm.hostname}.yml"
       ansible.config_file = "../ansible/ansible.cfg"
       ansible.compatibility_mode = "2.0"
       ansible.extra_vars = {
-        ansible_python_interpreter: "/usr/bin/python3",
-        run_demo: '{{ run_demo }}',
-        demo_scenario: '{{ demo_scenario }}'
+        ansible_python_interpreter: "/usr/bin/python3"
       }
   end
 

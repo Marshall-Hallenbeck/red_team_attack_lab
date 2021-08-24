@@ -39,6 +39,7 @@
     - '"The Certification Authority is already installed" not in (adcs_certification_authority_config.stderr|regex_replace("\r\n", ""))'
   become: yes
   become_user: "{{ root_domain }}\\{{ win_domain_admin }}"
+  # we use become_method: runas in a lot of places because we get the error "The powershell shell family is incompatible with the sudo become plugin" if we use become normally
   become_method: runas
 
 - name: debug configuring ADCS CA

@@ -1,4 +1,27 @@
 ---
+- name: configure ADCS CA Web Enrollment via Install-AdcsWebEnrollment
+  win_shell: Install-AdcsWebEnrollment -Force
+  register: adcs_web_enrollment
+  changed_when: adcs_web_enrollment.rc == 0
+  failed_when:
+    - adcs_web_enrollment.rc != 0
+    - '"The Certification Authority Web Enrollment role is already installed" not in (adcs_web_enrollment.stderr|regex_replace("\r\n", ""))'
+  become: yes
+  become_user: "{{ root_domain }}\\{{ win_domain_admin }}"
+  become_method: runas
+#  async: 120
+#  poll: 5
+
+- name: debug configuring ADCS Web Enrollment
+  debug:
+    msg: "{{ adcs_web_enrollment }}"
+
+- name: reboot | Post ADCS web enrollment (120 post reboot delay)
+  win_reboot:
+    connect_timeout: 15
+    post_reboot_delay: 300
+    reboot_timeout: 120
+
 - name: Ensure CertSvc is running
   win_service:
     name: CertSvc
@@ -10,29 +33,6 @@
 
 - debug:
     msg: "{{ certsvc_running }}"
-
-- name: configure ADCS CA Web Enrollment via Install-AdcsWebEnrollment
-  win_shell: Install-AdcsWebEnrollment -CAConfig "{{hostname}}.{{root_domain}}\{{domain_name}}-{{hostname}}-CA" -Force
-  register: adcs_web_enrollment
-  changed_when: adcs_web_enrollment.rc == 0
-  failed_when:
-    - adcs_web_enrollment.rc != 0
-    - '"The Certification Authority Web Enrollment role is already installed" not in (adcs_web_enrollment.stderr|regex_replace("\r\n", ""))'
-  become: yes
-  become_user: "{{ root_domain }}\\{{ win_domain_admin }}"
-  become_method: runas
-  #become_flags: logon_type=batch
-  #ignore_errors: yes
-
-- name: debug configuring ADCS Web Enrollment
-  debug:
-    msg: "{{ adcs_web_enrollment }}"
-
-- name: reboot | Post ADCS web enrollment (300 post reboot delay)
-  win_reboot:
-    connect_timeout: 15
-    post_reboot_delay: 300
-    reboot_timeout: 120
 
 - name: Ensure AppReadiness is running
   win_service:
@@ -46,31 +46,14 @@
 - debug:
     msg: "{{ appreadiness_running }}"
 
-#Current Error:
-#{
-#  "changed": false,
-#  "cmd": "Install-AdcsWebEnrollment -CAConfig 'win2019-ADCS.attacklab.local\\attacklab-WIN2019-ADCS-CA' -Force",
-#  "delta": "0:00:00.794280",
-#  "end": "2021-08-24 12:25:44.684553",
-#  "failed_when_result": true,
-#  "msg": "non-zero return code",
-#  "rc": 1,
-#  "start": "2021-08-24 12:25:43.890273",
-#  "stderr": "Install-AdcsWebEnrollment : Active Directory Certificate Services setup failed with the following \r\nerror:  The group or resource is not in the correct state to perform the requested operation. \r\n0x8007139f (WIN32: 5023 ERROR_INVALID_STATE)\r\nAt line:1 char:65\r\n+ ... ing $false; Install-AdcsWebEnrollment -CAConfig 'win2019-ADCS.attackl ...\r\n+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : InvalidArgument: (:) [Install-AdcsWebEnrollment], WebEnrollmentSetu \r\n   pException\r\n    + FullyQualifiedErrorId : SetWebenrollmentSetupProperties,Microsoft.CertificateServices.Deplo \r\n   yment.Commands.WebEnrollment.InstallAdcsWebEnrollment",
-#  "stderr_lines":
-#    [
-#        "Install-AdcsWebEnrollment : Active Directory Certificate Services setup failed with the following ",
-#        "error:  The group or resource is not in the correct state to perform the requested operation. ",
-#        "0x8007139f (WIN32: 5023 ERROR_INVALID_STATE)",
-#        "At line:1 char:65",
-#        "+ ... ing $false; Install-AdcsWebEnrollment -CAConfig 'win2019-ADCS.attackl ...",
-#        "+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
-#        "    + CategoryInfo          : InvalidArgument: (:) [Install-AdcsWebEnrollment], WebEnrollmentSetu ",
-#        "   pException",
-#        "    + FullyQualifiedErrorId : SetWebenrollmentSetupProperties,Microsoft.CertificateServices.Deplo ",
-#        "   yment.Commands.WebEnrollment.InstallAdcsWebEnrollment"
-#    ],
-#  "stdout": "",
-#  "stdout_lines":
-#    [ ]
-#}
+# We only really need KerberosAuthentication to test PetitPotam, but I threw some extra in to play with
+- name: Add Default Certificate Templates from list via Add-CATemplate
+  win_shell: Add-CATemplate -Name "{{ item }}" -Force
+  loop:
+    - KerberosAuthentication
+    - User
+    - DomainController
+    - DomainControllerAuthentication
+  become: yes
+  become_user: "{{ root_domain }}\\{{ win_domain_admin }}"
+  become_method: runas
