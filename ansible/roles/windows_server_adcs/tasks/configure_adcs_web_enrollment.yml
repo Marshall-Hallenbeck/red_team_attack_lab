@@ -11,7 +11,6 @@
 - debug:
     msg: "{{ certsvc_running }}"
 
-# TODO: pass in "attacklab" alone for the CA naming
 - name: configure ADCS CA Web Enrollment via Install-AdcsWebEnrollment
   win_shell: Install-AdcsWebEnrollment -CAConfig "{{hostname}}.{{root_domain}}\{{domain_name}}-{{hostname}}-CA" -Force
   register: adcs_web_enrollment
