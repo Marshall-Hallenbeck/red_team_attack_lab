@@ -11,18 +11,18 @@ VERSION = 1
 
 if __name__ == "__main__":
     # grab arguments
-    parser = argparse.ArgumentParser(description="starts a attack range ready to collect attack data into splunk")
+    parser = argparse.ArgumentParser(description="Starts Red Team Attack Lab")
     parser.add_argument("-a", "--action", required=False,
                         choices=['build', 'create_config', 'destroy', 'simulate', 'stop', 'resume', 'dump'],
-                        help="action to take on the range, defaults to \"build\", build/destroy/simulate/stop/resume "
+                        help="action to take in the lab, defaults to \"build\", build/destroy/simulate/stop/resume "
                              "allowed")
     parser.add_argument("-t", "--target", required=False,
                         help="target for attack simulation. For mode vagrant use name of the vbox")
     parser.add_argument("-st", "--simulation_technique", required=False, type=str, default="",
-                        help="comma delimited list of MITRE ATT&CK technique ID to simulate in the attack_range, "
+                        help="comma delimited list of MITRE ATT&CK technique ID to simulate in the attack_lab, "
                              "example: T1117, T1118, requires --simulation flag")
     parser.add_argument("-sa", "--simulation_atomics", required=False, type=str, default="",
-                        help="specify dedicated Atomic Red Team atomics to simulate in the attack_range, example: "
+                        help="specify dedicated Atomic Red Team atomics to simulate in the attack_lab, example: "
                              "Regsvr32 remote COM scriptlet execution for T1117")
     parser.add_argument("-c", "--config", required=False, default="attack_lab.conf",
                         help="path to the configuration file of the attack range")
@@ -30,7 +30,7 @@ if __name__ == "__main__":
                         help="prints out all available machines")
     parser.add_argument("-dn", "--dump_name", required=False, help="define the dump name")
     parser.add_argument("-v", "--version", default=False, action="store_true", required=False,
-                        help="shows current attack_range version")
+                        help="shows current attack_lab version")
 
     # parse them
     args = parser.parse_args()
@@ -50,12 +50,12 @@ if __name__ == "__main__":
     """)
 
     # parse config
-    attack_range_config = Path(config)
-    if attack_range_config.is_file():
-        print("attack_range is using config at path {0}".format(attack_range_config))
-        config_path = str(attack_range_config)
+    attack_lab_config = Path(config)
+    if attack_lab_config.is_file():
+        print("attack_lab is using config at path {0}".format(attack_lab_config))
+        config_path = str(attack_lab_config)
     else:
-        print("ERROR: attack_range failed to find a config file at {0}..exiting".format(attack_range_config))
+        print("ERROR: attack_lab failed to find a config file at {0}..exiting".format(attack_lab_config))
         sys.exit(1)
 
     # Parse config
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     config = parser.load_conf(config_path)
 
     log = logger.setup_logging(config['log_path'], config['log_level'])
-    log.info("INIT - attack_range v" + str(VERSION))
+    log.info("INIT - attack_lab v" + str(VERSION))
 
     if ARG_VERSION:
         log.info("version: {0}".format(VERSION))

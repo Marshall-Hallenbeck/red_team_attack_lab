@@ -5,7 +5,7 @@ def setup_logging(LOG_PATH,LOG_LEVEL):
     """Creates a shared logging object for the application"""
 
     # create logging object
-    logger = logging.getLogger('attack_range')
+    logger = logging.getLogger('attack_lab')
     logger.setLevel(LOG_LEVEL)
     # create a file and console handler
     fh = logging.FileHandler(LOG_PATH)
