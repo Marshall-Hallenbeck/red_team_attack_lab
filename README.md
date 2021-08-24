@@ -50,12 +50,12 @@ As someone who doesn't want to pay extra money to host environments in AWS or Az
       - [ ] Common pitfalls
     - [ ] Lab architecture diagram
     - [ ] Existing AD vulnerabilities
+      - /vulns
     - [ ] FAQ
 - [ ] FIX: can't run the range from any path due to config reading, but updating the config reading breaks the VagrantController reading the vagrant files due to bad path handling as well
   - [ ] Also make the config parser not bad - get rid of the custom config parser completely
 - [ ] Add attack walkthroughs
-    - [ ] /walkthroughs folder?
-    - [ ] /guides folder?
+    - [ ] /vulns/walkthroughs folder
 - [ ] Make Ansible faster
   - REF: https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html
   - https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html
@@ -70,6 +70,7 @@ To be filled in....
 TODO: create architecture document...
 
 ###Currently supported hosts:
+
 - 1 Windows Domain Controller
   - Windows Server 2019
     - dc01
