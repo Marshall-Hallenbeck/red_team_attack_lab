@@ -1,10 +1,8 @@
 ---
-
 - name: Change dns server to domain controller
   win_dns_client:
-    adapter_names: "Ethernet 2"
+    adapter_names: "{{ ansible_interfaces.1.connection_name }}"
     ipv4_addresses: "{{ windows_domain_controller_private_ip }}"
-# ansible_interfaces.0.connection_name
 
 - name: reboot | Rebooting after setting DNS server
   win_reboot:
@@ -15,7 +13,6 @@
     hostname: "{{ hostname }}"
     domain_admin_user: "{{ win_domain_admin }}@{{ root_domain }}"
     domain_admin_password: "{{ win_password }}"
-    #local_admin_password: "{{ local_admin_password }}"
     state: "domain"
   register: domain_state
 
