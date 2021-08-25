@@ -37,7 +37,7 @@ class VagrantController:
         self.vagrantfile += '\nend'
         with open('vagrant/Vagrantfile', 'w') as file:
             file.write(self.vagrantfile)
-        self.log.info("Wrote Vagrantfile\n")
+        self.log.info("Wrote Vagrantfile")
 
     def read_vagrant_file(self, path):
         j2_env = Environment(loader=FileSystemLoader('vagrant'), trim_blocks=True)
@@ -46,7 +46,7 @@ class VagrantController:
         return vagrant_file
 
     def build(self):
-        self.log.info("[action] > build\n")
+        self.log.info("Running build...")
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False, quiet_stderr=False)
         try:
             v1.up(provision=True, provider="virtualbox")
@@ -58,49 +58,32 @@ class VagrantController:
         self.list_machines()
 
     def destroy(self):
-        self.log.info("[action] > destroy\n")
+        self.log.info("Running destroy...")
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False)
         v1.destroy()
         self.log.info("attack_lab has been destroy using vagrant successfully")
 
     def stop(self):
-        print("[action] > stop\n")
+        self.log.info("Running stop...")
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False)
         v1.halt()
 
     def resume(self):
-        print("[action] > resume\n")
+        self.log.info("Running resume...")
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False)
         v1.up()
 
-    def get_ip_address_from_machine(self, box):
-        pattern = 'config.vm.define "' + box + '"[\s\S]*?:private_network, ip: "([^"]+)'
-        match = re.search(pattern, self.vagrantfile)
-        return match.group(1)
-
-    def check_targets_running_vagrant(self, target, log):
-        v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False)
-        status = v1.status()
-
-        found_box = False
-        for stat in status:
-            if stat.name == target:
-                found_box = True
-                if not (stat.state == 'running'):
-                    log.error(target + ' not running.')
-                    sys.exit(1)
-                break
-        if not found_box:
-            log.error(target + ' not found as vagrant box.')
-            sys.exit(1)
-
     def list_machines(self):
-        print()
-        print('Vagrant Status\n')
+        self.log.info('Getting Vagrant status...')
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False)
         response = v1.status()
         status = []
         for stat in response:
             status.append([stat.name, stat.state, self.get_ip_address_from_machine(stat.name)])
 
-        print(tabulate(status, headers=['Name', 'Status', 'IP Address']))
+        self.log.info("Vagrant status:\n" + tabulate(status, headers=['Name', 'Status', 'IP Address']))
+
+    def get_ip_address_from_machine(self, box):
+        pattern = 'config.vm.define "' + box + '"[\s\S]*?:private_network, ip: "([^"]+)'
+        match = re.search(pattern, self.vagrantfile)
+        return match.group(1)
