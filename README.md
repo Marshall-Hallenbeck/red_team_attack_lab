@@ -74,8 +74,7 @@ Currently supported hosts:
   - [ ] Vagrant configs
   - [ ] Base Ansible configuration values in one place
 - [ ] Clean up red_team_attack_lab.py
-    - [ ] FIX: can't run the range from any path due to config reading, but updating the config reading breaks the VagrantController reading the vagrant files due to bad path handling as well
-      - [ ] Also make the config parser not bad - get rid of the custom config parser completely
+    - [x] FIX: can't run the range from any path due to config reading, but updating the config reading breaks the VagrantController reading the vagrant files due to bad path handling as well
 - [x] Automate ADCS deployment
   - [x] Automate ADCS Certificate Authority
   - [x] Automate ADCS Enrollment Web Service

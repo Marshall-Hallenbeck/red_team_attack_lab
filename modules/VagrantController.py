@@ -8,7 +8,6 @@ import textwrap
 
 
 class VagrantController:
-
     def __init__(self, config, log):
         self.vagrantfile = ''
         self.config = config
@@ -51,17 +50,17 @@ class VagrantController:
         try:
             v1.up(provision=True, provider="virtualbox")
         except Exception as e:
-            self.log.error(f"vagrant failed to build: {e}")
+            self.log.error(f"Vagrant failed to build: {e}")
             sys.exit(1)
 
-        self.log.info("attack_lab has been built using vagrant successfully")
+        self.log.info("The Red Team Attack Lab has been built using Vagrant successfully")
         self.list_machines()
 
     def destroy(self):
         self.log.info("Running destroy...")
         v1 = vagrant.Vagrant('vagrant/', quiet_stdout=False)
         v1.destroy()
-        self.log.info("attack_lab has been destroy using vagrant successfully")
+        self.log.info("The Red Team Attack Lab has been destroyed using Vagrant successfully")
 
     def stop(self):
         self.log.info("Running stop...")

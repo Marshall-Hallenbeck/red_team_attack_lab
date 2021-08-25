@@ -1,18 +1,18 @@
-# ORIGINAL: # ORIGINAL: https://github.com/splunk/attack_range_local/
+# ORIGINAL: https://github.com/splunk/attack_range_local/
 import logging
 
 
-def setup_logging(LOG_PATH, LOG_LEVEL):
+def setup_logging(log_path, log_level):
     """Creates a shared logging object for the application"""
 
     # create logging object
     logger = logging.getLogger('attack_lab')
-    logger.setLevel(LOG_LEVEL)
+    logger.setLevel(log_level)
     # create a file and console handler
-    fh = logging.FileHandler(LOG_PATH)
-    fh.setLevel(LOG_LEVEL)
+    fh = logging.FileHandler(log_path)
+    fh.setLevel(log_level)
     ch = logging.StreamHandler()
-    ch.setLevel(LOG_LEVEL)
+    ch.setLevel(log_level)
     # create a logging format
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s - %(message)s')
     fh.setFormatter(formatter)
