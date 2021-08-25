@@ -46,6 +46,7 @@ Other hosts (see Architecture):
 - win10-1
 - win10-2
 - win2019-1
+- win7-1
 
 ## Architecture
 TODO: create architecture document...
@@ -60,12 +61,14 @@ Currently supported hosts:
     - win2019-1
   - Windows Server 2019 with Active Directory Certificate Services + Web Enrollment + Web Service for Petit Potam
     - win2019-adcs
-- 3 Windows Workstations
+- 4 Windows Workstations
   - Win10
     - win10-1
     - win10-2
   - Win10 Development Environment (Customized via Chocolatey)
     - win10-dev
+  - Win7
+    - win7-1
 - 1 Kali Box (Customized)
   - kali
 
