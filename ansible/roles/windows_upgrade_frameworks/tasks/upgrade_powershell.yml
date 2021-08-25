@@ -1,0 +1,8 @@
+- name: Upload Upgrade-PowerShell.ps1
+  win_copy:
+    src: ../files/Upgrade-PowerShell.ps1
+    dest: "C:\\Upgrade-PowerShell.ps1"
+
+- name: Execute Upgrade-PowerShell.ps1
+  win_shell: "C:\\Upgrade-PowerShell.ps1 -Version 5.1 -Username {{ win_domain_admin }} -Password {{ win_password }}"
+  register: execute_upgrade_powershell

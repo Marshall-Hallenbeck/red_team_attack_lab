@@ -1,0 +1,9 @@
+- hosts: all
+  gather_facts: True
+  vars:
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
+  roles:
+    - windows_upgrade_frameworks
+    - windows_common
+    - windows_domain_client

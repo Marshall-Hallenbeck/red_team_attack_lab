@@ -1,6 +1,18 @@
+- name: debug ansible distribution
+  debug:
+    msg: "{{ ansible_distribution }}-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}"
+
 - name: Disable ms_tcpip6 of all the Interface
   community.windows.win_net_adapter_feature:
     interface: '*'
     state: disabled
     component_id:
     - ms_tcpip6
+  when: ansible_distribution == "Windows" and ansible_distribution != "6"
+
+- name: Disable ipv6 for Win7
+  win_shell: |
+    netsh interface teredo set state disable
+    netsh interface 6to4 set state disabled
+    netsh interface isatap set state disabled
+  when: ansible_distribution == "Windows" and ansible_distribution == "6"

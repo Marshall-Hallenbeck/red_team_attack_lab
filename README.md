@@ -117,7 +117,7 @@ Currently supported hosts:
     - [ ] Server 2016
     - [ ] Server 2012
     - [ ] Server 2022
-    - [ ] Windows 7
+    - [x] Windows 7
     - [ ] Ubuntu Server 20
     - [ ] Ubuntu Server 18
     - [ ] Ubuntu Desktop 20

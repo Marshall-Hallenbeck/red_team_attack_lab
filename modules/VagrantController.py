@@ -25,12 +25,13 @@ class VagrantController:
                  config.hostmanager.ignore_private_ip = false
                  config.hostmanager.include_offline = true
             end\n""")
-
         self.vagrantfile += self.read_vagrant_file('windows-dc-vagrant')
+        self.vagrantfile += '\r\n'
+        self.vagrantfile += self.read_vagrant_file('windows-servers-vagrant')
         self.vagrantfile += '\r\n'
         self.vagrantfile += self.read_vagrant_file('windows10-vagrant')
         self.vagrantfile += '\r\n'
-        self.vagrantfile += self.read_vagrant_file('windows-servers-vagrant')
+        self.vagrantfile += self.read_vagrant_file('win7/Vagrantfile')
         self.vagrantfile += '\r\n'
         self.vagrantfile += self.read_vagrant_file('kali-vagrant')
         self.vagrantfile += '\nend'
