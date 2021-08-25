@@ -1,10 +1,11 @@
 - name: Install other tools
   win_chocolatey:
-    name:
-      #- vmware-tools
-      - virtualbox-guest-additions-guest.install
-      - googlechrome
-      - bginfo
-      #- cmder
+    name: '{{ item }}'
     state: present
+  loop:
+    #- vmware-tools
+    - virtualbox-guest-additions-guest.install
+    - googlechrome
+    - bginfo
+    #- cmder
   ignore_errors: yes
