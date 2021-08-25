@@ -91,9 +91,9 @@ Currently supported hosts:
     - REF: https://docs.ansible.com/ansible/latest/collections/community/windows/win_domain_computer_module.html#parameter-state
     - REF: https://stackoverflow.com/questions/40087032/how-to-run-a-vagrant-task-on-vagrant-destroy
 - [ ] Add documentation
-    - [ ] Installation
+    - [x] Installation
     - [ ] Default credentials & config variables
-    - [ ] How to get running
+    - [x] How to get running
     - [ ] Debugging commands
     - [ ] How to add/update/test/add stuff
       - [ ] Common pitfalls
