@@ -30,7 +30,7 @@ pip install -r requirements.txt
 
 ## How to Run
 
-### Full Build (may take 1-1.5 hours!)
+### Full Build (may take ~2 hours!)
 ```
 # ensure it is python3!
 python red_team_attack_lab.py -a build
@@ -103,6 +103,9 @@ Currently supported hosts:
     - [ ] FAQ
 - [ ] Add attack walkthroughs
     - [ ] /vulns/walkthroughs folder
+- [ ] Add more AD vulns
+  - [ ] Look into DSC?
+    - REF: https://docs.ansible.com/ansible/latest/user_guide/windows_dsc.html
 - [ ] Make Ansible faster
   - REF: https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html
   - https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html
