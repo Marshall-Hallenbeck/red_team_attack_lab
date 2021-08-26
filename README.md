@@ -62,11 +62,11 @@ Currently supported hosts:
   - Windows Server 2019 with Active Directory Certificate Services + Web Enrollment + Web Service for Petit Potam
     - win2019-adcs
 - 4 Windows Workstations
-  - Win10
+  - Win10 (`StefanScherer/windows_10` Vagrant box, used because it supports both virtualbox & vmware_desktop)
     - win10-1
     - win10-2
-  - Win10 Development Environment (Customized via Chocolatey)
     - win10-dev
+      - Win10 Development Environment (Customized via Chocolatey)
   - Win7
     - win7-1
 - 1 Kali Box (Customized)
@@ -75,6 +75,10 @@ Currently supported hosts:
 ## TODO LIST
 - [ ] Clean up Configs
   - [ ] Vagrant configs
+    - [ ] Use proper inventory
+      - REF: https://github.com/jborean93/ansible-windows/blob/master/vagrant/Vagrantfile
+      - REF: https://github.com/jborean93/ansible-windows/blob/master/vagrant/inventory.yml
+    - [ ] Potentially figure out dynamic way to do WinRM port forwarding instead of static/semi-static
   - [ ] Base Ansible configuration values in one place
 - [ ] Clean up red_team_attack_lab.py
     - [x] FIX: can't run the range from any path due to config reading, but updating the config reading breaks the VagrantController reading the vagrant files due to bad path handling as well
@@ -101,28 +105,57 @@ Currently supported hosts:
       - [ ] Common pitfalls
     - [ ] Lab architecture diagram
     - [ ] Existing AD vulnerabilities
-      - /vulns
+      - /docs/vulns?
     - [ ] FAQ
 - [ ] Add attack walkthroughs
-    - [ ] /vulns/walkthroughs folder
+    - [ ] /docs/vulns/walkthroughs folder?
 - [ ] Add more AD vulns
   - [ ] Look into DSC?
     - REF: https://docs.ansible.com/ansible/latest/user_guide/windows_dsc.html
 - [ ] Make Ansible faster
   - REF: https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html
-  - https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html
+  - REF: https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html
+- [ ] Make Vagrant faster
+  - REF: https://www.vagrantup.com/docs/providers/virtualbox/configuration#linked-clones
 - [ ] Improve Windows QoL with scripts
     - [ ] Steal from DetectionLab
 - [ ] Add hosts
-    - [ ] Metasploitable 3 - https://github.com/rapid7/metasploitable3
+    - [ ] [Metasploitable 3](https://github.com/rapid7/metasploitable3)
       - [ ] Windows
       - [ ] Ubuntu
-    - [ ] Server 2016
+    - [ ] Server 2008
+      - [jborean93/WindowsServer2008-x86](https://app.vagrantup.com/jborean93/boxes/WindowsServer2008-x86)
+      - [jborean93/WindowsServer2008-x64](https://app.vagrantup.com/jborean93/boxes/WindowsServer2008-x64)
+      - [jborean93/WindowsServer2008R2](https://app.vagrantup.com/jborean93/boxes/WindowsServer2008R2)
     - [ ] Server 2012
+      - [jborean93/WindowsServer2012](https://app.vagrantup.com/jborean93/boxes/WindowsServer2012)
+      - [jborean93/WindowsServer2012R2](https://app.vagrantup.com/jborean93/boxes/WindowsServer2012R2)
+    - [ ] Server 2016
+      - [StefanScherer/windows_2016](https://app.vagrantup.com/StefanScherer/boxes/windows_2016)
     - [ ] Server 2022
+      - [StefanScherer/windows_2022](https://app.vagrantup.com/StefanScherer/boxes/windows_2022)
     - [x] Windows 7
+      - [d1vious/windows_7](https://app.vagrantup.com/d1vious/boxes/windows_7)
     - [ ] Ubuntu Server 20
     - [ ] Ubuntu Server 18
     - [ ] Ubuntu Desktop 20
     - [ ] Ubuntu Desktop 18
     - [ ] CentOS ?
+
+## Notes
+
+### Alternative Vagrant boxes
+* Windows 10
+  * Enterprise SAC
+    * [gusztavvargadr/windows-10](https://app.vagrantup.com/gusztavvargadr/boxes/windows-10) 
+    * Has extra stuff
+      * [gusztavvargadr/windows-10-enterprise](https://app.vagrantup.com/gusztavvargadr/boxes/windows-10-enterprise)
+  * With Visual Studio + Docker
+    * [gusztavvargadr/visual-studio](https://app.vagrantup.com/gusztavvargadr/boxes/visual-studio)
+* Windows Server 2019
+  * Standard LTSC
+    * [gusztavvargadr/windows-server-standard](https://app.vagrantup.com/gusztavvargadr/boxes/windows-server)
+  * SQL Server
+    * [gusztavvargadr/sql-server](https://app.vagrantup.com/gusztavvargadr/boxes/sql-server)
+  * IIS
+    * [gusztavvargadr/iis](https://app.vagrantup.com/gusztavvargadr/boxes/iis)
