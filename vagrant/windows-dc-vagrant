@@ -1,7 +1,6 @@
-
 config.vm.define "dc01" do |config|
-  VM_NAME_WIN_DC= "dc01"
   config.vm.box = "StefanScherer/windows_2019"
+  config.vm.box_version = "2021.05.15"
   config.vm.hostname = "dc01"
   config.vm.boot_timeout = 600
   config.vm.communicator = "winrm"
@@ -30,7 +29,8 @@ config.vm.define "dc01" do |config|
 
   config.vm.provider "virtualbox" do |vb, override|
     vb.gui = true
-    vb.name = "#{VM_NAME_WIN_DC}"
+    vb.name = "#{config.vm.hostname}"
+    vb.linked_clone = true
     vb.customize ["modifyvm", :id, "--memory", {{ windows_domain_controller_memory }}]
     vb.customize ["modifyvm", :id, "--cpus", {{ windows_domain_controller_cpus }}]
     vb.customize ["modifyvm", :id, "--vram", "32"]

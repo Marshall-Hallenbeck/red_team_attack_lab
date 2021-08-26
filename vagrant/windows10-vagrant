@@ -1,6 +1,6 @@
 config.vm.define "win10-1" do |config|
-  config.vm.box = "gusztavvargadr/windows-10-enterprise"
-  config.vm.box_version = "2101.0.2106"
+  config.vm.box = "StefanScherer/windows_10"
+  config.vm.box_version = "2021.08.17"
   config.vm.hostname = "win10-1"
   config.vm.boot_timeout = 600
   config.vm.communicator = "winrm"
@@ -32,6 +32,7 @@ config.vm.define "win10-1" do |config|
   config.vm.provider "virtualbox" do |vb, override|
     vb.gui = true
     vb.name = "#{config.vm.hostname}"
+    vb.linked_clone = true
     vb.customize ["modifyvm", :id, "--memory", {{ windows_client_memory }}]
     vb.customize ["modifyvm", :id, "--cpus", {{ windows_client_cpus }}]
     vb.customize ["modifyvm", :id, "--vram", "32"]
@@ -74,6 +75,7 @@ config.vm.define "win10-2" do |config|
   config.vm.provider "virtualbox" do |vb, override|
     vb.gui = true
     vb.name = "#{config.vm.hostname}"
+    vb.linked_clone = true
     vb.customize ["modifyvm", :id, "--memory", {{ windows_client_memory }}]
     vb.customize ["modifyvm", :id, "--cpus", {{ windows_client_cpus }}]
     vb.customize ["modifyvm", :id, "--vram", "32"]
@@ -83,8 +85,8 @@ config.vm.define "win10-2" do |config|
 end
 
 config.vm.define "win10-dev" do |config|
-  #config.vm.box = "gusztavvargadr/visual-studio"
-  #config.vm.box_version = "2019.0.2012"
+  config.vm.box = "StefanScherer/windows_10"
+  config.vm.box_version = "2021.08.17"
   config.vm.box = "gusztavvargadr/windows-10-enterprise"
   config.vm.box_version = "2101.0.2106"
   config.vm.hostname = "win10-dev"
@@ -118,6 +120,7 @@ config.vm.define "win10-dev" do |config|
   config.vm.provider "virtualbox" do |vb, override|
     vb.gui = true
     vb.name = "#{config.vm.hostname}"
+    vb.linked_clone = true
     vb.customize ["modifyvm", :id, "--memory", {{ windows_client_memory_dev }}]
     vb.customize ["modifyvm", :id, "--cpus", {{ windows_client_cpus_dev }}]
     vb.customize ["modifyvm", :id, "--vram", "32"]

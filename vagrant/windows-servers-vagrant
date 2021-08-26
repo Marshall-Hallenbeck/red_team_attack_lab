@@ -1,6 +1,6 @@
 config.vm.define "win2019-1" do |config|
-  config.vm.box = "gusztavvargadr/windows-server-standard"
-  config.vm.box_version = "1809.0.2106"
+  config.vm.box = "StefanScherer/windows_2019"
+  config.vm.box_version = "2021.05.15"
   config.vm.hostname = "win2019-1"
   config.vm.boot_timeout = 600
   config.vm.communicator = "winrm"
@@ -34,6 +34,7 @@ config.vm.define "win2019-1" do |config|
   config.vm.provider "virtualbox" do |vb, override|
     vb.gui = true
     vb.name = "#{config.vm.hostname}"
+    vb.linked_clone = true
     vb.customize ["modifyvm", :id, "--memory", {{ windows_server_memory }}]
     vb.customize ["modifyvm", :id, "--cpus", {{ windows_server_cpus }}]
     vb.customize ["modifyvm", :id, "--vram", "32"]
@@ -43,9 +44,8 @@ config.vm.define "win2019-1" do |config|
 end
 
 config.vm.define "win2019-adcs" do |config|
-#   config.vm.box = "gusztavvargadr/windows-server-standard"
-#   config.vm.box_version = "1809.0.2106"
   config.vm.box = "StefanScherer/windows_2019"
+  config.vm.box_version = "2021.05.15"
   config.vm.hostname = "win2019-adcs"
   config.vm.boot_timeout = 600
   config.vm.communicator = "winrm"
@@ -79,6 +79,7 @@ config.vm.define "win2019-adcs" do |config|
   config.vm.provider "virtualbox" do |vb, override|
     vb.gui = true
     vb.name = "#{config.vm.hostname}"
+    vb.linked_clone = true
     vb.customize ["modifyvm", :id, "--memory", {{ windows_server_memory }}]
     vb.customize ["modifyvm", :id, "--cpus", {{ windows_server_cpus }}]
     vb.customize ["modifyvm", :id, "--vram", "32"]
