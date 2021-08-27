@@ -1,0 +1,52 @@
+# Stolen from https://github.com/jborean93/ansible-windows/blob/master/vagrant/inventory.yml
+all:
+  hosts:
+    dc01:
+      ip: 10.0.1.10
+      vagrant_box: StefanScherer/windows_2019
+      box_version: 2021.05.15
+      linked_clone: true
+      cpus: 2
+      memory: 4096
+    win2019-1:
+      ip: 10.0.1.15
+      vagrant_box: StefanScherer/windows_2019
+      box_version: 2021.05.15
+      linked_clone: true
+  vars:
+    root_domain: attacklab.local
+    domain_name: attacklab
+    tld: local
+    win_domain_admin: Administrator
+    win_domain_admin_pass: P@ssw0rd
+    local_admin_password: Windows2021
+    win_timezone: Eastern Standard Time
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
+    ansible_winrm_scheme: http
+
+    # these are default values for hosts, you can override them in the host-specific config above
+    default_host:
+      cpus: 1
+      memory: 2048
+
+    # used to have each protocol and host have its own port forward
+    # the starting IP range (in thousands) is the 'host' variable
+    # we add the host portion of the IP address to this e.g. dc01: rdp port is 20010, winrm is 22010, etc
+    # we are theoretically maxed at a single network and 256 hosts on said network
+    vagrant_ports:
+      rdp:
+        guest: 3389
+        host: 20000
+      ssh:
+        guest: 22
+        host: 21000
+      winrm_http:
+        guest: 5985
+        host: 22000
+      winrm_https:
+        guest: 5986
+        host: 23000
+      smb:
+        guest: 445
+        host: 24000
