@@ -1,10 +1,11 @@
-# Stolen from https://github.com/jborean93/ansible-windows/blob/master/vagrant/inventory.yml
+# based on https://github.com/jborean93/ansible-windows/blob/master/vagrant/inventory.yml
 all:
   hosts:
     dc01:
       ip: 10.0.1.10
       vagrant_box: StefanScherer/windows_2019
       box_version: 2021.05.15
+      box_type: windows
       linked_clone: true
       cpus: 2
       memory: 4096
@@ -12,16 +13,56 @@ all:
       ip: 10.0.1.15
       vagrant_box: StefanScherer/windows_2019
       box_version: 2021.05.15
+      box_type: windows
       linked_clone: true
+    win2019-adcs:
+      ip: 10.0.1.14
+      vagrant_box: StefanScherer/windows_2019
+      box_version: 2021.05.15
+      box_type: windows
+      linked_clone: true
+    win10-1:
+      ip: 10.0.1.20
+      vagrant_box: StefanScherer/windows_10
+      box_version: 2021.08.17
+      box_type: windows
+      linked_clone: true
+    win10-2:
+      ip: 10.0.1.21
+      vagrant_box: StefanScherer/windows_10
+      box_version: 2021.08.17
+      box_type: windows
+      linked_clone: true
+    win10-dev:
+      ip: 10.0.1.22
+      vagrant_box: StefanScherer/windows_10
+      box_version: 2021.08.17
+      box_type: windows
+      linked_clone: true
+    win7-1:
+      ip: 10.0.1.23
+      vagrant_box: d1vious/windows_7
+      box_version: 1.0
+      box_type: windows
+      linked_clone: true # even though there's one, it speeds up testing; this will be removed later
+    kali:
+      ip: 10.0.1.88
+      vagrant_box: kalilinux/rolling
+      box_type: linux
+      linked_clone: true # even though there's one, it speeds up testing; this will be removed later
+      cpus: 2
+      memory: 4096
+
   vars:
     root_domain: attacklab.local
     domain_name: attacklab
-    tld: local
+    tld: local # not used yet, placeholder in case we need it
     win_domain_admin: Administrator
     win_domain_admin_pass: P@ssw0rd
-    local_admin_password: Windows2021
+    local_admin_password: Windows2021 # not used yet
     win_timezone: Eastern Standard Time
-    ansible_connection: winrm
+
+    # ansible winrm config
     ansible_winrm_server_cert_validation: ignore
     ansible_winrm_scheme: http
 
@@ -30,10 +71,10 @@ all:
       cpus: 1
       memory: 2048
 
-    # used to have each protocol and host have its own port forward
+    # each protocol and host have their own port forward
     # the starting IP range (in thousands) is the 'host' variable
     # we add the host portion of the IP address to this e.g. dc01: rdp port is 20010, winrm is 22010, etc
-    # we are theoretically maxed at a single network and 256 hosts on said network
+    # we are theoretically maxed at a single network since a .10 on one network would clash with a .10 on another
     vagrant_ports:
       rdp:
         guest: 3389
