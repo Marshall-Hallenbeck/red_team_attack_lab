@@ -1,11 +1,11 @@
 - name: Allow ICMP
   win_shell: Set-NetFirewallRule -DisplayName "File and Printer Sharing (Echo Request - ICMPv4-In)" -enabled True
   changed_when: false
-  when: ansible_distribution == "Windows" and ansible_distribution != "6"
+  when: ansible_facts['distribution_major_version'] != "6"
 
 - name: Enable ping for Win7
   win_shell: netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow
-  when: ansible_distribution == "Windows" and ansible_distribution == "6"
+  when: ansible_facts['distribution_major_version'] == "6"
 
 # Can't use ansible module because of: https://github.com/ansible-collections/community.windows/issues/19
 # if they ever fix ansible, this would be the way to do it:
