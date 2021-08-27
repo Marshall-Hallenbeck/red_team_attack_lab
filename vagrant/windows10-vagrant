@@ -16,7 +16,6 @@ config.vm.define "win10-1" do |config|
         ansible_port: 5985,
         ansible_winrm_scheme: 'http',
         win_password: '{{ win_password }}',
-        windows_server_join_domain: '{{ windows_client_join_domain }}',
         windows_domain_controller_private_ip: '{{ windows_domain_controller_private_ip }}',
         win_timezone: '{{ win_timezone }}',
         root_domain: '{{ root_domain }}',
@@ -59,7 +58,6 @@ config.vm.define "win10-2" do |config|
         ansible_port: 5987,
         ansible_winrm_scheme: 'http',
         win_password: '{{ win_password }}',
-        windows_server_join_domain: '{{ windows_client_join_domain }}',
         windows_domain_controller_private_ip: '{{ windows_domain_controller_private_ip }}',
         win_timezone: '{{ win_timezone }}',
         root_domain: '{{ root_domain }}',
@@ -104,13 +102,13 @@ config.vm.define "win10-dev" do |config|
         ansible_port: 5988,
         ansible_winrm_scheme: 'http',
         win_password: '{{ win_password }}',
-        windows_server_join_domain: '{{ windows_client_join_domain }}',
         windows_domain_controller_private_ip: '{{ windows_domain_controller_private_ip }}',
         win_timezone: '{{ win_timezone }}',
         root_domain: '{{ root_domain }}',
         win_domain_admin: '{{ win_domain_admin }}',
         local_admin_password: '{{ local_admin_password }}',
-        hostname: config.vm.hostname
+        hostname: config.vm.hostname,
+        ansible_python_interpreter: "/usr/bin/python3"
       }
       ansible.playbook = "../ansible/#{config.vm.hostname}.yml"
       ansible.config_file = "../ansible/ansible.cfg"

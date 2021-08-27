@@ -17,7 +17,6 @@ config.vm.define "win7-1" do |config|
         ansible_port: 5989,
         ansible_winrm_scheme: 'http',
         win_password: '{{ win_password }}',
-        windows_server_join_domain: '{{ windows_client_join_domain }}',
         windows_domain_controller_private_ip: '{{ windows_domain_controller_private_ip }}',
         win_timezone: '{{ win_timezone }}',
         root_domain: '{{ root_domain }}',
@@ -33,8 +32,8 @@ config.vm.define "win7-1" do |config|
   config.vm.provider "virtualbox" do |vb, override|
     vb.gui = true
     vb.name = "#{config.vm.hostname}"
-    vb.customize ["modifyvm", :id, "--memory", {{ windows_client_memory_dev }}]
-    vb.customize ["modifyvm", :id, "--cpus", {{ windows_client_cpus_dev }}]
+    vb.customize ["modifyvm", :id, "--memory", "{{ windows_client_memory_dev }}"]
+    vb.customize ["modifyvm", :id, "--cpus", "{{ windows_client_cpus_dev }}"]
     vb.customize ["modifyvm", :id, "--vram", "32"]
     vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
     vb.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
