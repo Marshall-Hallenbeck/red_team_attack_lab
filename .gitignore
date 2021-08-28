@@ -52,7 +52,7 @@ boxes/*
 /website/build
 /vagrant-spec.config.rb
 test/vagrant-spec/.vagrant/
-vagrant/Vagrantfile
+#vagrant/Vagrantfile
 
 # packer cache
 packer/packer_cache

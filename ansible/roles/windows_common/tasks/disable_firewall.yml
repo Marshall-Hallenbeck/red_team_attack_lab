@@ -1,3 +1,7 @@
+- name: Debug
+  debug:
+    msg: "{{ ansible_distribution }}"
+
 - name: Disable firewall for Domain, Public and Private profiles
   win_firewall:
     state: disabled
@@ -6,8 +10,8 @@
     - Private
     - Public
   tags: disable_firewall
-  when: ansible_distribution == "Windows" and ansible_distribution != "6"
+  when: ansible_facts['distribution_major_version'] != "6"
 
 - name: Disable firewall for Win7
   win_shell: NetSh Advfirewall set allprofiles state off
-  when: ansible_distribution == "Windows" and ansible_distribution == "6"
+  when: ansible_facts['distribution_major_version'] == "6"
