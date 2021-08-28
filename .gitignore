@@ -2,3 +2,6 @@
 
 # usual mac files for any mac users
 .DS_Store
+
+# idea files
+.idea
