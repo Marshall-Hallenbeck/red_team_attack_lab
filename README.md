@@ -1,7 +1,6 @@
 # Red Team Attack Lab
 
-Disclaimer: right now this is in a heavy development state.  This is also my first time really using Vagrant & Ansible.
-The playbooks and tasks are all messed up.
+Disclaimer: right now this is in a development state.  This is also my first time really using Vagrant & Ansible.
 
 ## Description
 
@@ -13,7 +12,7 @@ As someone who doesn't want to pay extra money to host environments in AWS or Az
 ### Dependencies
 ```
 sudo apt-get update 
-sudo apt-get install -y python3-dev linux-headers-generic python-dev unzip python-pip vagrant virtualbox virtualbox-dkms python-virtualenv git
+sudo apt-get install -y linux-headers-generic vagrant virtualbox virtualbox-dkms
 sudo gem install winrm-elevated
 sudo gem install winrm
 ```
@@ -21,25 +20,17 @@ sudo gem install winrm
 ansible-galaxy collection install community.windows chocolatey.chocolatey
 vagrant plugin install vagrant-hostmanager vagrant-vbguest
 ```
-```
-# Create a Virtualenv for best practice
-virtualenv -p python3 venv_rtal
-source venv_rtal/bin/activate
-pip install -r requirements.txt
-```
 
 ## How to Run
 
 ### Full Build (may take ~2 hours!)
 ```
-# ensure it is python3!
-python red_team_attack_lab.py -a build
+vagrant up
 ```
+If a host fails to connect via WinRM after spinning up (intermittent issue), just re-run the provisioning via `vagrant provision $host`.
+
 ### Specific Build
 ```
-# ensure it is python3!
-python red_team_attack_lab.py -a create_config
-cd vagrant
 vagrant up dc01 win2019-adcs win10-dev kali
 ```
 Other hosts (see Architecture):
@@ -74,13 +65,14 @@ Currently supported hosts:
 
 ## TODO LIST
 - [ ] Clean up Configs
-  - [ ] Vagrant configs
-    - [ ] Use proper inventory
+  - [x] Vagrant configs
+    - [x] Use proper inventory
       - REF: https://github.com/jborean93/ansible-windows/blob/master/vagrant/Vagrantfile
       - REF: https://github.com/jborean93/ansible-windows/blob/master/vagrant/inventory.yml
-    - [ ] Potentially figure out dynamic way to do WinRM port forwarding instead of static/semi-static
+    - [x] Potentially figure out dynamic way to do WinRM port forwarding instead of static/semi-static
+      - Cleaned this up to an acceptable level
   - [ ] Base Ansible configuration values in one place
-- [ ] Clean up red_team_attack_lab.py
+- [x] Clean up red_team_attack_lab.py
     - [x] FIX: can't run the range from any path due to config reading, but updating the config reading breaks the VagrantController reading the vagrant files due to bad path handling as well
 - [x] Automate ADCS deployment
   - [x] Automate ADCS Certificate Authority
@@ -115,7 +107,7 @@ Currently supported hosts:
 - [ ] Make Ansible faster
   - REF: https://docs.ansible.com/ansible/latest/user_guide/playbooks_async.html
   - REF: https://docs.ansible.com/ansible/latest/user_guide/playbooks_strategies.html
-- [ ] Make Vagrant faster
+- [x] Make Vagrant faster
   - REF: https://www.vagrantup.com/docs/providers/virtualbox/configuration#linked-clones
 - [ ] Improve Windows QoL with scripts
     - [ ] Steal from DetectionLab
