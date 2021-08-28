@@ -1,4 +1,5 @@
 ---
+# sometimes this hangs and you need to do a `vagrant provision win2019-adcs`
 - name: configure ADCS Certificate Enrollment Web Service via Install-AdcsEnrollmentWebService
   win_shell: Install-AdcsEnrollmentWebService -CAConfig "{{hostname}}.{{root_domain}}\{{domain_name}}-{{hostname}}-CA" -AuthenticationType Kerberos -ApplicationPoolIdentity -Force
   register: adcs_enrollment_web_service
