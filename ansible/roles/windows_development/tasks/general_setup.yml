@@ -1,4 +1,6 @@
 # stole a bunch from https://github.com/ruzickap/ansible-role-my_common_defaults/blob/master/tasks/Win32NT-common.yml
+
+# doesn't work
 - name: Set Desktop Solid Color
   win_regedit:
     path: 'HKCU:\Control Panel\Colors'
@@ -33,7 +35,7 @@
   win_regedit:
     path: 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
     name: bginfo
-    data: 'C:\ProgramData\chocolatey\bin\bginfo.exe C:\ProgramData\bginfo.bgi /silent /timer:0 /nolicprompt'
+    data: '%PROGRAMDATA%\chocolatey\bin\bginfo.exe %PROGRAMDATA%\bginfo.bgi /silent /timer:0 /nolicprompt'
 
 #- name: Enable Administrator account
 #  win_user:
