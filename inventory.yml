@@ -34,7 +34,7 @@ all:
       box_type: windows
       linked_clone: true
     win10-dev:
-      ip: 10.0.1.22
+      ip: 10.0.1.25
       vagrant_box: StefanScherer/windows_10
       box_version: 2021.08.17
       box_type: windows
