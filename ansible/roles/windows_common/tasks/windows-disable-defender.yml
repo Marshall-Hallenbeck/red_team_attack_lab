@@ -1,8 +1,4 @@
 ---
-
-- debug:
-    var: ansible_distribution
-
 # - name: Disable Windows Defender for Windows 10
 #   win_regedit:
 #     path: "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender"
