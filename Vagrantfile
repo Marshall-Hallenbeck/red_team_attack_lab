@@ -21,10 +21,10 @@ Vagrant.configure("2") do |config|
         ansible_port = vars['vagrant_ports']['winrm_http']['host'] + host_portion
         config.vm.guest = :windows # it was working fine without this, but might as well add it
         config.vm.communicator = "winrm"
-        config.vm.boot_timeout = 600
-        config.winrm.timeout = 300
-        config.winrm.basic_auth_only = true
-        config.winrm.retry_limit = 20
+        config.vm.boot_timeout = 600 # might need to increase this per issue 2... wasn't happening before though
+        config.winrm.timeout = 300 # might need to remove/increase this per issue 2
+        config.winrm.basic_auth_only = true # we should be able to remove this
+        config.winrm.retry_limit = 20 # not sure if this does anything, should be able to remove
       end
 
       config.vm.network :private_network, ip: details['ip']
