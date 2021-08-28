@@ -16,6 +16,26 @@
     post_reboot_delay: 300
     reboot_timeout: 120
 
+# more testing needed to see if this is necessary
+- name: Ensure CertSvc is running
+  win_service:
+    name: CertSvc
+    state: started
+  register: certsvc_running
+  until: certsvc_running.state == "running"
+  retries: 15
+  delay: 10
+
+# more testing needed to see if this is necessary
+- name: Ensure AppReadiness is running
+  win_service:
+    name: AppReadiness
+    state: started
+  register: appreadiness_running
+  until: appreadiness_running.state == "running"
+  retries: 15
+  delay: 10
+
 # We only really need KerberosAuthentication to test PetitPotam, but I threw some extra in to play with
 - name: Add Default Certificate Templates from list via Add-CATemplate
   win_shell: Add-CATemplate -Name "{{ item }}" -Force
