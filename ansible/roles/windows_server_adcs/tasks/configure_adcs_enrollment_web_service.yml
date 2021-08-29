@@ -1,4 +1,5 @@
 ---
+# sometimes this hangs and you need to do a `vagrant provision win2019-adcs`
 - name: configure ADCS Certificate Enrollment Web Service via Install-AdcsEnrollmentWebService
   win_shell: Install-AdcsEnrollmentWebService -CAConfig "{{hostname}}.{{root_domain}}\{{domain_name}}-{{hostname}}-CA" -AuthenticationType Kerberos -ApplicationPoolIdentity -Force
   register: adcs_enrollment_web_service
@@ -6,16 +7,13 @@
   become_user: "{{ root_domain }}\\{{ win_domain_admin }}"
   become_method: runas
 
-- name: debug configuring ADCS Certificate Enrollment Web Service
-  debug:
-    msg: "{{ adcs_enrollment_web_service }}"
-
 - name: reboot | Post ADCS certificate enrollment web service (120 post reboot delay)
   win_reboot:
     connect_timeout: 15
     post_reboot_delay: 120
     reboot_timeout: 120
 
+# more testing needed to see if this is necessary
 - name: Ensure CertSvc is running
   win_service:
     name: CertSvc
@@ -25,9 +23,7 @@
   retries: 15
   delay: 10
 
-- debug:
-    msg: "{{ certsvc_running }}"
-
+# more testing needed to see if this is necessary
 - name: Ensure AppReadiness is running
   win_service:
     name: AppReadiness
@@ -36,6 +32,3 @@
   until: appreadiness_running.state == "running"
   retries: 15
   delay: 10
-
-- debug:
-    msg: "{{ appreadiness_running }}"

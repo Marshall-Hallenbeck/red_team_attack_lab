@@ -1,6 +1,8 @@
 - name: Install tools to help development
   win_chocolatey:
-    name:
+    name: '{{ item }}'
+    state: present
+  loop:
     - visualstudio2019community
     - netfx-4.7.1-devpack
     - git
@@ -12,5 +14,4 @@
     #- filezilla
     #- postman
     #- fiddler
-    state: present
   ignore_errors: yes

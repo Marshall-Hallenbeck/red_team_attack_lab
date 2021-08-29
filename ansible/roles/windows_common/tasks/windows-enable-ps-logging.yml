@@ -1,5 +1,4 @@
 ---
-
 - name: Enable Windows Scriptblock Logging
   ignore_errors: yes
   win_regedit:

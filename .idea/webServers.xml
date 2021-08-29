@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="2d577d21-ed03-479a-b5fc-db1d8a92a740" name="hackbox">
+        <fileTransfer rootFolder="/home/marshall/tools/lab/red_team_attack_lab" accessType="SFTP" host="192.168.1.8" port="22" sshConfigId="722ba728-082d-44c9-9fff-57013a5f7f55" sshConfig="marshall@192.168.1.8:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

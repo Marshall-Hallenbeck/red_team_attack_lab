@@ -9,14 +9,14 @@ all:
       linked_clone: true
       cpus: 2
       memory: 4096
-    win2019-1:
-      ip: 10.0.1.15
+    win2019-adcs:
+      ip: 10.0.1.14
       vagrant_box: StefanScherer/windows_2019
       box_version: 2021.05.15
       box_type: windows
       linked_clone: true
-    win2019-adcs:
-      ip: 10.0.1.14
+    win2019-1:
+      ip: 10.0.1.15
       vagrant_box: StefanScherer/windows_2019
       box_version: 2021.05.15
       box_type: windows

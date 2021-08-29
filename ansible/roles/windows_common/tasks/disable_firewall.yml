@@ -1,7 +1,3 @@
-- name: Debug
-  debug:
-    msg: "{{ ansible_distribution }}"
-
 - name: Disable firewall for Domain, Public and Private profiles
   win_firewall:
     state: disabled

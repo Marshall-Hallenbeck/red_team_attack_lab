@@ -1,16 +1,4 @@
 ---
-- name: Ensure AppReadiness is running
-  win_service:
-    name: AppReadiness
-    state: started
-  register: appreadiness_running
-  until: appreadiness_running.state == "running"
-  retries: 15
-  delay: 10
-
-- debug:
-    msg: "{{ appreadiness_running }}"
-
 # we have a retry here since the DC will be "applying changes" but respond to WinRM and other commands
 # including trying to query for a DC, etc
 # in testing, it usually gets to ~20 retries (~2.5 minutes) left when the host is ready
@@ -53,7 +41,6 @@
   win_shell: "Set-ADAccountControl -Identity 'Unconstrained User' -TrustedForDelegation $True"
   register: unconstrained_delegation_set
 
-# TODO: Reference dynamic variables
 - name: constrained user set constrained delegation
   win_shell: |
     $user = (Get-ADUser -Identity "Constrained User").DistinguishedName
