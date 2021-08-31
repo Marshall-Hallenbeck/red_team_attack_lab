@@ -1,0 +1,73 @@
+---
+- name: Set upstream DNS server
+  win_dns_client:
+    adapter_names: '*'
+    ipv4_addresses:
+    - '8.8.8.8'
+    - '8.8.4.4'
+
+- name: features | Installing RSAT AD Admin Center
+  win_feature:
+    name: RSAT-AD-AdminCenter
+    state: present
+
+- name: features | Installing AD Domain Services
+  win_feature:
+    name: AD-Domain-Services
+    include_management_tools: yes
+    include_sub_features: yes
+    state: present
+
+- name: Creating a Windows Domain
+  win_domain:
+    dns_domain_name: "{{ root_domain }}"
+    safe_mode_password: "{{ win_password }}"
+  register: domain_install
+
+- name: reboot | Rebooting Server after creating Windows Domain
+  win_reboot:
+    connect_timeout: 15
+    post_reboot_delay: 150
+    msg: "Reboot after domain creation"
+  when: domain_install.reboot_required
+
+- name: Wait for system to become reachable over WinRM
+  wait_for_connection:
+    timeout: 900
+
+- name: Managing Domain Controller Membership
+  win_domain_controller:
+    dns_domain_name: "{{ root_domain }}"
+    domain_admin_user: "{{ win_domain_admin }}@{{ root_domain }}"
+    domain_admin_password: "{{ win_password }}"
+    safe_mode_password: "{{ win_password }}"
+    state: domain_controller
+  register: add_dc_result
+
+# add ActiveDirectory PS module here, so we can use Get-ADDomain after reboot
+- name: Add ActiveDirectory
+  win_psmodule:
+    name: ActiveDirectory
+    state: present
+  register: add_ad
+
+- name: reboot | Rebooting Server (domain finalization)
+  win_reboot:
+    connect_timeout: 15
+    post_reboot_delay: 15
+    reboot_timeout: 120
+  when: add_dc_result.reboot_required
+
+- name: Wait for system to become reachable over WinRM
+  wait_for_connection:
+    timeout: 900
+
+- name: Setting DNS Servers
+  win_dns_client:
+    adapter_names: "*"
+    ipv4_addresses: "127.0.0.1"
+
+- name: Set autologon for DA
+  community.windows.win_auto_logon:
+    username: "{{ root_domain }}\\{{ win_domain_admin }}"
+    password: "{{ win_password }}"
