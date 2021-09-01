@@ -1,0 +1,12 @@
+- name: Upload make_windows_sorta_better.ps1
+  win_copy:
+    src: ../files/make_windows_sorta_better.ps1
+    dest: "C:\\make_windows_sorta_better.ps1"
+
+- name: Upload make_windows_sorta_better.reg
+  win_copy:
+    src: ../files/make_windows_sorta_better.reg
+    dest: "C:\\make_windows_sorta_better.reg"
+
+- name: Execute make_windows_sorta_better.ps1
+  win_shell: "C:\\make_windows_sorta_better.ps1"

@@ -45,7 +45,8 @@
 - [x] Make Vagrant faster
   - REF: https://www.vagrantup.com/docs/providers/virtualbox/configuration#linked-clones
 - [ ] Improve Windows QoL with scripts
-    - [ ] Steal from DetectionLab
+  - [x] Implement portions of MakeWindows10GreatAgain 
+  - [ ] Steal from DetectionLab
 - [ ] Add hosts
     - [ ] [Metasploitable 3](https://github.com/rapid7/metasploitable3)
       - [ ] Windows
