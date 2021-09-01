@@ -1,6 +1,15 @@
-- name: get AD user
-  win_shell: Get-ADUser "Constrained User" -Properties msDS-AllowedToDelegateTo
-  register: get_ad_user
+- name: Create domain user accounts (testing)
+  win_domain_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    firstname: "{{ item.firstname | default() }}"
+    surname: "{{ item.surname | default () }}"
+    upn: "{{ item.firstname }}.{{ item.surname }}@{{ root_domain }}"
+    groups: "{{ item.add_group | default('Domain Users') }}"
+  register: create_accounts
+  retries: 30
+  delay: 15
+  until: create_accounts is successful
+  loop:
 
-- debug:
-    msg: "{{ get_ad_user }}"
+

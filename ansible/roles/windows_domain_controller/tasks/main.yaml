@@ -1,3 +1,5 @@
-- include: domain_setup.yml.yml
+- include: domain_setup.yml
 - include: add_domain_users.yml
+- include: set_constrainment.yml
+- include: set_roasting.yml
 #- include: testing_task.yml
