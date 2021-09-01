@@ -31,13 +31,9 @@ If a host fails to connect via WinRM after spinning up (intermittent issue), jus
 
 ### Specific Build
 ```
-vagrant up dc01 win2019-adcs win10-dev kali
+vagrant up dc01 win10-1 win10-dev kali
 ```
-Other hosts (see Architecture):
-- win10-1
-- win10-2
-- win2019-1
-- win7-1
+For full list of hosts see [hosts](docs/hosts.md)
 
 ## Architecture
 TODO: create architecture document...

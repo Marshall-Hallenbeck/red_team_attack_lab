@@ -2,11 +2,13 @@
 - 1 Windows Domain Controller
   - Windows Server 2019
     - dc01
-- 2 Windows Servers
+- 3 Windows Servers
   - Windows Server 2019
     - win2019-1
   - Windows Server 2019 with Active Directory Certificate Services + Web Enrollment + Web Service for Petit Potam
     - win2019-adcs
+  - Windows Server 2022
+    - win2022-1
 - 4 Windows Workstations
   - Win10 (`StefanScherer/windows_10` Vagrant box, used because it supports both virtualbox & vmware_desktop)
     - win10-1
