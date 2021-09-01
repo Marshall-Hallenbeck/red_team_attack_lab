@@ -19,13 +19,6 @@
   changed_when: false
   when: ansible_distribution is search("Microsoft Windows 10")
 
-- name: Show file extensions in Explorer
-  win_regedit:
-    path: 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
-    name: HideFileExt
-    data: 0
-    type: dword
-
 - name: Upload bginfo config file
   win_copy:
     src: ../files/RedTeamLab.bgi
