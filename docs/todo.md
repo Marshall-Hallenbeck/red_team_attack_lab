@@ -7,6 +7,13 @@
     - [x] Potentially figure out dynamic way to do WinRM port forwarding instead of static/semi-static
       - Cleaned this up to an acceptable level
   - [ ] Base Ansible configuration values in one place
+- [ ] Improve Kali host
+  - [ ] Add additional tools
+    - [ ] [Covenant](https://github.com/cobbr/Covenant/wiki/Installation-And-Startup)
+    - [ ] ADCS Abuse
+      - [ ] [PetitPotam](https://github.com/topotam/PetitPotam/)
+      - [ ] [RemotePotato0](https://github.com/antonioCoco/RemotePotato0)
+      - [ ] [PoshADCS](https://github.com/cfalta/PoshADCS)
 - [x] Clean up red_team_attack_lab.py
     - [x] FIX: can't run the range from any path due to config reading, but updating the config reading breaks the VagrantController reading the vagrant files due to bad path handling as well
 - [x] Automate ADCS deployment
@@ -31,8 +38,7 @@
     - [ ] How to add/update/test/add stuff
       - [ ] Common pitfalls
     - [ ] Lab architecture diagram
-    - [ ] Existing AD vulnerabilities
-      - /docs/vulns?
+    - [x] Existing AD vulnerabilities
     - [ ] FAQ
 - [ ] Add attack walkthroughs
     - [ ] /docs/vulns/walkthroughs folder?
