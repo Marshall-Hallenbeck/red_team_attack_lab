@@ -51,6 +51,16 @@ all:
       box_version: 1.0
       box_type: windows
       linked_clone: true # even though there's one, it speeds up testing; this will be removed later
+    metasploitable3-win2k8:
+      ip: 10.0.1.30
+      vagrant_box: rapid7/metasploitable3-win2k8
+      box_version: 0.1.0-weekly
+      box_type: windows
+    metasploitable3-ub1404:
+      ip: 10.0.1.31
+      vagrant_box: rapid7/metasploitable3-ub1404
+      box_version: 0.1.12-weekly
+      box_type: linux
     kali:
       ip: 10.0.1.88
       vagrant_box: kalilinux/rolling

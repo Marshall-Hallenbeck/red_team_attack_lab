@@ -54,9 +54,9 @@
   - [x] Implement portions of MakeWindows10GreatAgain 
   - [ ] Steal from DetectionLab
 - [ ] Add hosts
-    - [ ] [Metasploitable 3](https://github.com/rapid7/metasploitable3)
-      - [ ] Windows
-      - [ ] Ubuntu
+    - [x] [Metasploitable 3](https://github.com/rapid7/metasploitable3)
+      - [x] Windows
+      - [x] Ubuntu
     - [ ] Server 2008
       - [jborean93/WindowsServer2008-x86](https://app.vagrantup.com/jborean93/boxes/WindowsServer2008-x86)
       - [jborean93/WindowsServer2008-x64](https://app.vagrantup.com/jborean93/boxes/WindowsServer2008-x64)

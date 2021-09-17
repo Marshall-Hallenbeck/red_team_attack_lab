@@ -2,13 +2,15 @@
 - 1 Windows Domain Controller
   - Windows Server 2019
     - dc01
-- 3 Windows Servers
+- 4 Windows Servers
   - Windows Server 2019
     - win2019-1
   - Windows Server 2019 with Active Directory Certificate Services + Web Enrollment + Web Service for Petit Potam
     - win2019-adcs
   - Windows Server 2022
     - win2022-1
+  - Windows Server 2008 - Metasploitable3
+    - metasploitable-win2k8
 - 4 Windows Workstations
   - Win10 (`StefanScherer/windows_10` Vagrant box, used because it supports both virtualbox & vmware_desktop)
     - win10-1
@@ -19,6 +21,9 @@
     - win7-1
 - 1 Kali Box (Customized)
   - kali
+- 1 Ubuntu Server
+  - Ubuntu Server 14.04 - Metasploitable3
+    - metasploitable-ub1404
 
 ## Alternative Vagrant boxes
 * Windows 10

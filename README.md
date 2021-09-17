@@ -4,9 +4,17 @@ Disclaimer: right now this is in a development state.  This is also my first tim
 
 ## Description
 
-Every lab environment that I have come across (Splunk Attack Range, DetectionLab, etc) has been heavily focused on blue team controls and/or only runs in cloud environments.
+A virtual environment with various realistic operating system and vulnerabilities for red teamers play with
 
-As someone who doesn't want to pay extra money to host environments in AWS or Azure, this was quite annoying, so I decided to hack together something that runs locally and focuses on setting up a pentestable/red teamable environment, either for discovering new techniques, testing older TTPs, or staying up to date with the newest emerging threats.
+### Impetus
+Every lab environment that I have come across (Splunk Attack Range, DetectionLab, etc)
+has been heavily focused on blue team controls and/or only runs in cloud environments.
+
+As someone who doesn't want to pay extra money to host environments in AWS or Azure,
+this was quite annoying, so I decided to hack together something that runs locally.
+
+My main focus is on setting up a red teamable environment either for testing the development of tools,
+discovering new techniques, testing older TTPs,  or staying up to date with the newest emerging threats.
 
 ## Installation
 ### Dependencies
@@ -38,4 +46,4 @@ For full list of hosts see [hosts](docs/hosts.md)
 ## Architecture
 TODO: create architecture document...
 
-See [Hosts](docs/hosts.md)
+See [hosts](docs/hosts.md)
