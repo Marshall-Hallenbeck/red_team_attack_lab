@@ -1,0 +1,13 @@
+- name: Create Tools folder
+  win_file:
+    path: C:\Tools\ADCS_Exploitation\
+    state: directory
+
+- name: Clone PetitPotam
+  win_shell: "if (!(Test-Path -Path C:\Tools\ADCS_Exploitation\PetitPotam\)) { git clone https://github.com/topotam/PetitPotam.git 'C:\Tools\ADCS_Exploitation\PetitPotam\' }"
+
+#- name: Clone PoshADCS
+#  win_shell: |
+#    "$Folder = 'C:\Tools\ADCS_Exploitation\PoshADCS\'"
+#    "if (!(Test-Path -Path $Folder)) { git clone https://github.com/cfalta/PoshADCS.git 'C:\Tools\ADCS_Exploitation\PoshADCS\' }"
+
