@@ -6,7 +6,7 @@
     - visualstudio2019community
     - netfx-4.7.1-devpack
     - git
-    #- python3
+    - python3
     - microsoft-windows-terminal
     #- notepadplusplus
     - sublimetext3
