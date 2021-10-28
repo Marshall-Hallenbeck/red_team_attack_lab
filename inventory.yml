@@ -68,6 +68,11 @@ all:
       linked_clone: true # even though there's one, it speeds up testing; this will be removed later
       cpus: 2
       memory: 4096
+    ubuntu2010-1:
+      ip: 10.0.1.40
+      vagrant_box: generic/ubuntu2010
+      box_type: linux
+      linked_clone: true # even though there's one, it speeds up testing; this will be removed later
 
   vars:
     root_domain: attacklab.local
