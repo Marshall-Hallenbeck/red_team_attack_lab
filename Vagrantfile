@@ -37,7 +37,6 @@ Vagrant.configure("2") do |config|
       end
 
       config.vm.provider :virtualbox do |vb|
-        puts "Setting provider to virtualbox"
         ansible_provider = 'virtualbox'
         vb.gui = true # always have a GUI
         vb.name = 'RedTeamAttackLab_' + host
@@ -56,9 +55,7 @@ Vagrant.configure("2") do |config|
       # Windows?
       # vagrant plugin install vagrant-vmware-desktop
       # net.exe start vagrant-vmware-utility
-
       config.vm.provider :vmware_desktop do |vmware_desktop|
-        puts "Setting provider to vmware_desktop"
         ansible_provider = 'vmware_desktop'
 
         vmware_desktop.gui = true
@@ -68,7 +65,6 @@ Vagrant.configure("2") do |config|
       end
 
       config.vm.provider :vmware_esxi do |esxi|
-        puts "Setting provider to vmware_esxi"
         ansible_provider = 'vmware_esxi'
         #  REQUIRED!  ESXi hostname/IP
         esxi.esxi_hostname = '192.168.1.12' # testing IP, change this!
@@ -108,7 +104,6 @@ Vagrant.configure("2") do |config|
 
       # it doesn't matter if we send extra variables for windows hosts to linux boxes
       config.vm.provision "ansible" do |ansible|
-        puts "#{config.vm.hostname}"
         # if we're using esxi, we don't want Ansible hitting the port forwarded port, we want the normal comm port
         if ansible_provider == 'vmware_esxi'
           if details['box_type'] == 'linux'
@@ -117,8 +112,6 @@ Vagrant.configure("2") do |config|
             ansible_port = 5985
           end
         end
-        puts "#{ansible_provider}"
-        puts ansible_port
         ansible.extra_vars = {
           ansible_port: ansible_port,
           ansible_winrm_scheme: vars['ansible_winrm_scheme'],
