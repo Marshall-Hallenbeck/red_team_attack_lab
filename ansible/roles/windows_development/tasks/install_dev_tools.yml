@@ -3,8 +3,8 @@
     name: '{{ item }}'
     state: present
   loop:
-    - visualstudio2019community
-    - netfx-4.7.1-devpack
+    - visualstudio2022community
+    - dotnetfx
     - git
     - python3
     - microsoft-windows-terminal
