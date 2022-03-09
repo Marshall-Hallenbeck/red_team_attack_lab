@@ -30,7 +30,7 @@ all:
     win10-1:
       ip: 10.0.1.20
       vagrant_box: StefanScherer/windows_10
-      box_version: 2021.08.17
+      box_version: 2021.12.09
       box_type: windows
       linked_clone: true
     win10-2:
@@ -39,6 +39,12 @@ all:
       box_version: 2021.08.17
       box_type: windows
       linked_clone: true
+    win11-1:
+      ip: 10.0.1.22
+      vagrant_box: StefanScherer/windows_11
+      box_version: 2021.12.09
+      box_type: windows
+      linked_clone: true # just in case we want to add another win11 host for testing
     win10-dev:
       ip: 10.0.1.25
       vagrant_box: StefanScherer/windows_10
