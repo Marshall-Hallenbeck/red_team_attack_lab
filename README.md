@@ -4,7 +4,7 @@ Disclaimer: right now this is in a development state.  This is also my first tim
 
 ## Description
 
-A virtual environment with various realistic operating system and vulnerabilities for red teamers play with
+A virtual environment with various realistic operating system and vulnerabilities for red teamers to play with
 
 ### Impetus
 Every lab environment that I have come across (Splunk Attack Range, DetectionLab, etc)
