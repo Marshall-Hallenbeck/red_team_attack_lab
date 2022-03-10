@@ -100,16 +100,16 @@ all:
     vagrant_ports:
       rdp:
         guest: 3389
-        host: 20000
+        host: 30000
       ssh:
         guest: 22
-        host: 21000
+        host: 31000
       winrm_http:
         guest: 5985
-        host: 22000
+        host: 32000
       winrm_https:
         guest: 5986
-        host: 23000
+        host: 33000
       smb:
         guest: 445
-        host: 24000
+        host: 34000
