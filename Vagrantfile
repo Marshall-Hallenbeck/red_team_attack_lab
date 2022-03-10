@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
         config.vm.guest = :windows # it was working fine without this, but might as well add it
         config.vm.communicator = "winrm"
         config.vm.boot_timeout = 600 # might need to increase this per issue 2... wasn't happening before though
-        config.winrm.timeout = 300 # might need to remove/increase this per issue 2
+        config.winrm.timeout = 600 # might need to remove/increase this per issue 2
         config.winrm.basic_auth_only = true # we should be able to remove this
         config.winrm.retry_limit = 20 # not sure if this does anything, should be able to remove
       end
@@ -47,7 +47,9 @@ Vagrant.configure("2") do |config|
           domain_name: vars['domain_name'],
           win_domain_admin: vars['win_domain_admin'],
           local_admin_password: vars['local_admin_password'],
-          hostname: config.vm.hostname
+          hostname: config.vm.hostname,
+          ansible_winrm_operation_timeout_sec: 120,
+          ansible_winrm_read_timeout_sec: 150,
         }
         ansible.playbook = "ansible/#{host}.yml"
         ansible.config_file = "ansible/ansible.cfg"
