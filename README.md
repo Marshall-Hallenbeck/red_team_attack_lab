@@ -17,7 +17,8 @@ My main focus is on setting up a red teamable environment either for testing the
 discovering new techniques, testing older TTPs,  or staying up to date with the newest emerging threats.
 
 ## Installation
-### Dependencies
+### Linux
+#### Dependencies
 ```
 sudo apt-get update 
 sudo apt-get install -y linux-headers-generic vagrant virtualbox virtualbox-dkms
@@ -28,6 +29,9 @@ sudo gem install winrm
 ansible-galaxy collection install community.windows chocolatey.chocolatey
 vagrant plugin install vagrant-hostmanager vagrant-vbguest
 ```
+
+### Windows
+See [Windows Setup](docs/windows_setup.md)
 
 ## How to Run
 
@@ -47,3 +51,6 @@ For full list of hosts see [hosts](docs/hosts.md)
 TODO: create architecture document...
 
 See [hosts](docs/hosts.md)
+
+## Vulnerabilities
+See [Vulnerabilities](docs/vulnerabilities.md)
