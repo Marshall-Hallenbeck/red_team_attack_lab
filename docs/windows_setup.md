@@ -12,7 +12,7 @@ Tested on Windows 10 Home & Pro & 11 Pro
 2) Set WSL version to 1
    * wsl --set-version Ubuntu 1
    * Check with “wsl -l -v”
-   * This is needed for port forwarding due to how WSL1 v WSL2
+   * This is needed for port forwarding due to how WSL1 vs WSL2 networking works
 3) Windows Prereqs
    1) Fix Windows janky virtualization to work with WSL
       * bcdedit /set hypervisorlaunchtype off
