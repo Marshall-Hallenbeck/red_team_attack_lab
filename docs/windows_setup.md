@@ -168,3 +168,13 @@ Error message given during initialization: Unable to resolve dependency: user re
 Reinstalled Vagrant without reinstalling the previous plugins
 ### Fix
 Run `vagrant plugin repair`
+
+## WslRegisterDistribution failed with error: 0x80370102
+```
+"WslRedisterDistribution failed with an error: 0x80370102.
+Please enable the virtual Machine Platform Windows feature and ensure virtualization is enabled in the BIOS."
+```
+### Cause
+Not 100% sure, but I believe if you uninstall WSL or partially uninstall it/unregister a WSL instance it can put the Virtual Machine Platform in a weird state
+### Fix
+Go to Windows Features (Turn Windows features on or off), disable "Virtual Machine Platform", restart your computer, then re-enable the same setting and restart again
