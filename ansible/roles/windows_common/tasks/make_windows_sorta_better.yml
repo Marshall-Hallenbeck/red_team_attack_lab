@@ -8,5 +8,15 @@
     src: ../files/make_windows_sorta_better.reg
     dest: "C:\\make_windows_sorta_better.reg"
 
+- name: Upload shutup config
+  win_copy:
+    src: ../files/shutup10.cfg
+    dest: "C:\\shutup10.cfg"
+
+- name: Upload OOSU10 exe
+  win_copy:
+    src: ../files/OOSU10.exe
+    dest: "C:\\OOSU10.exe"
+
 - name: Execute make_windows_sorta_better.ps1
   win_shell: "C:\\make_windows_sorta_better.ps1"
