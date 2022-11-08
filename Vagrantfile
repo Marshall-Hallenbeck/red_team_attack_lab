@@ -65,6 +65,8 @@ Vagrant.configure("2") do |config|
         vb.customize ["modifyvm", :id, "--vram", "32"]
         vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
         vb.customize ["setextradata", "global", "GUI/SuppressMessages", "all" ]
+        
+        vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ] # https://github.com/joelhandwell/ubuntu_vagrant_boxes/issues/1#issuecomment-292370353
       end
     end
   end

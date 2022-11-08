@@ -67,6 +67,21 @@ all:
       vagrant_box: rapid7/metasploitable3-ub1404
       box_version: 0.1.12-weekly
       box_type: linux
+    ubuntu1604:
+      ip: 10.0.1.32
+      vagrant_box: ubuntu/xenial64
+      box_version: 20211001.0.0
+      box_type: linux
+    ubuntu1804:
+      ip: 10.0.1.33
+      vagrant_box: ubuntu/bionic64
+      box_version: 20221102.0.0
+      box_type: linux
+    ubuntu2004:
+      ip: 10.0.1.34
+      vagrant_box: ubuntu/focal64
+      box_version: 20221103.0.0
+      box_type: linux
     kali:
       ip: 10.0.1.88
       vagrant_box: kalilinux/rolling
