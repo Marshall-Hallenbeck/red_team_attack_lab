@@ -8,4 +8,4 @@
     - googlechrome
     - bginfo
     #- cmder
-  ignore_errors: yes
+  ignore_errors: true

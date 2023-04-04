@@ -21,4 +21,4 @@
       #- cutter
       #- radare2
       #- confuser
-  ignore_errors: yes
+  ignore_errors: true
