@@ -22,6 +22,7 @@ discovering new techniques, testing older TTPs,  or staying up to date with the 
 ```
 sudo apt-get update 
 sudo apt-get install -y linux-headers-generic vagrant virtualbox virtualbox-dkms
+sudo apt install ansible
 sudo gem install winrm-elevated
 sudo gem install winrm
 ```
