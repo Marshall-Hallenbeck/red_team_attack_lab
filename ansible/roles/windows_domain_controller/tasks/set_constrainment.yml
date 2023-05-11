@@ -1,11 +1,11 @@
 - name: unconstrained user unconstrained delegation set
   win_shell: |
-    $user = (Get-ADUser -Identity "Unconstrained User").DistinguishedName
+    $user = (Get-ADUser -Identity "Unconstrained.User").DistinguishedName
     Set-ADAccountControl -Identity $user -TrustedForDelegation $True
   register: unconstrained_delegation_set
 
 - name: constrained user set constrained delegation
   win_shell: |
-    $user = (Get-ADUser -Identity "Constrained User").DistinguishedName
+    $user = (Get-ADUser -Identity "Constrained.User").DistinguishedName
     Set-ADObject -Identity $user -Add @{"msDS-AllowedToDelegateTo" = @("CIFS/dc01","CIFS/dc01.{{ root_domain }}","CIFS/dc01.{{ root_domain }}/{{ root_domain }}")}
   register: constrained_delegation_set
