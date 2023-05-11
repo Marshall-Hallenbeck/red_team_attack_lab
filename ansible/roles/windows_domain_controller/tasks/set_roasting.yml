@@ -2,12 +2,12 @@
 # Alternative KerberosEncryptionTypes are AES128 and AES256
 - name: Set Kerberoastable user SPN & Encryption Type
   win_shell: |
-    $user = (Get-ADUser -Identity "Kerberoast Me").DistinguishedName
+    $user = (Get-ADUser -Identity "Kerberoast.Me").DistinguishedName
     Set-ADUser -Identity $user -ServicePrincipalNames @{Add='Kerberoast Me/{{ root_domain }}'}
     Set-ADUser -Identity $user -KerberosEncryptionType RC4
 
 # thanks to Andrew Schwartz (@4ndr3ew6S) for this Powershell
 - name: Set DoesNotRequirePreAuth for AS-Rep Roasting
   win_shell: |
-    $user = (Get-ADUser -Identity "AsrepRoast Me").DistinguishedName
+    $user = (Get-ADUser -Identity "AsrepRoast.Me").DistinguishedName
     Set-ADAccountControl -Identity $user -DoesNotRequirePreAuth $True
