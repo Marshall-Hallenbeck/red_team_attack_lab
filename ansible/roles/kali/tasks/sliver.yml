@@ -10,7 +10,7 @@
 - name: Move Sliver client binary to /usr/local/bin
   copy:
     remote_src: yes
-    src: /root/sliver-client
+    src: /root/sliver-client_linux
     dest: /usr/local/bin/
     mode: 755
   #become: yes
@@ -20,9 +20,9 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - /root/sliver-client_linux.zip.sig
-    - /root/sliver-server_linux.zip.sig
-    - /root/sliver-client
+    - /root/sliver-client_linux.sig
+    - /root/sliver-server.sig
+    - /root/sliver-client_linux
   become: yes
 
 - name: Create sliver-client config folder for Kali user
