@@ -60,9 +60,6 @@
         $Ansible.Changed = $false
       }
 
-- name: Refresh
-  ansible.windows.win_shell: gpupdate /force
-
 - name: reboot | Rebooting Server
   win_reboot:
     connect_timeout: 15
