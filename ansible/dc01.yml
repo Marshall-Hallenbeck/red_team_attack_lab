@@ -1,6 +1,0 @@
-- hosts: all
-  gather_facts: true
-  roles:
-    - windows_common
-    - windows_dns_server
-    - windows_domain_controller

@@ -1,4 +1,3 @@
-- include: auto_da_login.yml
+# Full credit to https://github.com/Orange-Cyberdefense/GOAD for ADCS deployment
 - include: install_adcs.yml
-- include: configure_adcs_enrollment_web_service.yml
-- include: configure_adcs_web_enrollment.yml
+- include: create_templates.yml

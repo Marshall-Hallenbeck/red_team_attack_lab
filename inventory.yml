@@ -9,18 +9,31 @@ all:
       linked_clone: true
       cpus: 2
       memory: 4096
-    win2022-1:
-      ip: 10.0.1.17
-      vagrant_box: StefanScherer/windows_2022
-      box_version: 2021.08.23
-      box_type: windows
-      linked_clone: true # even though there's one, it speeds up testing; this will be removed later
     win2019-adcs:
       ip: 10.0.1.14
       vagrant_box: StefanScherer/windows_2019
       box_version: 2021.05.15
       box_type: windows
       linked_clone: true
+    win10-dev:
+      ip: 10.0.1.25
+      vagrant_box: StefanScherer/windows_10
+      box_version: 2021.08.17
+      box_type: windows
+      linked_clone: true
+    kali:
+      ip: 10.0.1.88
+      vagrant_box: kalilinux/rolling
+      box_type: linux
+      linked_clone: true # even though there's one, it speeds up testing; this will be removed later
+      cpus: 2
+      memory: 4096
+    win2022-1:
+      ip: 10.0.1.17
+      vagrant_box: StefanScherer/windows_2022
+      box_version: 2021.08.23
+      box_type: windows
+      linked_clone: true # even though there's one, it speeds up testing; this will be removed later
     win2019-1:
       ip: 10.0.1.15
       vagrant_box: StefanScherer/windows_2019
@@ -45,12 +58,6 @@ all:
       box_version: 2021.12.09
       box_type: windows
       linked_clone: true # just in case we want to add another win11 host for testing
-    win10-dev:
-      ip: 10.0.1.25
-      vagrant_box: StefanScherer/windows_10
-      box_version: 2021.08.17
-      box_type: windows
-      linked_clone: true
     win7-1:
       ip: 10.0.1.23
       vagrant_box: d1vious/windows_7
@@ -82,22 +89,16 @@ all:
       vagrant_box: ubuntu/focal64
       box_version: 20221103.0.0
       box_type: linux
-    kali:
-      ip: 10.0.1.88
-      vagrant_box: kalilinux/rolling
-      box_type: linux
-      linked_clone: true # even though there's one, it speeds up testing; this will be removed later
-      cpus: 2
-      memory: 4096
+
 
   vars:
     root_domain: attacklab.local
     domain_name: attacklab
-    tld: local # not used yet, placeholder in case we need it
     win_domain_admin: Administrator
     win_domain_admin_pass: P@ssw0rd
-    local_admin_password: Windows2021 # not used yet
     win_timezone: Eastern Standard Time
+    adcs_host: win2019-adcs
+    adcs_common_name: attacklab-win2019-adcs-CA
 
     # ansible winrm config
     ansible_winrm_server_cert_validation: ignore

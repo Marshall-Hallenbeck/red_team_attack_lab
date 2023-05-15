@@ -1,63 +1,69 @@
 ---
-- name: ensure the ADCS feature is installed
+- name: Install ADCS
   win_feature:
     name: AD-Certificate
-    include_management_tools: yes
-    include_sub_features: yes # we specifically need Certificate Authority Web Enrollment and Certificate Enrollment Web Service installed
     state: present
-  register: adcs_installation
+    include_sub_features: yes
+    include_management_tools: yes
+  register: win_feature
 
-- name: reboot | Post ADCS install (120 post reboot delay)
+# - name: Install-WindowsFeature ADCS-Cert-Authority
+#   ansible.windows.win_feature:
+#     name: ADCS-Cert-Authority
+#     state: present
+#     include_management_tools: yes
+
+- name: Install-WindowsFeature ADCS-Web-Enrollment
+  ansible.windows.win_feature:
+    name: ADCS-Web-Enrollment
+    state: present
+
+- name: Install-ADCSCertificationAuthority-PS
+  ansible.windows.win_powershell:
+    script: |
+      [CmdletBinding()]
+      param (
+          [String]
+          $domain_username,
+
+          [String]
+          $domain_password,
+
+          [String]
+          $ca_common_name
+      )
+      $pass = ConvertTo-SecureString $domain_password -AsPlainText -Force
+      $Cred = New-Object System.Management.Automation.PSCredential ($domain_username, $pass)
+      try {
+        Install-AdcsCertificationAuthority -Credential $Cred -CAType EnterpriseRootCA -CryptoProviderName "RSA#Microsoft Software Key Storage Provider" -KeyLength 2048 -HashAlgorithmName SHA256 -ValidityPeriod Years -ValidityPeriodUnits 5 -CACommonName $ca_common_name -Force
+        $Ansible.Changed = $true
+      } catch {
+        $Ansible.Changed = $false
+      }
+    error_action: stop
+    parameters:
+      domain_username: "{{ root_domain }}\\{{ win_domain_admin }}"
+      domain_password: "{{ win_password }}"
+      ca_common_name: "{{ adcs_common_name }}"
+
+# ESC 8
+# ignore error if already installed
+- name: Enable Web enrollement
+  ansible.windows.win_powershell:
+    script: |
+      [CmdletBinding()]
+      param ()
+      try {
+        Install-AdcsWebEnrollment -Force
+        $Ansible.Changed = $true
+      } catch {
+        $Ansible.Changed = $false
+      }
+
+- name: Refresh
+  ansible.windows.win_command: gpupdate /force
+
+- name: reboot | Rebooting Server
   win_reboot:
     connect_timeout: 15
-    post_reboot_delay: 120
-    reboot_timeout: 120
-
-# more testing needed to see if this is necessary
-- name: Ensure AppReadiness is running
-  win_service:
-    name: AppReadiness
-    state: started
-  register: appreadiness_running
-  until: appreadiness_running.state == "running"
-  retries: 15
-  delay: 10
-
-- name: configure AD CS certification authority via Install-ADCSCertificationAuthority
-  # need -Force or we get the error "Install-AdcsCertificationAuthority : Windows PowerShell is in NonInteractive mode. Read and Prompt functionality is not available."
-  win_shell: Install-AdcsCertificationAuthority -CAType EnterpriseRootCa -CryptoProviderName "ECDSA_P256#Microsoft Software Key Storage Provider" -KeyLength 256 -HashAlgorithmName SHA256 -Force
-  register: adcs_certification_authority_config
-  changed_when: adcs_certification_authority_config.rc == 0
-  failed_when:
-    - adcs_certification_authority_config.rc != 0
-    - '"The Certification Authority is already installed" not in (adcs_certification_authority_config.stderr|regex_replace("\r\n", ""))'
-  become: yes
-  become_user: "{{ root_domain }}\\{{ win_domain_admin }}"
-  # we use become_method: runas in a lot of places because we get the error "The powershell shell family is incompatible with the sudo become plugin" if we use become normally
-  become_method: runas
-
-- name: reboot | Post ADCS certification authority (120 post reboot delay)
-  win_reboot:
-    connect_timeout: 15
-    post_reboot_delay: 120
-    reboot_timeout: 120
-
-# more testing needed to see if this is necessary
-- name: Ensure AppReadiness is running post ADCS CA Configuration
-  win_service:
-    name: AppReadiness
-    state: started
-  register: appreadiness_running
-  until: appreadiness_running.state == "running"
-  retries: 15
-  delay: 10
-
-# more testing needed to see if this is necessary
-- name: Ensure CertSvc is running post ADCS CA Configuration
-  win_service:
-    name: CertSvc
-    state: started
-  register: certsvc_running
-  until: certsvc_running.state == "running"
-  retries: 15
-  delay: 10
+    post_reboot_delay: 15
