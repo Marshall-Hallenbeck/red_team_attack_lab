@@ -18,6 +18,13 @@
     include_sub_features: yes
     state: present
 
+# Reboot if required by AD-Domain-Services installed
+- name: reboot | Rebooting Server (AD-Domain-Services)
+  win_reboot:
+    connect_timeout: 15
+    post_reboot_delay: 15
+    reboot_timeout: 120
+
 - name: Creating a Windows Domain
   win_domain:
     dns_domain_name: "{{ root_domain }}"

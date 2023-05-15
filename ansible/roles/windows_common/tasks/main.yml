@@ -6,4 +6,5 @@
 - include: disable_firewall.yml
 - include: windows-enable-icmp.yml
 - include: windows-enable-ps-logging.yml
-- include: make_windows_sorta_better.yml
+- include: common_installs.yml
+#- include: make_windows_sorta_better.yml

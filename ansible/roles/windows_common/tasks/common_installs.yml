@@ -1,0 +1,6 @@
+- name: features | Installing RSAT
+  win_feature:
+    name: RSAT
+    include_sub_features: yes
+    include_management_tools: yes
+    state: present

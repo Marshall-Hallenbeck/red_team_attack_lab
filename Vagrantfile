@@ -40,18 +40,19 @@ Vagrant.configure("2") do |config|
           ansible_port: ansible_port,
           ansible_winrm_scheme: vars['ansible_winrm_scheme'],
           ansible_winrm_server_cert_validation: vars['ansible_winrm_server_cert_validation'],
-          win_password: vars['win_domain_admin_pass'],
           windows_domain_controller_private_ip: inventory['all']['hosts']['dc01']['ip'],
           win_timezone: vars['win_timezone'],
           root_domain: vars['root_domain'],
           domain_name: vars['domain_name'],
           win_domain_admin: vars['win_domain_admin'],
-          local_admin_password: vars['local_admin_password'],
+          win_password: vars['win_domain_admin_pass'],
           hostname: config.vm.hostname,
           ansible_winrm_operation_timeout_sec: 120,
           ansible_winrm_read_timeout_sec: 150,
+          adcs_host: vars['adcs_host'],
+          adcs_common_name: vars['adcs_common_name'],
         }
-        ansible.playbook = "ansible/#{host}.yml"
+        ansible.playbook = "ansible/hosts/#{host}.yml"
         ansible.config_file = "ansible/ansible.cfg"
         ansible.compatibility_mode = "2.0"
       end
