@@ -63,7 +63,28 @@
 - name: Refresh
   ansible.windows.win_command: gpupdate /force
 
-- name: reboot | Rebooting Server
+- name: reboot | Post ADCS certification authority (120 post reboot delay)
   win_reboot:
     connect_timeout: 15
-    post_reboot_delay: 15
+    post_reboot_delay: 120
+    reboot_timeout: 120
+
+# more testing needed to see if this is necessary
+- name: Ensure AppReadiness is running post ADCS CA Configuration
+  win_service:
+    name: AppReadiness
+    state: started
+  register: appreadiness_running
+  until: appreadiness_running.state == "running"
+  retries: 15
+  delay: 10
+
+# more testing needed to see if this is necessary
+- name: Ensure CertSvc is running post ADCS CA Configuration
+  win_service:
+    name: CertSvc
+    state: started
+  register: certsvc_running
+  until: certsvc_running.state == "running"
+  retries: 15
+  delay: 10

@@ -14,4 +14,4 @@
     #- filezilla
     #- postman
     #- fiddler
-  ignore_errors: yes
+  ignore_errors: true

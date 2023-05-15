@@ -1,0 +1,9 @@
+- name: Install tools that can be configured in vulnerable or exploitable ways
+  win_chocolatey:
+    name: '{{ item }}'
+    state: present
+  loop:
+    - winscp
+    - veaam
+    - keepass
+  ignore_errors: true

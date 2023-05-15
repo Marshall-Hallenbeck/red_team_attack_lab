@@ -13,7 +13,7 @@
     src: /root/sliver-client_linux
     dest: /usr/local/bin/
     mode: 755
-  #become: yes
+  #become: true
 
 - name: Clean up Sliver files
   file:
@@ -23,7 +23,7 @@
     - /root/sliver-client_linux.sig
     - /root/sliver-server.sig
     - /root/sliver-client_linux
-  become: yes
+  become: true
 
 - name: Create sliver-client config folder for Kali user
   file:
