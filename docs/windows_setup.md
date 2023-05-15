@@ -15,7 +15,6 @@ Tested on Windows 10 Home & Pro & 11 Pro
    * This is needed for port forwarding due to how WSL1 vs WSL2 networking works
 3) Windows Prereqs
    1) Fix Windows janky virtualization to work with WSL
-      * bcdedit /set hypervisorlaunchtype off
       * DISM /Online /Disable-Feature:Microsoft-Hyper-V
       * reboot
    2) Install Virtualbox  6.1.26
